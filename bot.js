@@ -104,6 +104,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           fs.writeFile("quotes.json", jsonData, function(err) {
               if (err) {
                   console.log(err);
+              } else {
+                bot.sendMessage({
+                  to: channelID,
+                  message: 'Quote saved.'
+                });
               }
           });
 
@@ -275,10 +280,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   // patobot
-  var will = Math.random();
+  var pato = Math.random();
 
-  console.log("pato chance: "+ will)
-  if (will < 0.02) {
+  console.log("pato chance: "+ pato)
+  if (pato < 0.02) {
     bot.sendMessage({
       to: channelID,
       message: ':duck:',
@@ -287,6 +292,34 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     return;
   }
+
+  // spoilerbot
+  var spoiler = Math.random();
+
+  console.log("spoiler chance: "+ spoiler)
+  if (spoiler < 0.02) {
+    bot.sendMessage({
+      to: channelID,
+      message: 'caralho, spoilers',
+      typing: true
+    });
+
+    return;
+  }
+
+  // fingerbot
+  // var finger = Math.random();
+  //
+  // console.log("finger chance: "+ finger)
+  // if (finger < 0.005) {
+  //   bot.sendMessage({
+  //     to: channelID,
+  //     message: "",
+  //     typing: true
+  //   });
+  //
+  //   return;
+  // }
 
 
 });
