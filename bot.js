@@ -69,9 +69,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       break;
 
       case 'slap':
+        var critMsg = ''
+        var crit = Math.random()
+        if (crit < 0.2) {
+          critMsg = '. It\'s super effective!'
+        }
+
         bot.sendMessage({
           to: channelID,
-          message: '*<@!'+userID+'> slaps '+ args.join(' ') +' around a bit with a large trout*'
+          message: '*<@!'+userID+'> slaps '+ args.join(' ') +' around a bit with a large trout*' + critMsg
         });
       break;
 
