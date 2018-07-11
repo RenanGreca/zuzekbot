@@ -34,7 +34,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   console.log('user: '+user + ' - (' + userID + ')');
   console.log('channel: '+channelID);
   console.log('message: '+message);
-
+  console.log('substring: '+message.substring(0, 8));
+  
   if (message.substring(0, 8) == 'good bot') {
     bot.sendMessage({
       to: channelID,
