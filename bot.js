@@ -35,11 +35,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   console.log('channel: '+channelID);
   console.log('message: '+message);
   console.log('substring: '+message.substring(0, 8));
-  
+
   if (message.substring(0, 8) == 'good bot') {
     bot.sendMessage({
       to: channelID,
-      message: ':)',
+      message: ':smile:',
       typing: true
     });
     return;
@@ -48,7 +48,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   if (message.substring(0, 7) == 'bad bot') {
     bot.sendMessage({
       to: channelID,
-      message: ':(',
+      message: ':frowning:',
       typing: true
     });
     return;
