@@ -35,6 +35,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   console.log('channel: '+channelID);
   console.log('message: '+message);
 
+  if (message.substring(0, 8) == 'good bot') {
+    bot.sendMessage({
+      to: channelID,
+      message: ':)',
+      typing: true
+    });
+    return;
+  }
+
+  if (message.substring(0, 7) == 'bad bot') {
+    bot.sendMessage({
+      to: channelID,
+      message: ':(',
+      typing: true
+    });
+    return;
+  }
+
   // commands start with "!"
   if (message.substring(0, 1) == '!') {
     var args = message.substring(1).split(' ');
@@ -150,7 +168,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             var quote = userQuotes[Math.floor(Math.random()*userQuotes.length)];
             bot.sendMessage({
               to: channelID,
-              message: quote.message+' - '+quote.username
+              message: quote.message
             });
           }
 
@@ -285,6 +303,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
+
   // patobot
   var pato = Math.random();
 
@@ -299,6 +318,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
+
   // spoilerbot
   var spoiler = Math.random();
 
@@ -308,6 +328,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       to: channelID,
       message: 'caralho, spoilers',
       typing: true
+    });
+
+    return;
+  }
+
+
+  // quotebot
+  var quotebot = Math.random();
+
+  console.log("spoiler chance: "+ quotebot)
+  if (quotebot < 0.02) {
+
+    var quote = quotes[Math.floor(Math.random()*quotes.length)];
+    bot.sendMessage({
+      to: channelID,
+      message: quote.message
     });
 
     return;
