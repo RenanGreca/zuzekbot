@@ -226,6 +226,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
       case 'price':
         price.getPrice(args.join(' '), function(message) {
+          if (message == '') {
+            bot.sendMessage({
+              to: channelID,
+              message: '<@!'+userID+'>, você é trouxa?'
+            });
+          }
+
           bot.sendMessage({
             to: channelID,
             message: message
@@ -236,7 +243,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       case 'list':
         bot.sendMessage({
           to: channelID,
-          message: '```!ping, !list, !slap [user], !pin [message], !savequote, !quote, !addroles [role, ...], !feedback [bug or feature].```'
+          message: '```!ping, !list, !slap [user], !pin [message], !savequote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
         });
       break;
 

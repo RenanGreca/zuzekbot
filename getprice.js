@@ -48,6 +48,7 @@ function findGame(query, callback) {
   var title = '';
   var price = '';
   var country = {};
+  var found = false;
 
   var req = https.get('https://eshop-prices.com/?currency=BRL', (res) => {
     // console.log('STATUS: ' + res.statusCode);
@@ -76,8 +77,9 @@ function findGame(query, callback) {
 
         rowTitle = getTitle($, tr)
 
-        if (rowTitle.toLowerCase().indexOf(query) !== -1) {
+        if (!found && rowTitle.toLowerCase().indexOf(query) !== -1) {
           // console.log(title);
+          found = true;
           title = rowTitle;
 
           findLowestPrice($, tr, function(foundPrice, foundCountryIndex) {
@@ -93,8 +95,6 @@ function findGame(query, callback) {
       var message = '';
       if (title != '') {
         message = title+'\n'+price+' in the '+country.emoji+' '+country.name+' eShop!';
-      } else {
-        message = 'Error';
       }
 
       callback(message);
