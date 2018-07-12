@@ -1,5 +1,5 @@
-let https = require('https');
-let cheerio = require('cheerio');
+var https = require('https');
+var cheerio = require('cheerio');
 
 function buildCountries($, tr, callback) {
   var countries = [];
@@ -62,7 +62,7 @@ function findGame(query, callback) {
     }).on('end', function() {
       var body = Buffer.concat(bodyChunks);
 
-      let $ = cheerio.load(body);
+      var $ = cheerio.load(body);
 
       var countries = []
 
@@ -104,7 +104,7 @@ function findGame(query, callback) {
   });
 }
 
-// let query = 'mario'.toLowerCase();
+// var query = 'mario'.toLowerCase();
 // findGame(query, function(message) {
 //   console.log(message);
 // });
