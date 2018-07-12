@@ -1,5 +1,5 @@
 {
-  "name": "pingbot",
+  "name": "zuzekbot",
   "version": "1.0.0",
   "description": "My own Discord bot",
   "main": "bot.js",

@@ -38,21 +38,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   console.log('message: '+message);
   console.log('substring: '+message.substring(0, 8));
 
-  if (message.substring(0, 8) == 'good bot') {
-    bot.sendMessage({
-      to: channelID,
-      message: ':smile:',
-      typing: true
-    });
+  if (message.substring(0, 8).toLowerCase() == 'good bot') {
+    goodbot(channelID);
     return;
   }
 
-  if (message.substring(0, 7) == 'bad bot') {
-    bot.sendMessage({
-      to: channelID,
-      message: ':frowning:',
-      typing: true
-    });
+  if (message.substring(0, 7).toLowerCase() == 'bad bot') {
+    badbot(channelID);    
     return;
   }
 
@@ -65,187 +57,45 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     switch(cmd) {
       // !ping
       case 'ping':
-        bot.sendMessage({
-          to: channelID,
-          message: 'Pong!',
-          typing: true
-        });
+        ping(channelID);
       break;
 
       case 'pin':
-        bot.getMessages( {
-          channelID: channelID,
-          limit: 1
-        }, function(err, messageArray) {
-          console.log('Pinning message');
-
-          var messageID = messageArray[0].id;
-          bot.pinMessage( {
-            channelID: channelID,
-            messageID: messageID
-          }, function(err) {
-            console.log(err);
-          });
-        });
+        pin(channelID);
       break;
 
       case 'slap':
-        var critMsg = '';
-        var crit = Math.random();
-        if (crit < 0.2) {
-          critMsg = '. It\'s super effective!';
-        } else if (crit < 0.4) {
-          critMsg = '. A critical hit!';
-        }
-
-        bot.sendMessage({
-          to: channelID,
-          message: '*<@!'+userID+'> slaps '+ args.join(' ') +' around a bit with a large trout'+ critMsg+'*'
-        });
+        slap(userID, channelID, args.join(' '));
       break;
 
       case 'savequote':
-        bot.getMessages( {
-          channelID: channelID,
-          limit: 2
-        }, function(err, messageArray) {
-          console.log('Saving message');
+        savequote(channelID);
+      break;
 
-          var message = messageArray[1];
-          var authorID = message.author.id;
-          var authorName = message.author.username;
-          var discriminator = message.author.discriminator;
-          var content = message.content;
-
-          if (authorID == zuzekbotID) {
-            return;
-          }
-
-          var quote = {
-            userID: authorID,
-            username: authorName,
-            message: content
-          };
-          quotes.push(quote);
-
-          var jsonData = JSON.stringify(quotes);
-          var fs = require('fs');
-          fs.writeFile("quotes.json", jsonData, function(err) {
-              if (err) {
-                  console.log(err);
-              } else {
-                bot.sendMessage({
-                  to: channelID,
-                  message: 'Quote saved.'
-                });
-              }
-          });
-
-        });
+      case 'addquote':
+        savequote(channelID);
       break;
 
       case 'quote':
-
-        if (args.length == 0) {
-          var quote = quotes[Math.floor(Math.random()*quotes.length)];
-          bot.sendMessage({
-            to: channelID,
-            message: quote.message+' - '+quote.username
-          });
-        } else if (args.length == 1) {
-          var userstring = args[0];
-          var quotedUserID = userstring.substring(2, userstring.length-1);
-          console.log("Quoting: "+quotedUserID);
-
-          var userQuotes = [];
-          quotes.forEach(function(quote, index) {
-            if (quote.userID == quotedUserID) {
-              userQuotes.push(quote);
-            }
-          });
-
-          if (userQuotes.length == 0) {
-            bot.sendMessage({
-              to: channelID,
-              message: '<@!'+userID+'>, você é trouxa?'
-            });
-          } else {
-            var quote = userQuotes[Math.floor(Math.random()*userQuotes.length)];
-            bot.sendMessage({
-              to: channelID,
-              message: quote.message
-            });
-          }
-
-        } else {
-          bot.sendMessage({
-            to: channelID,
-            message: '<@!'+userID+'>, você é trouxa?'
-          });
-        }
+        quote(channelID, args);        
       break;
 
       case 'addroles':
-        var addedRoles = [];
-        args.forEach(function(roleName, index) {
-          if (roles.hasOwnProperty(roleName)) {
-            var roleID = roles[roleName];
-            bot.addToRole({
-              serverID: serverID,
-              userID: userID,
-              roleID: roleID
-            });
-            addedRoles.push(roleName);
-          }
-        });
-        bot.sendMessage({
-          to: channelID,
-          message: '<@!'+userID+'> added to roles: '+addedRoles.join(', ')+'.'
-        });
+        addroles(userID, channelID, args);
       break;
 
       case 'feedback':
-        var feedback = {
-          userID: userID,
-          username: user,
-          contents: args.join(' ')
-        };
-        feedbacks.push(feedback);
-
-        var jsonData = JSON.stringify(feedbacks);
-        var fs = require('fs');
-        fs.writeFile("feedback.json", jsonData, function(err) {
-            if (err) {
-                console.log(err);
-            }
-        });
-
-        bot.sendMessage({
-          to: channelID,
-          message: '<@!'+userID+'>, thank you for your feedback.'
-        });
+        feedback(user, userID, channelID, args);
       break;
 
       case 'price':
-        price.getPrice(args.join(' '), function(message) {
-          if (message == '') {
-            bot.sendMessage({
-              to: channelID,
-              message: '<@!'+userID+'>, você é trouxa?'
-            });
-          }
-
-          bot.sendMessage({
-            to: channelID,
-            message: message
-          });
-        });
+        getPrice(userID, channelID, args);
       break;
 
       case 'list':
         bot.sendMessage({
           to: channelID,
-          message: '```!ping, !list, !slap [user], !pin [message], !savequote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
+          message: '```!ping, !list, !slap [user], !pin [message], !savequote/!addquote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
         });
       break;
 
@@ -268,90 +118,47 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   // emanosbot
   if (message.substring(0, 4) == 'http') {
-    var emanos = Math.random();
+    emanosbot(channelID);
+    return;
+  }
 
-    console.log("emanos chance: "+ emanos)
-    if (emanos < 0.2) {
-      bot.sendMessage({
-        to: channelID,
-        message: 'old',
-        typing: true
-      });
+
+  var randomMessageChance = Math.random()
+
+  if (randomMessageChance < 0.05) {
+
+    var whichMessageChance = Math.random()
+
+    if (whichMessageChance < 0.1) {
+      carabot(message, channelID);
+    } else if (whichMessageChance < 0.2) {
+      willbot(channelID);
+    } else if (whichMessageChance < 0.3) {
+      patobot(channelID);
+    } else if (whichMessageChance < 0.4) {
+      spoilerbot(channelID)
+    } else if (whichMessageChance < 0.7) {
+      quotebot(channelID, true)
     }
 
-    return;
   }
-
-
-  // carabot
-  var cara = Math.random();
-
-  console.log("cara chance: "+ cara)
-  if (cara < 0.02) {
-    carabot();
-    return;
-  }
-
-
-  // willbot
-  var will = Math.random();
-
-  console.log("will chance: "+ will)
-  if (will < 0.02) {
-    willbot();
-    return;
-  }
-
-
-  // patobot
-  var pato = Math.random();
-
-  console.log("pato chance: "+ pato)
-  if (pato < 0.02) {
-    patobot();
-    return;
-  }
-
-
-  // spoilerbot
-  var spoiler = Math.random();
-
-  console.log("spoiler chance: "+ spoiler)
-  if (spoiler < 0.02) {
-    spolerbot();
-    return;
-  }
-
-
-  // quotebot
-  var quotebot = Math.random();
-
-  console.log("quote chance: "+ quotebot)
-  if (quotebot < 0.02) {
-
-
-
-    return;
-  }
-
-  // fingerbot
-  // var finger = Math.random();
-  //
-  // console.log("finger chance: "+ finger)
-  // if (finger < 0.005) {
-  //   bot.sendMessage({
-  //     to: channelID,
-  //     message: "",
-  //     typing: true
-  //   });
-  //
-  //   return;
-  // }
-
 
 });
 
-function carabot() {
+function emanosbot(channelID) {
+  var emanos = Math.random();
+
+  console.log("emanos chance: "+ emanos)
+  if (emanos < 0.2) {
+    bot.sendMessage({
+      to: channelID,
+      message: 'old',
+      typing: true
+    });
+  }
+}
+
+function carabot(message, channelID) {
   var punctuation = Math.random();
   var contents = '';
   if (punctuation < 0.3) {
@@ -371,7 +178,7 @@ function carabot() {
   });
 }
 
-function willbot() {
+function willbot(channelID) {
   bot.sendMessage({
     to: channelID,
     message: '<:will:466272230330990603> :ok_hand:',
@@ -379,7 +186,7 @@ function willbot() {
   });
 }
 
-function patobot() {
+function patobot(channelID) {
   bot.sendMessage({
     to: channelID,
     message: ':duck:',
@@ -387,7 +194,7 @@ function patobot() {
   });
 }
 
-function spoilerbot() {
+function spoilerbot(channelID) {
   bot.sendMessage({
     to: channelID,
     message: 'caralho, spoilers',
@@ -395,10 +202,197 @@ function spoilerbot() {
   });
 }
 
-function quotebot() {
+function quotebot(channelID, typing) {
   var quote = quotes[Math.floor(Math.random()*quotes.length)];
   bot.sendMessage({
     to: channelID,
-    message: quote.message
+    message: quote.message,
+    typing: typing
+  });
+}
+
+function goodbot(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: ':smile:',
+    typing: true
+  });
+}
+
+function badbot(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: ':frowning:',
+    typing: true
+  });
+}
+function pin(channelID) {
+  bot.getMessages( {
+    channelID: channelID,
+    limit: 1
+  }, function(err, messageArray) {
+    console.log('Pinning message');
+
+    var messageID = messageArray[0].id;
+    bot.pinMessage( {
+      channelID: channelID,
+      messageID: messageID
+    }, function(err) {
+      console.log(err);
+    });
+  });
+}
+
+function slap(userID, channelID, object) {
+  var critMsg = '';
+  var crit = Math.random();
+  if (crit < 0.2) {
+    critMsg = '. It\'s super effective!';
+  } else if (crit < 0.4) {
+    critMsg = '. A critical hit!';
+  }
+
+  bot.sendMessage({
+    to: channelID,
+    message: '*<@!'+userID+'> slaps '+ object +' around a bit with a large trout'+ critMsg+'*'
+  });
+}
+
+function savequote(channelID) {
+  bot.getMessages( {
+    channelID: channelID,
+    limit: 2
+  }, function(err, messageArray) {
+    console.log('Saving message');
+
+    var message = messageArray[1];
+    var authorID = message.author.id;
+    var authorName = message.author.username;
+    var discriminator = message.author.discriminator;
+    var content = message.content;
+
+    if (authorID == zuzekbotID) {
+      return;
+    }
+
+    var quote = {
+      userID: authorID,
+      username: authorName,
+      message: content
+    };
+    quotes.push(quote);
+
+    var jsonData = JSON.stringify(quotes);
+    var fs = require('fs');
+    fs.writeFile("quotes.json", jsonData, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+          bot.sendMessage({
+            to: channelID,
+            message: 'Quote saved: "'+content+'" by '+authorName
+          });
+        }
+    });
+
+  });
+}
+
+function trouxa(userID, channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: '<@!'+userID+'>, você é trouxa?'
+  });
+}
+
+function quote(channelID, args) {
+  if (args.length == 0) {
+    quotebot(channelID, false);
+  } else if (args.length == 1) {
+    var userstring = args[0];
+    var quotedUserID = userstring.substring(2, userstring.length-1);
+    console.log("Quoting: "+quotedUserID);
+
+    var userQuotes = [];
+    quotes.forEach(function(quote, index) {
+      if (quote.userID == quotedUserID) {
+        userQuotes.push(quote);
+      }
+    });
+
+    if (userQuotes.length == 0) {
+      trouxa(userID, channelID);
+    } else {
+      var quote = userQuotes[Math.floor(Math.random()*userQuotes.length)];
+      bot.sendMessage({
+        to: channelID,
+        message: quote.message
+      });
+    }
+
+  } else {
+    trouxa(userID, channelID);
+  }
+}
+
+function addroles(userID, channelID, args) {
+  var addedRoles = [];
+  args.forEach(function(roleName, index) {
+    if (roles.hasOwnProperty(roleName)) {
+      var roleID = roles[roleName];
+      bot.addToRole({
+        serverID: serverID,
+        userID: userID,
+        roleID: roleID
+      });
+      addedRoles.push(roleName);
+    }
+  });
+  bot.sendMessage({
+    to: channelID,
+    message: '<@!'+userID+'> added to roles: '+addedRoles.join(', ')+'.'
+  });
+}
+
+function feedback(user, userID, channelID, args) {
+  var feedback = {
+    userID: userID,
+    username: user,
+    contents: args.join(' ')
+  };
+  feedbacks.push(feedback);
+
+  var jsonData = JSON.stringify(feedbacks);
+  var fs = require('fs');
+  fs.writeFile("feedback.json", jsonData, function(err) {
+      if (err) {
+          console.log(err);
+      }
+  });
+
+  bot.sendMessage({
+    to: channelID,
+    message: '<@!'+userID+'>, thank you for your feedback.'
+  });
+}
+
+function getPrice(userID, channelID, args) {
+  price.getPrice(args.join(' '), function(message) {
+    if (message == '') {
+      trouxa(userID, channelID);
+    }
+
+    bot.sendMessage({
+      to: channelID,
+      message: message
+    });
+  });
+}
+
+function ping(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: 'Pong!',
+    typing: true
   });
 }
