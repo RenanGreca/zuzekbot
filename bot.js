@@ -135,6 +135,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
+  if (message == 'o/') {
+    highfive(channelID);
+    return;
+  }
+
   var randomMessageChance = Math.random()
 
   if (randomMessageChance < 0.05) {
@@ -421,6 +426,14 @@ function master(channelID) {
   bot.sendMessage({
     to: channelID,
     message: '<@!189096616043479041> is my master.',
+    typing: true
+  }); 
+}
+
+function highfive(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: '\\o',
     typing: true
   }); 
 }
