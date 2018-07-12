@@ -6,6 +6,8 @@ var quotes = require('./quotes.json');
 var roles = require('./roles.json');
 var ids = require('./ids.json');
 var feedbacks = require('./feedback.json');
+var price = require('./getprice.js');
+// import {findGame} from 'getprice';
 
 var serverID = ids.serverID;
 var zuzekbotID = ids.zuzekbotID;
@@ -88,15 +90,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       break;
 
       case 'slap':
-        var critMsg = ''
-        var crit = Math.random()
+        var critMsg = '';
+        var crit = Math.random();
         if (crit < 0.2) {
-          critMsg = '. It\'s super effective!'
+          critMsg = '. It\'s super effective!';
+        } else if (crit < 0.4) {
+          critMsg = '. A critical hit!';
         }
 
         bot.sendMessage({
           to: channelID,
-          message: '*<@!'+userID+'> slaps '+ args.join(' ') +' around a bit with a large trout*' + critMsg
+          message: '*<@!'+userID+'> slaps '+ args.join(' ') +' around a bit with a large trout'+ critMsg+'*'
         });
       break;
 
@@ -146,7 +150,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           var quote = quotes[Math.floor(Math.random()*quotes.length)];
           bot.sendMessage({
             to: channelID,
-            message: quote.message
+            message: quote.message+' - '+quote.username
           });
         } else if (args.length == 1) {
           var userstring = args[0];
@@ -222,10 +226,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
       break;
 
+      case 'price':
+        price.getPrice(args.join(' '), function(message) {
+          if (message == '') {
+            bot.sendMessage({
+              to: channelID,
+              message: '<@!'+userID+'>, você é trouxa?'
+            });
+          }
+
+          bot.sendMessage({
+            to: channelID,
+            message: message
+          });
+        });
+      break;
+
       case 'list':
         bot.sendMessage({
           to: channelID,
-          message: '```!ping, !list, !slap [user], !pin [message], !savequote, !quote, !addroles [role, ...], !feedback [bug or feature].```'
+          message: '```!ping, !list, !slap [user], !pin [message], !savequote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
         });
       break;
 
