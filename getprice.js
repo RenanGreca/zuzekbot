@@ -111,6 +111,6 @@ function findGame(query, callback) {
 
 module.exports = {
    getPrice: function(query, callback) {
-      return findGame(query, callback);
+      return findGame(query.toLowerCase(), callback);
    }
 }

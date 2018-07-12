@@ -122,6 +122,18 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
+  if (message.toLowerCase().indexOf('obrigado') !== -1 ||
+      message.toLowerCase().indexOf('thanks') !== -1 ||
+      message.toLowerCase().indexOf('thank you') !== -1) {
+    yourewelcome(channelID);
+    return;
+  }
+
+  if (message.toLowerCase().indexOf('mestre') !== -1 ||
+      message.toLowerCase().indexOf('master') !== -1) {
+    master(channelID);
+    return;
+  }
 
   var randomMessageChance = Math.random()
 
@@ -395,4 +407,20 @@ function ping(channelID) {
     message: 'Pong!',
     typing: true
   });
+}
+
+function yourewelcome(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: "You're welcome!",
+    typing: true
+  });
+}
+
+function master(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: '<@!189096616043479041> is my master.',
+    typing: true
+  }); 
 }
