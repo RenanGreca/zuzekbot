@@ -6,6 +6,8 @@ var quotes = require('./quotes.json');
 var roles = require('./roles.json');
 var ids = require('./ids.json');
 var feedbacks = require('./feedback.json');
+var price = require('./getprice.js');
+// import {findGame} from 'getprice';
 
 var serverID = ids.serverID;
 var zuzekbotID = ids.zuzekbotID;
@@ -146,7 +148,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           var quote = quotes[Math.floor(Math.random()*quotes.length)];
           bot.sendMessage({
             to: channelID,
-            message: quote.message
+            message: quote.message+' - '+quote.username
           });
         } else if (args.length == 1) {
           var userstring = args[0];
@@ -219,6 +221,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         bot.sendMessage({
           to: channelID,
           message: '<@!'+userID+'>, thank you for your feedback.'
+        });
+      break;
+
+      case 'price':
+        price.getPrice(args.join(' '), function(message) {
+          bot.sendMessage({
+            to: channelID,
+            message: message
+          });
         });
       break;
 
