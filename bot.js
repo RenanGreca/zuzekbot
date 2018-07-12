@@ -187,7 +187,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           if (roles.hasOwnProperty(roleName)) {
             var roleID = roles[roleName];
             bot.addToRole({
-              serverID: "410864161543815169",
+              serverID: serverID,
               userID: userID,
               roleID: roleID
             });
@@ -268,24 +268,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   console.log("cara chance: "+ cara)
   if (cara < 0.02) {
-    var punctuation = Math.random();
-    var contents = '';
-    if (punctuation < 0.3) {
-      contents = 'Cara, '+message+'?';
-    } else if (punctuation < 0.6) {
-      contents = 'Cara, '+message+'!';
-    } else if (punctuation < 0.9) {
-      contents = 'Cara, '+message+'.';
-    } else {
-      contents = 'cara';
-    }
-
-    bot.sendMessage({
-      to: channelID,
-      message: contents,
-      typing: true
-    });
-
+    carabot();
     return;
   }
 
@@ -295,12 +278,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   console.log("will chance: "+ will)
   if (will < 0.02) {
-    bot.sendMessage({
-      to: channelID,
-      message: '<:will:466272230330990603> :ok_hand:',
-      typing: true
-    });
-
+    willbot();
     return;
   }
 
@@ -310,12 +288,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   console.log("pato chance: "+ pato)
   if (pato < 0.02) {
-    bot.sendMessage({
-      to: channelID,
-      message: ':duck:',
-      typing: true
-    });
-
+    patobot();
     return;
   }
 
@@ -325,12 +298,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   console.log("spoiler chance: "+ spoiler)
   if (spoiler < 0.02) {
-    bot.sendMessage({
-      to: channelID,
-      message: 'caralho, spoilers',
-      typing: true
-    });
-
+    spolerbot();
     return;
   }
 
@@ -338,14 +306,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   // quotebot
   var quotebot = Math.random();
 
-  console.log("spoiler chance: "+ quotebot)
+  console.log("quote chance: "+ quotebot)
   if (quotebot < 0.02) {
 
-    var quote = quotes[Math.floor(Math.random()*quotes.length)];
-    bot.sendMessage({
-      to: channelID,
-      message: quote.message
-    });
+
 
     return;
   }
@@ -366,3 +330,55 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
 
 });
+
+function carabot() {
+  var punctuation = Math.random();
+  var contents = '';
+  if (punctuation < 0.3) {
+    contents = 'Cara, '+message+'?';
+  } else if (punctuation < 0.6) {
+    contents = 'Cara, '+message+'!';
+  } else if (punctuation < 0.9) {
+    contents = 'Cara, '+message+'.';
+  } else {
+    contents = 'cara';
+  }
+
+  bot.sendMessage({
+    to: channelID,
+    message: contents,
+    typing: true
+  });
+}
+
+function willbot() {
+  bot.sendMessage({
+    to: channelID,
+    message: '<:will:466272230330990603> :ok_hand:',
+    typing: true
+  });
+}
+
+function patobot() {
+  bot.sendMessage({
+    to: channelID,
+    message: ':duck:',
+    typing: true
+  });
+}
+
+function spoilerbot() {
+  bot.sendMessage({
+    to: channelID,
+    message: 'caralho, spoilers',
+    typing: true
+  });
+}
+
+function quotebot() {
+  var quote = quotes[Math.floor(Math.random()*quotes.length)];
+  bot.sendMessage({
+    to: channelID,
+    message: quote.message
+  });
+}
