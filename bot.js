@@ -146,7 +146,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           var quote = quotes[Math.floor(Math.random()*quotes.length)];
           bot.sendMessage({
             to: channelID,
-            message: quote.message+' - '+quote.username
+            message: quote.message
           });
         } else if (args.length == 1) {
           var userstring = args[0];
