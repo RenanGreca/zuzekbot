@@ -36,14 +36,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   console.log('user: '+user + ' - (' + userID + ')');
   console.log('channel: '+channelID);
   console.log('message: '+message);
-  console.log('substring: '+message.substring(0, 8));
 
-  if (message.substring(0, 8).toLowerCase() == 'good bot') {
+  if (message.toLowerCase().indexOf('good bot') !== -1) {
     goodbot(channelID);
     return;
   }
 
-  if (message.substring(0, 7).toLowerCase() == 'bad bot') {
+  if (message.toLowerCase().indexOf('bad bot') !== -1) {
     badbot(channelID);
     return;
   }
