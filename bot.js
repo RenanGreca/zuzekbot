@@ -44,7 +44,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   if (message.substring(0, 7).toLowerCase() == 'bad bot') {
-    badbot(channelID);    
+    badbot(channelID);
     return;
   }
 
@@ -77,7 +77,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       break;
 
       case 'quote':
-        quote(channelID, args);        
+        quote(channelID, args);
       break;
 
       case 'addroles':
@@ -142,19 +142,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   var randomMessageChance = Math.random()
 
+  console.log('randomMessageChance: '+randomMessageChance)
   if (randomMessageChance < 0.05) {
 
     var whichMessageChance = Math.random()
-
-    if (whichMessageChance < 0.1) {
+    console.log('whichMessageChance: '+whichMessageChance)
+    if (whichMessageChance < 0.2) {
       carabot(message, channelID);
-    } else if (whichMessageChance < 0.2) {
-      willbot(channelID);
-    } else if (whichMessageChance < 0.3) {
-      patobot(channelID);
     } else if (whichMessageChance < 0.4) {
+      willbot(channelID);
+    } else if (whichMessageChance < 0.5) {
+      patobot(channelID);
+    } else if (whichMessageChance < 0.6) {
       spoilerbot(channelID)
-    } else if (whichMessageChance < 0.7) {
+    } else {
       quotebot(channelID, true)
     }
 
@@ -427,7 +428,7 @@ function master(channelID) {
     to: channelID,
     message: '<@!189096616043479041> is my master.',
     typing: true
-  }); 
+  });
 }
 
 function highfive(channelID) {
@@ -435,5 +436,5 @@ function highfive(channelID) {
     to: channelID,
     message: '\\o',
     typing: true
-  }); 
+  });
 }
