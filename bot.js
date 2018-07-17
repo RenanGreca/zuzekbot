@@ -76,7 +76,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       break;
 
       case 'quote':
-        quote(channelID, args);
+        quote(userID, channelID, args);
       break;
 
       case 'addroles':
@@ -322,7 +322,7 @@ function trouxa(userID, channelID) {
   });
 }
 
-function quote(channelID, args) {
+function quote(userID, channelID, args) {
   if (args.length == 0) {
     quotebot(channelID, false);
   } else if (args.length == 1) {
