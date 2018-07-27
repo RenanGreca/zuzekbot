@@ -426,8 +426,7 @@ function calc(userID, channelID, args) {
 
     bot.sendMessage({
       to: channelID,
-      message: peso+"kg",
-      typing: true
+      message: peso+"kg"
     });
 
     return;
@@ -436,8 +435,7 @@ function calc(userID, channelID, args) {
   if (args.toLowerCase().indexOf('univers') !== -1) {
     bot.sendMessage({
       to: channelID,
-      message: "42",
-      typing: true
+      message: "42"
     });
 
     return;
@@ -449,15 +447,13 @@ function calc(userID, channelID, args) {
 
     bot.sendMessage({
       to: channelID,
-      message: result,
-      typing: true
+      message: result
     });
   }
   catch(err) {
     bot.sendMessage({
       to: channelID,
-      message: err.message,
-      typing: true
+      message: err.message
     });
   }
 }
