@@ -1,4 +1,5 @@
 var Discord = require('./node_modules/discord.io');
+var math = require('./node_modules/mathjs');
 // var logger = require('./node_modules/winston');
 var auth = require('./auth.json');
 var channels = require('./channels.json');
@@ -59,6 +60,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         ping(channelID);
       break;
 
+      case 'calc':
+        calc(userID, channelID, args.join(' '));
+      break;
+
       case 'pin':
         pin(channelID);
       break;
@@ -94,7 +99,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       case 'list':
         bot.sendMessage({
           to: channelID,
-          message: '```!ping, !list, !slap [user], !pin [message], !savequote/!addquote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
+          message: '```!ping, !list, !calc [expression], !slap [user], !pin [message], !savequote/!addquote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
         });
       break;
 
@@ -412,6 +417,49 @@ function ping(channelID) {
     message: 'Pong!',
     typing: true
   });
+}
+
+function calc(userID, channelID, args) {
+  if (args.toLowerCase().indexOf('mãe') !== -1) {
+    var peso = Math.random() * 34238490238;
+
+
+    bot.sendMessage({
+      to: channelID,
+      message: peso+"kg",
+      typing: true
+    });
+
+    return;
+  }
+
+  if (args.toLowerCase().indexOf('univers') !== -1) {
+    bot.sendMessage({
+      to: channelID,
+      message: "42",
+      typing: true
+    });
+
+    return;
+  }
+
+  try {
+
+    var result = math.eval(args);
+
+    bot.sendMessage({
+      to: channelID,
+      message: result,
+      typing: true
+    });
+  }
+  catch(err) {
+    bot.sendMessage({
+      to: channelID,
+      message: err.message,
+      typing: true
+    });
+  }
 }
 
 function yourewelcome(channelID) {

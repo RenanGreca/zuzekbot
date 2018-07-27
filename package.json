@@ -6,6 +6,7 @@
   "author": "Renan Greca",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "discord.io": "github:woor/discord.io#gateway_v6"
+    "discord.io": "github:woor/discord.io#gateway_v6",
+    "mathjs": "^5.0.4"
   }
 }
