@@ -96,10 +96,18 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         getPrice(userID, channelID, args);
       break;
 
+      case 'duck':
+        duck(channelID, args);
+      break;
+
+      case 'wiki':
+        wiki(channelID, args);
+      break;
+
       case 'list':
         bot.sendMessage({
           to: channelID,
-          message: '```!ping, !list, !calc [expression], !slap [user], !pin [message], !savequote/!addquote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
+          message: '```!ping, !list, !calc [expression], !duck [query], !wiki [query], !slap [user], !pin [message], !savequote/!addquote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
         });
       break;
 
@@ -408,6 +416,26 @@ function getPrice(userID, channelID, args) {
       to: channelID,
       message: message
     });
+  });
+}
+
+function duck(channelID, args) {
+  var query = encodeURI(args.join('+'))
+  var url = 'https://duckduckgo.com/?q=!ducky+'+query
+
+  bot.sendMessage({
+    to: channelID,
+    message: url
+  });
+}
+
+function wiki(channelID, args) {
+  var query = encodeURI(args.join('_'))
+  var url = 'https://en.wikipedia.org/wiki/'+query
+
+  bot.sendMessage({
+    to: channelID,
+    message: url
   });
 }
 
