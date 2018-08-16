@@ -81,6 +81,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         savequote(channelID);
       break;
 
+      // case 'removequote':
+      //   removequote(userID, channelID);
+      // break;
+
       case 'quote':
         quote(userID, channelID, args);
       break;
@@ -344,6 +348,16 @@ function slap(userID, channelID, object) {
 }
 
 function savequote(channelID) {
+
+  var crit = Math.random();
+  if (crit < 0.1) {
+    bot.sendMessage({
+      to: channelID,
+      message: 'Eu não salvo qualquer merda'
+    });
+    return;
+  }
+
   bot.getMessages( {
     channelID: channelID,
     limit: 2
@@ -496,8 +510,8 @@ function getPrice(userID, channelID, args) {
 }
 
 function duck(channelID, args) {
-  var query = encodeURI(args.join('+'))
-  var url = 'https://duckduckgo.com/?q=!ducky+'+query
+  var query = encodeURI(args.join('+'));
+  var url = 'https://duckduckgo.com/?q=!ducky+'+query;
 
   bot.sendMessage({
     to: channelID,
@@ -506,8 +520,8 @@ function duck(channelID, args) {
 }
 
 function wiki(channelID, args) {
-  var query = encodeURI(args.join('_'))
-  var url = 'https://en.wikipedia.org/wiki/'+query
+  var query = encodeURI(args.join('_'));
+  var url = 'https://en.wikipedia.org/wiki/'+query;
 
   bot.sendMessage({
     to: channelID,
