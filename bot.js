@@ -113,11 +113,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         wiki(channelID, args);
       break;
 
+      case 'diceroll':
+        diceroll(userID, channelID, args);
+      break;
+
       case 'list':
-        bot.sendMessage({
-          to: channelID,
-          message: '```!ping, !list, !calc [expression], !duck [query], !wiki [query], !slap [user], !pin [message], !savequote/!addquote, !quote [user/quoteid], !removequote [quoteid], !addroles [role, ...], !price [game], !feedback [bug or feature].```'
-        });
+        displayCommands(channelID);
+      break;
+
+      case 'help':
+        displayCommands(channelID);
       break;
 
     }
@@ -576,6 +581,21 @@ function calc(userID, channelID, args) {
   }
 }
 
+function diceroll(userID, channelID, args) {
+  if (isNaN(args[0])) {
+    trouxa(userID, channelID)
+    return;
+  }
+
+  var dicesize = parseInt(args[0]);
+  var rng = Math.ceil(Math.random()*dicesize);
+
+  bot.sendMessage({
+    to: channelID,
+    message: rng
+  });
+}
+
 function yourewelcome(channelID) {
   bot.sendMessage({
     to: channelID,
@@ -621,4 +641,26 @@ function saveFeedbacksToFile(callback) {
   var jsonData = JSON.stringify(feedbacks);
   var fs = require('fs');
   fs.writeFile("feedback.json", jsonData, callback);
+}
+
+function displayCommands(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: '\
+    ```\
+!ping, \n\
+!list/!help, \n\
+!calc [expression], \n\
+!duck [query], \n\
+!wiki [query], \n\
+!slap [user], \n\
+!pin [message], \n\
+!savequote/!addquote, \n\
+!quote [user/quoteid], \n\
+!removequote [quoteid], \n\
+!addroles [role, ...], \n\
+!diceroll [number] \n\
+!price [game], \n\
+!feedback [bug or feature].```'
+  });
 }
