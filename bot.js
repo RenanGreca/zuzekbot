@@ -4,6 +4,7 @@ var math = require('./node_modules/mathjs');
 var auth = require('./auth.json');
 var channels = require('./channels.json');
 var quotes = require('./quotes.json');
+var reactions = require('./reactions.json');
 var roles = require('./roles.json');
 var ids = require('./ids.json');
 var feedbacks = require('./feedback.json');
@@ -88,6 +89,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         quote(userID, channelID, args);
       break;
 
+      case 'removequote':
+        removequote(userID, channelID, args);
+      break;
+
       case 'addroles':
         addroles(userID, channelID, args);
       break;
@@ -108,11 +113,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         wiki(channelID, args);
       break;
 
+      case 'diceroll':
+        diceroll(userID, channelID, args);
+      break;
+
       case 'list':
-        bot.sendMessage({
-          to: channelID,
-          message: '```!ping, !list, !calc [expression], !duck [query], !wiki [query], !slap [user], !pin [message], !savequote/!addquote, !quote, !addroles [role, ...], !price [game], !feedback [bug or feature].```'
-        });
+        displayCommands(channelID);
+      break;
+
+      case 'help':
+        displayCommands(channelID);
       break;
 
     }
@@ -240,8 +250,58 @@ function quotebot(channelID, typing) {
   var quote = quotes[Math.floor(Math.random()*quotes.length)];
   bot.sendMessage({
     to: channelID,
-    message: quote.message,
+    message: quote.message+' (#'+quote.id+')',
     typing: typing
+  });
+}
+
+function removequote(userID, channelID, args) {
+  if (isNaN(args[0])) {
+    trouxa(userID, channelID)
+    return;
+  }
+
+  var quoteID = parseInt(args[0]);
+  var quoteIndex = findQuoteIndexWithID(quoteID);
+
+  if (quoteIndex == -1) {
+    trouxa(userID, channelID)
+    return;
+  }
+
+  var quote = quotes[quoteIndex];
+
+  if (quote.votes == 2) {
+    bot.sendMessage({
+      to: channelID,
+      message: '3/3 votes for the removal of quote #'+quoteID
+    });
+
+    quotes.splice(quoteIndex, 1);
+    saveQuotesToFile(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+          bot.sendMessage({
+            to: channelID,
+            message: 'Quote #'+quoteID+' removed.'
+          });
+        }
+    });
+
+    return;
+  }
+
+  quotes[quoteIndex].votes += 1;
+  saveQuotesToFile(function(err) {
+      if (err) {
+          console.log(err);
+      } else {
+        bot.sendMessage({
+          to: channelID,
+          message: quotes[quoteIndex].votes+'/3 votes for the removal of quote #'+quoteID
+        });
+      }
   });
 }
 
@@ -319,22 +379,24 @@ function savequote(channelID) {
       return;
     }
 
+    var quoteID = quotes[quotes.length-1].id+1;
+
     var quote = {
-      userID: authorID,
+      id: quoteID,
+      userid: authorID,
       username: authorName,
-      message: content
+      message: content,
+      votes: 0
     };
     quotes.push(quote);
 
-    var jsonData = JSON.stringify(quotes);
-    var fs = require('fs');
-    fs.writeFile("quotes.json", jsonData, function(err) {
+    saveQuotesToFile(function(err) {
         if (err) {
             console.log(err);
         } else {
           bot.sendMessage({
             to: channelID,
-            message: 'Quote saved: "'+content+'" by '+authorName
+            message: 'Quote #'+quoteID+' saved: "'+content+'" by '+authorName
           });
         }
     });
@@ -353,25 +415,46 @@ function quote(userID, channelID, args) {
   if (args.length == 0) {
     quotebot(channelID, false);
   } else if (args.length == 1) {
-    var userstring = args[0];
-    var quotedUserID = userstring.substring(2, userstring.length-1);
-    console.log("Quoting: "+quotedUserID);
 
-    var userQuotes = [];
-    quotes.forEach(function(quote, index) {
-      if (quote.userID == quotedUserID) {
-        userQuotes.push(quote);
+    if (isNaN(args[0])) {
+      // quote from user
+      var userstring = args[0];
+      var quotedUserID = userstring.substring(2, userstring.length-1);
+      console.log("Quoting: "+quotedUserID);
+
+      var userQuotes = [];
+      quotes.forEach(function(quote, index) {
+        if (quote.userid == quotedUserID) {
+          userQuotes.push(quote);
+        }
+      });
+
+      if (userQuotes.length == 0) {
+        trouxa(userID, channelID);
+      } else {
+        var quote = userQuotes[Math.floor(Math.random()*userQuotes.length)];
+        bot.sendMessage({
+          to: channelID,
+          message: quote.message+' (#'+quote.id+')'
+        });
       }
-    });
-
-    if (userQuotes.length == 0) {
-      trouxa(userID, channelID);
     } else {
-      var quote = userQuotes[Math.floor(Math.random()*userQuotes.length)];
+      // quote with ID
+      var quoteID = parseInt(args[0]);
+      var quoteIndex = findQuoteIndexWithID(quoteID);
+
+      if (quoteIndex == -1) {
+        trouxa(userID, channelID)
+        return;
+      }
+
+      var quote = quotes[quoteIndex];
+
       bot.sendMessage({
         to: channelID,
-        message: quote.message
+        message: quote.message+' (#'+quote.id+')'
       });
+
     }
 
   } else {
@@ -406,9 +489,7 @@ function feedback(user, userID, channelID, args) {
   };
   feedbacks.push(feedback);
 
-  var jsonData = JSON.stringify(feedbacks);
-  var fs = require('fs');
-  fs.writeFile("feedback.json", jsonData, function(err) {
+  saveFeedbacksToFile(function(err) {
       if (err) {
           console.log(err);
       }
@@ -500,6 +581,21 @@ function calc(userID, channelID, args) {
   }
 }
 
+function diceroll(userID, channelID, args) {
+  if (isNaN(args[0])) {
+    trouxa(userID, channelID)
+    return;
+  }
+
+  var dicesize = parseInt(args[0]);
+  var rng = Math.ceil(Math.random()*dicesize);
+
+  bot.sendMessage({
+    to: channelID,
+    message: rng
+  });
+}
+
 function yourewelcome(channelID) {
   bot.sendMessage({
     to: channelID,
@@ -521,5 +617,50 @@ function highfive(channelID) {
     to: channelID,
     message: '\\o',
     typing: true
+  });
+}
+
+function findQuoteIndexWithID(quoteID) {
+  var quoteIndex = -1;
+  quotes.forEach(function(quote, index) {
+    if (quote.id == quoteID) {
+      quoteIndex = index;
+      return;
+    }
+  });
+  return quoteIndex;
+}
+
+function saveQuotesToFile(callback) {
+  var jsonData = JSON.stringify(quotes);
+  var fs = require('fs');
+  fs.writeFile("quotes.json", jsonData, callback);
+}
+
+function saveFeedbacksToFile(callback) {
+  var jsonData = JSON.stringify(feedbacks);
+  var fs = require('fs');
+  fs.writeFile("feedback.json", jsonData, callback);
+}
+
+function displayCommands(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: '\
+    ```\
+!ping, \n\
+!list/!help, \n\
+!calc [expression], \n\
+!duck [query], \n\
+!wiki [query], \n\
+!slap [user], \n\
+!pin [message], \n\
+!savequote/!addquote, \n\
+!quote [user/quoteid], \n\
+!removequote [quoteid], \n\
+!addroles [role, ...], \n\
+!diceroll [number] \n\
+!price [game], \n\
+!feedback [bug or feature].```'
   });
 }
