@@ -49,6 +49,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
+  if (message.toLowerCase().indexOf('indiano') !== -1) {
+    angry(channelID);
+    return;
+  }
+
   // commands start with "!"
   if (message.substring(0, 1) == '!') {
     var args = message.substring(1).split(' ');
@@ -169,7 +174,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   var randomMessageChance = Math.random()
 
   console.log('randomMessageChance: '+randomMessageChance)
-  if (randomMessageChance < 0.05) {
+  if (randomMessageChance < 0.02) {
 
     var whichMessageChance = Math.random()
     console.log('whichMessageChance: '+whichMessageChance)
@@ -188,6 +193,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
 });
+
+function angry(channelID) {
+  bot.sendMessage({
+    to: channelID,
+    message: ':rage:',
+    typing: true
+  });
+}
 
 function emanosbot(channelID) {
   var emanos = Math.random();
