@@ -1,12 +1,1 @@
-[
-  {
-    "userID": "189096616043479041",
-    "username": "Naner",
-    "contents": "permitir salvar mensagens anteriores passando um número como parâmetro do savequote"
-  },
-  {
-    "userID": "189096616043479041",
-    "username": "Naner",
-    "contents": "coinflip, diceroll"
-  }
-]
+[{"userID":"189096616043479041","username":"Naner","contents":"permitir salvar mensagens anteriores passando um número como parâmetro do savequote"},{"userID":"189096616043479041","username":"Naner","contents":"coinflip, diceroll"},{"userID":"189096616043479041","username":"Naner","contents":"adicionar \"Eu não salvo qualquer merda\" como resposta aleatória ao savequote"},{"userID":"266305378659074048","username":"BrunoBRS","contents":"adicionar um !spam"},{"userID":"115902486404923398","username":"Chocobo","contents":"Adicionar uma função do bot ficar 10x mais ativo quando os gêmeos falarem de Bomberman ou MH"},{"userID":"127112907237359616","username":"Will","contents":"coloca uma função que quando fala \"cala a boca bot\" ele entra num time out de uns 15 minutos"}]
