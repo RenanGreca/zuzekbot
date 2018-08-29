@@ -9,10 +9,14 @@ var roles = require('./roles.json');
 var ids = require('./ids.json');
 var feedbacks = require('./feedback.json');
 var price = require('./getprice.js');
+
+var timer = require('timers');
 // import {findGame} from 'getprice';
 
 var serverID = ids.serverID;
 var zuzekbotID = ids.zuzekbotID;
+
+var isShuttingUp = false;
 
 // Initialize Discord Bot
 var bot = new Discord.Client({
@@ -49,7 +53,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
-  if (message.toLowerCase().indexOf('indiano') !== -1) {
+  if (message.toLowerCase().indexOf('indiano') !== -1 &&
+     (userID == '447525339187380264' || userID == '484118307046162434')) {
     angry(channelID);
     return;
   }
@@ -122,6 +127,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         diceroll(userID, channelID, args);
       break;
 
+      case 'shutup':
+        shutup(args);
+      break;
+
+      case 'comeback':
+        comeback();
+      break;
+
       case 'list':
         displayCommands(channelID);
       break;
@@ -174,7 +187,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   var randomMessageChance = Math.random()
 
   console.log('randomMessageChance: '+randomMessageChance)
-  if (randomMessageChance < 0.02) {
+  if (randomMessageChance < 0.02 && !isShuttingUp) {
 
     var whichMessageChance = Math.random()
     console.log('whichMessageChance: '+whichMessageChance)
@@ -193,6 +206,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
 });
+
+function shutup(args) {
+  if (isNaN(args[0])) {
+    trouxa(userID, channelID)
+    return;
+  }
+
+  var duration = parseInt(args[0])*1000*60;
+  isShuttingUp = true;
+
+  timer.setInterval(comeback, duration);
+}
+
+function comeback() {
+  isShuttingUp = false;
+}
 
 function angry(channelID) {
   bot.sendMessage({
@@ -674,6 +703,8 @@ function displayCommands(channelID) {
 !addroles [role, ...], \n\
 !diceroll [number] \n\
 !price [game], \n\
+!shutup [minutes], \n\
+!comeback, \n\
 !feedback [bug or feature].```'
   });
 }
