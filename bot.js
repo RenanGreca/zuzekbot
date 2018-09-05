@@ -128,7 +128,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       break;
 
       case 'shutup':
-        shutup(args);
+        shutup(userID, channelID, args);
+      break;
+
+      case 'calaboca':
+        shutup(userID, channelID, args);
       break;
 
       case 'comeback':
@@ -187,7 +191,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   var randomMessageChance = Math.random()
 
   console.log('randomMessageChance: '+randomMessageChance)
-  if (randomMessageChance < 0.02 && !isShuttingUp) {
+  if (randomMessageChance < 0.03 && !isShuttingUp) {
 
     var whichMessageChance = Math.random()
     console.log('whichMessageChance: '+whichMessageChance)
@@ -207,13 +211,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
 });
 
-function shutup(args) {
+function shutup(userID, channelID, args) {
   if (isNaN(args[0])) {
     trouxa(userID, channelID)
     return;
   }
 
-  var duration = parseInt(args[0])*1000*60;
+  var minutes = parseInt(args[0]);
+  // max one hour
+  if (minutes > 60) {
+    minutes = 60;
+  }
+
+  var duration = *1000*60;
   isShuttingUp = true;
 
   timer.setInterval(comeback, duration);
@@ -703,7 +713,7 @@ function displayCommands(channelID) {
 !addroles [role, ...], \n\
 !diceroll [number] \n\
 !price [game], \n\
-!shutup [minutes], \n\
+!shutup/!calaboca [minutes], \n\
 !comeback, \n\
 !feedback [bug or feature].```'
   });
