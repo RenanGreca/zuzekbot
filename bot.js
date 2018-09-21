@@ -223,7 +223,7 @@ function shutup(userID, channelID, args) {
     minutes = 60;
   }
 
-  var duration = *1000*60;
+  var duration = minutes*1000*60;
   isShuttingUp = true;
 
   timer.setInterval(comeback, duration);
