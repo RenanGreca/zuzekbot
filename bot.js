@@ -191,17 +191,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   var randomMessageChance = Math.random()
 
   console.log('randomMessageChance: '+randomMessageChance)
-  if (randomMessageChance < 0.03 && !isShuttingUp) {
+  if (randomMessageChance < 0.04 && !isShuttingUp) {
 
     var whichMessageChance = Math.random()
     console.log('whichMessageChance: '+whichMessageChance)
-    if (whichMessageChance < 0.2) {
+    if (whichMessageChance < 0.3) {
       carabot(message, channelID);
     } else if (whichMessageChance < 0.4) {
       willbot(channelID);
     } else if (whichMessageChance < 0.5) {
       patobot(channelID);
-    } else if (whichMessageChance < 0.6) {
+    } else if (whichMessageChance < 0.55) {
       spoilerbot(channelID)
     } else {
       quotebot(channelID, true)
@@ -245,7 +245,7 @@ function emanosbot(channelID) {
   var emanos = Math.random();
 
   console.log("emanos chance: "+ emanos)
-  if (emanos < 0.2) {
+  if (emanos < 0.1) {
     bot.sendMessage({
       to: channelID,
       message: 'old',
