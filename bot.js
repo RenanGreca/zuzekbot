@@ -177,11 +177,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
-  if (message.toLowerCase().indexOf(' mestre') !== -1 ||
-      message.toLowerCase().indexOf(' master') !== -1) {
-    master(channelID);
-    return;
-  }
+  //if (message.toLowerCase().indexOf(' mestre') !== -1 ||
+  //    message.toLowerCase().indexOf(' master') !== -1) {
+  //  master(channelID);
+  //  return;
+  //}
 
   if (message == 'o/') {
     highfive(channelID);
