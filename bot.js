@@ -99,6 +99,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         quote(userID, channelID, args);
       break;
 
+      case 'listquotes':
+        listquotes(channelID);
+      break;
+
       case 'removequote':
         removequote(userID, channelID, args);
       break;
@@ -119,8 +123,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         duck(channelID, args);
       break;
 
+      case 'trailer':
+        trailer(channelID, args);
+      break;
+
       case 'wiki':
         wiki(channelID, args);
+      break;
+
+      case 'direct':
+        direct(channelID);
       break;
 
       case 'diceroll':
@@ -160,6 +172,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return;
   }
 
+  if (userID == 115885540494147589) {
+    guigasbot(channelID);
+    return;
+  }
+
   if (message == "") {
     return;
   }
@@ -176,6 +193,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     yourewelcome(channelID);
     return;
   }
+
+  
 
   //if (message.toLowerCase().indexOf(' mestre') !== -1 ||
   //    message.toLowerCase().indexOf(' master') !== -1) {
@@ -197,10 +216,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     console.log('whichMessageChance: '+whichMessageChance)
     if (whichMessageChance < 0.3) {
       carabot(message, channelID);
-    } else if (whichMessageChance < 0.4) {
-      willbot(channelID);
     } else if (whichMessageChance < 0.5) {
-      patobot(channelID);
+      emojibot(channelID);
     } else if (whichMessageChance < 0.55) {
       spoilerbot(channelID)
     } else {
@@ -274,20 +291,41 @@ function carabot(message, channelID) {
   });
 }
 
-function willbot(channelID) {
-  bot.sendMessage({
-    to: channelID,
-    message: '<:will:466272230330990603> :ok_hand:',
-    typing: true
-  });
+function emojibot(channelID) {
+
+    var emojicombos = [
+        '<:will:466272230330990603> :ok_hand: ',
+        '<:Zuzek:476498123154522112> :sweat_drops: ',
+        ':hammer: <:Guigas:513779475096403979>',
+        '<:geovarage:476503278893400079> :knife:',
+        ':gun: <:emanos:466283967075713024>',
+        '<:pk2:476498159732916227> :dagger:',
+        '<:surprisedpikachu:514476225415217152>',
+        ':duck:'
+    ]
+
+    var emoji = emojicombos[Math.floor(Math.random()*emojicombos.length)]
+
+    bot.sendMessage({
+        to: channelID,
+        message: emoji,
+        typing: true
+    });
+
+
 }
 
-function patobot(channelID) {
-  bot.sendMessage({
-    to: channelID,
-    message: ':duck:',
-    typing: true
-  });
+function guigasbot(channelID) {
+    var guigas = Math.random();
+
+    console.log("guigas chance: "+ guigas)
+    if (guigas < 0.1) {
+        bot.sendMessage({
+            to: channelID,
+            message: ':hammer: <:Guigas:513779475096403979>',
+            typing: true
+        });
+    }
 }
 
 function spoilerbot(channelID) {
@@ -576,6 +614,12 @@ function duck(channelID, args) {
   });
 }
 
+function trailer(channelID, args) {
+    args.push("youtube")
+    args.push("trailer")
+    duck(channelID, args)
+}
+
 function wiki(channelID, args) {
   var query = encodeURI(args.join('_'));
   var url = 'https://en.wikipedia.org/wiki/'+query;
@@ -592,6 +636,24 @@ function ping(channelID) {
     message: 'Pong!',
     typing: true
   });
+}
+
+function listquotes(channelID) {
+    var url = 'https://jsonbeautifier.org/?url=https%3A%2F%2Fraw.githubusercontent.com%2FRenanGreca%2Fzuzekbot%2Fmaster%2Fquotes.json%3Ftoken%3DAFflgvy3H5ThpOB9fCFu1g3P5HGQnT0_ks5cac0DwA%253D%253D';
+  
+    bot.sendMessage({
+      to: channelID,
+      message: url
+    });
+}
+
+function direct(channelID) {
+    var url = 'https://www.nintendo.com/nintendo-direct/';
+  
+    bot.sendMessage({
+      to: channelID,
+      message: url
+    });
 }
 
 function calc(userID, channelID, args) {
@@ -704,13 +766,16 @@ function displayCommands(channelID) {
 !list/!help, \n\
 !calc [expression], \n\
 !duck [query], \n\
+!trailer [query], \n\
 !wiki [query], \n\
 !slap [user], \n\
 !pin [message], \n\
 !savequote/!addquote, \n\
 !quote [user/quoteid], \n\
 !removequote [quoteid], \n\
+!listquotes, \n\
 !addroles [role, ...], \n\
+!direct, \n\
 !diceroll [number] \n\
 !price [game], \n\
 !shutup/!calaboca [minutes], \n\
