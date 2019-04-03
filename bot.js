@@ -294,7 +294,7 @@ function carabot(message, channelID) {
 
 function shufflebot(message, channelID) {
   function isVowel(a) {
-    var vowels = "aeiouyAEIOUY".split("");
+    var vowels = "aáàâãeéêiíoóôõuúüyAÁÀÂÃEÉÊIÍOÓÔÕUÚÜY".split("");
     return vowels.indexOf(a) != -1;
   }
 
