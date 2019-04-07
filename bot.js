@@ -9,6 +9,9 @@ var roles = require("./roles.json");
 var ids = require("./ids.json");
 var feedbacks = require("./feedback.json");
 var price = require("./getprice.js");
+var prints = require("./prints.json")
+var sentenceGenerator = require("./sentencegenerator.js");
+var words = require("./words.json");
 
 var timer = require("timers");
 // import {findGame} from 'getprice';
@@ -109,6 +112,18 @@ bot.on("message", function(user, userID, channelID, message, evt) {
         removequote(userID, channelID, args);
         break;
 
+      case "generate":
+        generatebot(channelID, args);
+        break;
+    
+      case "shuffle":
+        shuffler(channelID);
+        break;
+
+      case "print":
+        printbot(channelID);
+        break;
+
       case "addroles":
         addroles(userID, channelID, args);
         break;
@@ -158,7 +173,7 @@ bot.on("message", function(user, userID, channelID, message, evt) {
         break;
 
       case "help":
-        displayCommands(channelID);
+        displayHelp(userID, channelID, args);
         break;
     }
 
@@ -209,24 +224,30 @@ bot.on("message", function(user, userID, channelID, message, evt) {
   }
 
   var randomMessageChance = Math.random();
-//   shufflebot(message, channelID);
+  //   shufflebot(message, channelID);
+  // generatebot(channelID);
 
   console.log("randomMessageChance: " + randomMessageChance);
-  if (randomMessageChance < 0.04 && !isShuttingUp) {
+  if (randomMessageChance < 0.05 && !isShuttingUp) {
     var whichMessageChance = Math.random();
     console.log("whichMessageChance: " + whichMessageChance);
-    if (whichMessageChance < 0.25) {
+    if (whichMessageChance < 0.2) {
       carabot(message, channelID);
-    } else if (whichMessageChance < 0.45) {
+    } else if (whichMessageChance < 0.35) {
       emojibot(channelID);
-    } else if (whichMessageChance < 0.47) {
+    } else if (whichMessageChance < 0.37) {
       spoilerbot(channelID);
-    } else if (whichMessageChance < 0.70) {
+    } else if (whichMessageChance < 0.56) {
+      generatebot(channelID);
+    } else if (whichMessageChance < 0.7) {
       shufflebot(message, channelID);
     } else {
       quotebot(channelID, true);
     }
   }
+  //   else if (randomMessageChance < 0.2 && !isShuttingUp) {
+  //     generatebot(channelID);
+  //   }
 });
 
 function shutup(userID, channelID, args) {
@@ -304,7 +325,7 @@ function shufflebot(message, channelID) {
   }
 
   function isConsonant(a) {
-    var consonants = "bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWXZ".split("");
+    var consonants = "bcdfghjklmnpqrstvwxzçBCDFGHJKLMNPQRSTVWXZÇ".split("");
     return consonants.indexOf(a) != -1;
   }
 
@@ -337,6 +358,49 @@ function shufflebot(message, channelID) {
     message: message.shuffle(),
     typing: true
   });
+}
+
+function generatebot(channelID, args) {
+  // choose sentence length and starting word
+  var length = Math.ceil(Math.random() * 15);
+  var start = "";
+  if (args && args.length > 0 && !isNaN(args[0]) && args[0] > 0) {
+    length = args[0];
+  }
+
+  if (args && args.length > 0 && isNaN(args[0])) {
+    start = args[0];
+  } else if (args && args.length > 1) {
+    start = args[1];
+  }
+
+  var sentence = sentenceGenerator.generateSentence(length, start);
+
+  if (args.indexOf("!shuffle") != -1) {
+      shufflebot(sentence, channelID)
+  } else {
+    bot.sendMessage({
+        to: channelID,
+        message: sentence,
+        typing: true
+    });
+  }
+}
+
+function shuffler(channelID) {
+    bot.getMessages(
+        {
+          channelID: channelID,
+          limit: 2
+        },
+        function(err, messageArray) {
+          console.log("Saving message");
+    
+          var message = messageArray[1];
+
+          shufflebot(message.content, channelID);
+        }
+    );
 }
 
 function emojibot(channelID) {
@@ -389,6 +453,16 @@ function quotebot(channelID, typing) {
     typing: typing
   });
 }
+
+function printbot(channelID) {
+    var print = prints[Math.floor(Math.random() * prints.length)];
+
+    bot.sendMessage({
+      to: channelID,
+      message: print,
+      typing: false
+    });
+  }
 
 function removequote(userID, channelID, args) {
   if (isNaN(args[0])) {
@@ -831,6 +905,68 @@ function saveFeedbacksToFile(callback) {
   fs.writeFile("feedback.json", jsonData, callback);
 }
 
+// function generateSentenceOfLength(length, start) {
+
+//     // Picks a random property of the dictionary to start off
+//     function pickRandomProperty(obj) {
+//       var result;
+//       var count = 0;
+//       for (var prop in obj) if (Math.random() < 1 / ++count) result = prop;
+//       return result;
+//     }
+  
+//     // Picks a random element of an array
+//     function pickRandomObject(arr) {
+//       return arr[Math.floor(Math.random() * arr.length)];
+//     }
+
+//     // Checks if a word is a preposition
+//     function isPreposition(word) {
+//         var prepositions = [
+//             "o", "a", "os", "as", "um", "uns", "uma", "umas",                         // Artigos
+//             "em", "no", "na", "nos", "nas", "num", "nuns", "numa", "numas",           // Em
+//             "de", "do", "da", "dos", "das", "dum", "duma", "duns", "dumas",           // De
+//             "para", "pro", "pros", "pra", "pras", "prum", "pruns", "pruma", "prumas", // Para
+//             "pelo", "pela", "pelos", "pelas",                                         // Pelo
+//             "entre", "ante", "com", "desde", "por", "sob", "sobre",                   // Preposições
+//             "e", "ou", "mas", "que", "porém", "senão", "se", "porque",                // Conectivos
+//             "tão", "bem", "tem", "têm", "são"
+//         ];
+//         return prepositions.indexOf(word) != -1;
+//     }
+  
+//     var word = pickRandomProperty(words);
+//     if (words[start]) {
+//         word = start
+//     }
+//     console.log(word)
+//     var sentence = word;
+//     var lastword = ""
+//     var nextword = ""
+
+//     for (var i = 1; i < length; i++) {
+//       var rng = Math.random();
+      
+//       if (words[lastword+" "+word] != null && words[lastword+" "+word].length > 0 && rng < 0.7) {
+//         nextword = pickRandomObject(words[lastword+" "+word]);
+//       } else if (words[word] != null && words[word].length > 0) {
+//         nextword = pickRandomObject(words[word]);
+//       } else {
+//         break;
+//       }
+  
+//       var sentence = sentence + " " + nextword;
+//       lastword = word;
+//       word = nextword;
+
+//       if (i == length-1 && isPreposition(word)) {
+//           i -= 1;
+//       }
+//     }
+  
+//     return sentence;
+//   }
+
 function displayCommands(channelID) {
   bot.sendMessage({
     to: channelID,
@@ -838,7 +974,8 @@ function displayCommands(channelID) {
       "\
     ```\
 !ping, \n\
-!list/!help, \n\
+!list, \n\
+!help [command], \n\
 !calc [expression], \n\
 !duck [query], \n\
 !trailer [query], \n\
@@ -849,6 +986,7 @@ function displayCommands(channelID) {
 !quote [user/quoteid], \n\
 !removequote [quoteid], \n\
 !listquotes, \n\
+!generate [length], \n\
 !addroles [role, ...], \n\
 !direct, \n\
 !diceroll [number] \n\
@@ -856,5 +994,160 @@ function displayCommands(channelID) {
 !shutup/!calaboca [minutes], \n\
 !comeback, \n\
 !feedback [bug or feature].```"
+  });
+}
+
+function displayHelp(userID, channelID, args) {
+  var cmd = args[0];
+
+  var message = "";
+
+  switch (cmd) {
+    case "ping":
+      message = '```!ping \n\
+Eu respondo "Pong!".```';
+      break;
+
+    case "calc":
+      message =
+        "```!calc [expression] \n\
+Calculo o valor de sua mãe, digo, de uma expressão matemática.\
+Referência: https://mathjs.org/.```";
+      break;
+
+    case "pin":
+      message = "```!pin [message] \n\
+Fixo uma mensagem ao canal.```";
+      break;
+
+    case "slap":
+      message =
+        "```!slap [user] \n\
+Faço o trabalho sujo por você. Espero que goste de trutas.```";
+      break;
+
+    case "savequote":
+      message =
+        "```!savequote \n\
+Salvo a mensagem anterior no meu acervo. Idêntico ao !addquote.```";
+      break;
+
+    case "addquote":
+      message =
+        "```!addquote \n\
+Salvo a mensagem anterior no meu acervo. Idêntico ao !savequote.```";
+      break;
+
+    case "quote":
+      message =
+        "```!quote [user/quoteid] \n\
+Puxo uma mensagem aleatória do meu acervo. Cite um usuário para trazer\
+uma citação dele, ou use um identificador para acessar uma citação específica.```";
+      break;
+
+    case "listquotes":
+      message = "```!listquotes \n\
+Posto um link para a lista de citações.```";
+      break;
+
+    case "removequote":
+      message =
+        "```!removequote [quoteid] \n\
+Registro seu voto para a remoção da quote correspondente ao id fornecido.\
+5 votos são necessários para a remoção.```";
+      break;
+
+    case "generate":
+      message =
+        "```!generate [length] \n\
+Gero uma frase aleatória com o número de palavras solicitado.```";
+      break;
+
+    case "addroles":
+      message =
+        "```!addroles [role, ...] \n\
+Concedo as roles fornecidas a você.\
+Múltiplas roles podem ser adicionadas de uma vez.\
+As roles atuais são @smash, @splatoon, @pokémon, @mariokart e @overwatch.\
+Exemplo para ser adicionado em smash e splatoon: \n\
+!addroles smash splatoon```";
+      break;
+
+    case "feedback":
+      message =
+        "```!feedback [message] \n\
+Guardo uma sugestão ao meu mestre.```";
+      break;
+
+    case "price":
+      message =
+        "```!price [game] \n\
+Consulto o preço do jogo fornecido na eShop mais barata por meio do https://eshop-prices.com/.```";
+      break;
+
+    case "duck":
+      message =
+        "```!duck [query] \n\
+Busco o primeiro resultado encontrado na internet para a sua pergunta.```";
+      break;
+
+    case "trailer":
+      message =
+        "```!trailer [query] \n\
+Procuro o trailer do que você pedir no YouTube.```";
+      break;
+
+    case "wiki":
+      message =
+        "```!wiki [query] \n\
+Procuro a página da Wikipédia para sua busca.```";
+      break;
+
+    case "direct":
+      message = "```!direct \n\
+Nintendo Direct!```";
+      break;
+
+    case "diceroll":
+      message =
+        "```!diceroll [number] \n\
+Retorno um número aleatório entre 1 e o fornecido.```";
+      break;
+
+    case "shutup":
+      message =
+        "```!shutup [minutes] \n\
+Cala minha boca pelos próximos minutos de acordo com o fornecido.```";
+      break;
+
+    case "calaboca":
+      message =
+        "```!calaboca [minutes] \n\
+    Cala minha boca pelos próximos minutos de acordo com o fornecido.```";
+      break;
+
+    case "comeback":
+      message = "```!comeback \n\
+Me tira do castigo.```";
+      break;
+
+    case "list":
+      message = "```!list \n\
+Lista todos os meus comandos.```";
+      break;
+
+    case "help":
+      message =
+        "```!help [command] \n\
+Forneço uma breve descrição do comando solicitado.```";
+      break;
+
+    default:
+      trouxa(userID, channelID);
+  }
+
+  bot.sendMessage({
+    to: channelID,
+    message: message
   });
 }

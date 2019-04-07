@@ -1,0 +1,39 @@
+!ping
+  Bot responde "Pong!". Usado para testar se o bot está funcionando
+!list ou !help
+  Lista todos os comandos do bot com uma breve descrição
+!calc [expression]
+  Calcula o resultado de uma expressão matemática. Inclui muitas funcionalidades. Documentação: https://mathjs.org/
+!duck [query]
+  Responde com a url do primeiro resultado encontrado na internet para a sua busca
+!trailer [query] 
+  Responde com o trailer no youtube encontrado para sua busca
+!wiki [query]
+  Responde com a página da wikipédia no encontrado para sua busca
+!slap [user]
+  Estapeia o usuário fornecido
+!pin [message]
+  Adiciona a mensagem aos pins do Discord
+!savequote ou !addquote
+  Adiciona a última mensagem enviada às quotes do bot
+!quote [user/quoteid]
+  Para acessar as quotes salvas. Se usado na forma "!quote" responde com uma quote aleatória. Se usado na forma "!quote user" responde com uma quote aleatória do usuário fornecido. Se usado na forma "!quote quoteid" responde com a quote correspondente ao id fornecido
+!removequote [quoteid]
+  Vota para a remoção da quote correspondente ao id fornecido. 3 votos são necessários para a remoção
+!listquotes
+  Lista todas as quotes do bot (sugiro só mandar o link para o #bot-quotes)
+!addroles [role, ...]
+  Adiciona os roles fornecidos ao usuário. Múltiplos roles podem ser adicionados de uma vez. Os roles atuais são @smash, @singles, @doubles, @splatoon e @overwatch. Exemplo para ser adicionado em smash singles e splatoon:
+  !addroles splatoon singles
+!direct
+  Responde com o link para o Nintendo Direct
+!diceroll [number]
+  Retorna um número aleatório entre 1 e o fornecido
+!price [game]
+  Consulta o preço do jogo fornecido na eshop mais barata por meio do https://eshop-prices.com/
+!shutup/!calaboca [minutos]
+  Silencia o bot pelos próximos minutos de acordo com o fornecido
+!comeback
+  Faz o bot voltar a ativa após ter sido silenciado pelo comando acima
+!feedback [bug or feature]
+  Reporta uma sugestão ao gerenciador do zuzekbot2.0
