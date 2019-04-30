@@ -241,6 +241,8 @@ bot.on("message", function(user, userID, channelID, message, evt) {
       generatebot(channelID);
     } else if (whichMessageChance < 0.7) {
       shufflebot(message, channelID);
+    } else if (whichMessageChance < 0.7) {
+      printbot(channelID);
     } else {
       quotebot(channelID, true);
     }
@@ -394,7 +396,7 @@ function shuffler(channelID) {
           limit: 2
         },
         function(err, messageArray) {
-          console.log("Saving message");
+          console.log("Shuffling message");
     
           var message = messageArray[1];
 
