@@ -295,14 +295,19 @@ bot.on("message", message => {
 
   if (channel.id == channels.artChannel) {
     // Lucasmaster or Heartwell
-    if (authorID == 115885540494147589 || authorID == 192337026341797888 || authorID == 573820987041120257) {
+    if ((authorID == 115885540494147589 
+        || authorID == 192337026341797888 
+        || authorID == 573820987041120257)
+        && content == "") {
 
       message.react('🔨');
       message.react('513779475096403979');
     }
   }
 
-  if (channel.id != channels.geral && channel.id != channels.memechannel && channel.id != channels.testGeneral) {
+  if (channel.id != channels.geral 
+     && channel.id != channels.memechannel 
+     && channel.id != channels.testGeneral) {
     return;
   }
 
