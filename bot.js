@@ -173,11 +173,9 @@ bot.on("message", message => {
         emptytypebot(channel);
         break;
 
-      
       case "calc": case "c":
         calc(channel, args.join(" "), author);
         break;
-
 
       // Not working because of Missing Permissions
       case "pin":
@@ -989,7 +987,10 @@ function ping(message) {
 }
 
 function listquotes(channel) {
-  channel.send("<#562442227880558623>");
+  //channel.send("<#562442227880558623>");
+  const pastebin = require("./pastebin.json");
+  channel.send(pastebin.link);
+
 }
 
 function direct(channel) {
