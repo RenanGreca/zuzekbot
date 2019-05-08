@@ -989,7 +989,7 @@ function ping(message) {
 }
 
 function listquotes(channel) {
-  channel.send("<#573048056799428638>");
+  channel.send("<#562442227880558623>");
 }
 
 function direct(channel) {
