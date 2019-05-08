@@ -69,8 +69,8 @@ Em caso de dúvida consulte `!help addroles`.");
 
   // @Refactor: Make this a function. This code is basically copied from listquotes
   // Also, put roles into an array and loop over them instead of this big if statements
-  let selfAssignableRoles = ""
-  let matchmakingRoles = ""
+  let selfAssignableRoles = "";
+  let matchmakingRoles = "";
   let roles = [];
   fusion.roles.array().forEach(function (value, i){
     if ( value.name !== "@everyone" &&
@@ -82,7 +82,10 @@ Em caso de dúvida consulte `!help addroles`.");
 
       if (value.name === "singles" ||
           value.name === "doubles" ||
-          value.name === "splatoon" ||
+         // value.name === "splatoon" ||
+         // value.name === "minecraft" ||
+         // value.name === "mario-kart" ||
+          value.name === "secrethitler" ||
           value.name === "minecraft" ||
           value.name === "rivals" ) {
 
@@ -831,10 +834,12 @@ function listroles(channel) {
       if (value.name === "singles" ||
           value.name === "doubles" ||
           value.name === "splatoon" ||
+          value.name === "rivals" ||
+          value.name === "mario-kart" ||
           value.name === "minecraft" ||
-          value.name === "rivals" ) {
+          value.name === "secrethitler") {
 
-        if (matchmakingRoles !== "") {
+        if (matchmakingRoles !== "" ) {
           matchmakingRoles = matchmakingRoles + ", " + value.toString();
         } else {
           matchmakingRoles = value;
