@@ -1,0 +1,50 @@
+API changed:
+  changed the API for a far better one with many more utilities
+  this inevitably led to changes throughout the whole code
+  some parts now may need refactoring because it was faster to interface with the new api in a hacky way
+  some of the changes below are kinda consequences of this big one
+
+variables renamed:
+  some variables needed a name that represented their new API equivalent better
+
+const and let:
+  replaced 'var' with 'const' and 'let' to make it clear when the variable can't be reassigned
+
+more checks:
+  in some places calling the command with no arguments given made no sense and it's now detected and reported
+
+slap:
+  if provided with no arguments, user slaps the air
+  also, now the slapped thing is bold
+
+diceroll:
+  if provided with no arguments assumes input to be 6; the size of a regular dice
+
+testServer:
+  I created a server where I'm testing things
+  I tried to keep any code that was used in that out of this codebase but somethings might still be here
+
+bugfixes:
+  in a few instances empty messages were being sent to the API and that returned errors
+
+translation:
+  !help was translated to portuguese. Only the commands are in english now
+
+!help:
+  some of the descriptions were improved (hopefully)
+
+embeds:
+  Bot uses pretty RichEmbeds
+
+gemeos:
+  new command!
+
+typebot:
+  new feature. Sometimes the bot will start typing something and then stop without sending a message
+
+art-channel:
+  automatically reacts with :hammer: :guigas: on every Heartwell and Discord post
+
+more:
+  honestly it was so much I don't remember everything
+  some changes might be there because of personal preferences and I kinda just did them without much thought

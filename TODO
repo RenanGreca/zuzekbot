@@ -1,0 +1,36 @@
+refresh #bot-quotes
+  command to automate refreshing the quotes from the bot
+  bot gets the list of quotes and goes through all of them
+
+refactor the tests to check inputs into a function
+
+do the typing=true thing in the new API
+
+make the bot answer slower in some cases to make it more human.
+Involves changing the API's source code. Had a quick look and it looks to be a trivial change.
+
+find a way no react to a message the bot is going to send immediately
+
+more duck wrappers:
+  !youtube, !y
+
+change !savequote to ensure that it leaves no gaps after removequotes
+  probably a linear search on the array to find the next empty position would be fine
+
+pin:
+  not working
+  
+remove/reduce JSON dependency using pure JS
+
+gifbot
+
+extend avatar into an !info command that displays more information on the user
+
+artchannel:
+  maybe check if Lucasmaster and Heartwell's messages contain an image before reacting
+
+logs:
+  we should have a logfile so that we can see what happened on crashes
+
+listquotes:
+  display them in a better way
