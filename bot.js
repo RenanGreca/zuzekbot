@@ -46,13 +46,7 @@ bot.once("ready", () => {
   console.log("Logged in as: ");
   console.log(bot.user.username + " - (" + bot.user.id + ")");
 
-  // var jsonData = JSON.stringify(bot.servers);
-  // var fs = require('fs');
-  // fs.writeFile("servers.json", jsonData, function(err) {
-  //     if (err) {
-  //         console.log(err);
-  //     }
-  // });
+  saveToFile(bot.guilds.first().emojis.array(), "emojis.json", function() {})
 });
 
 // Listen to new members
@@ -1060,16 +1054,18 @@ function findQuoteIndexWithID(quoteID) {
 }
 
 function saveQuotesToFile(callback) {
-  const jsonData = JSON.stringify(quotes);
-  const fs = require("fs");
-  fs.writeFile("quotes.json", jsonData, callback);
+    saveToFile(quotes, "quotes.json", callback);
 }
 
 function saveFeedbacksToFile(callback) {
-  const jsonData = JSON.stringify(feedbacks);
-  const fs = require("fs");
-  fs.writeFile("feedback.json", jsonData, callback);
+    saveToFile(feedbacks, "feedback.json", callback);
 }
+
+function saveToFile(data, filename, callback) {
+    const jsonData = JSON.stringify(data);
+    const fs = require("fs");
+    fs.writeFile(filename, jsonData, callback);
+  }
 
 // function generateSentenceOfLength(length, start) {
 
