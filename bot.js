@@ -160,6 +160,11 @@ bot.on("message", message => {
         avatar(author, channel, args);
         break;
 
+      case "rank":
+      case "ranking":
+        showranking(channel, args);
+        break;
+
       case "gemeos":
       case "gêmeos":
         gemeosbot(channel);
@@ -197,7 +202,7 @@ bot.on("message", message => {
         break;
 
       case "listquotes": case "lq":
-        listquotes(channel);
+        listquotes(channel, author, args);
         break;
 
       case "removequote": case "rq":
@@ -437,6 +442,26 @@ function emanosbot(channel) {
 function emptytypebot(channel) {
   channel.startTyping();
   channel.stopTyping();
+}
+
+
+function showranking(channel, args) {
+
+  if (args.length >= 1) {
+    if (args[0] === "mensal") {
+      channel.send(defaultEmbed().setTitle("Ranking Mensal")
+                                 .setDescription("https://braacket.com/league/tryhardcwb/ranking/4AC75652-488A-49E5-9594-A2834B6CA1E1?rows=200&cols=&page=1&page_cols=1&game_character=&country=&search=&embed=1"));
+      return;
+    }
+    if (args[0] === "points") {
+      channel.send(defaultEmbed().setTitle("Ranking por Pontos")
+                                 .setDescription("https://braacket.com/league/tryhardcwb/ranking/0F6FE4B8-7F44-4CC6-A4B6-6AC8FE87A681?rows=200&cols=&page=1&page_cols=1&game_character=&country=&search=&embed=1"));
+      return;
+    }
+  }
+  channel.send(defaultEmbed().setTitle("Ranking de Seed")
+                             .setDescription("https://braacket.com/league/tryhardcwb/ranking/2D975CD1-73B1-474D-8A8D-93E92EE0DB1E?rows=200&cols=&page=1&page_cols=1&game_character=&country=&search=&embed=1"));
+
 }
 
 function avatar(author, channel, args) {
@@ -985,11 +1010,17 @@ function ping(message) {
   message.channel.send("Pong!");
 }
 
-function listquotes(channel) {
-  //channel.send("<#562442227880558623>");
-  const pastebin = require("./pastebin.json");
-  channel.send(pastebin.link);
+function listquotes(channel, author, args) {
 
+  const pastebin = require("./pastebin.json");
+
+  if (args.length == 1) {
+    if (args[0] === "dm") {
+      author.send(pastebin.link);
+      return;
+    }
+  }
+  channel.send(pastebin.link);
 }
 
 function direct(channel) {
@@ -1148,6 +1179,7 @@ function displayCommands(channel, simplifiedVersion) {
 `!removequote`, \
 `!listquotes`, \
 `!generate`, \
+`!ranking`, \
 `!addroles`, \
 `!removeroles`, \
 `!listroles`, \
@@ -1158,8 +1190,8 @@ function displayCommands(channel, simplifiedVersion) {
 `!gemeos,`, \
 `!shutup`, \
 `!calaboca`, \
-`!comeback`"
-    ); 
+`!comeback`"); 
+  
   } else {
 
     channel.send(
@@ -1180,6 +1212,7 @@ function displayCommands(channel, simplifiedVersion) {
 !removequote [id_citação]\n\
 !listquotes\n\
 !generate [tamanho]\n\
+!ranking [seed/mensal/points]\n\
 !addroles [role ...]\n\
 !removeroles [role ...]\n\
 !listroles\n\
@@ -1268,6 +1301,13 @@ Registro seu voto para a remoção da quote correspondente ao id fornecido. \
       message = "!generate [tamanho] [palavra] \n\
 Gero uma frase aleatória com o número de palavras solicitado.\n\
 Se fornecida, a frase começará com a palavra recebida."
+      break;
+      
+    case "rank":
+    case "ranking":
+      message = "!ranking [seed/mensal/points]\n\
+Forneço a url do ranking do TryHard - campeonatos de smash de curitiba.\n\
+Você pode pedir pelo ranking mensal ou de pontos. Como padrão forneço o ranking usado para seed."
       break;
       
     case "listroles":
