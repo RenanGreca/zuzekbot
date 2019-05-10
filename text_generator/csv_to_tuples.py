@@ -9,6 +9,7 @@ with open('Nintendo Fusion - geral [466183286683729931].csv', 'r', encoding='utf
     rows = csv.reader(csvfile, delimiter=';')
     # rows.next()
     for row in rows:
+        s = row[2]
         # table = string.maketrans({key: None for key in string.punctuation})
         split = s.split(' ')
 
