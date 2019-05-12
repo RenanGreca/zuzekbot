@@ -958,14 +958,22 @@ function getPrice(user, channel, args) {
     return;
   }
   
-  price.getPrice(args.join(" "), function(message) {
-    if (message == "") {
+  price.getPrice(encodeURI(args.join("+")), function(game_info) {
+    if (!game_info) {
       trouxa(user, channel);
       return;
     }
+    const price = game_info.price_info.rawCurrentPrice;
+    const flag = ':flag_'+game_info.price_info.country.code.toLowerCase()+':';
+    const country = game_info.price_info.country.name;
+    const image = game_info.imageUrl;
 
-  sendEmbed(channel, message)
+    channel.send(defaultEmbed().setTitle(game_info.title)
+    .setDescription('**R$ '+price+'** in the '+flag+' '+country+' eShop!')
+    .setImage(image));
   });
+
+  
 }
 
 function duck(user, channel, args) {
