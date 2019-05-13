@@ -957,19 +957,25 @@ function getPrice(user, channel, args) {
     trouxa(user, channel);
     return;
   }
+
+  var curr = 'BRL'
+  if (args[0].toLowerCase().indexOf("curr=") !== -1) {
+    curr = args[0].replace("curr=", "").toUpperCase();
+    args = args.slice(1, args.length);
+  }
   
-  price.getPrice(encodeURI(args.join("+")), function(game_info) {
+  price.getPrice(encodeURI(args.join("+")), curr, function(game_info) {
     if (!game_info) {
       trouxa(user, channel);
       return;
     }
-    const price = game_info.price_info.rawCurrentPrice;
+    const price = game_info.price_info.rawCurrentPrice.toFixed(2);
     const flag = ':flag_'+game_info.price_info.country.code.toLowerCase()+':';
     const country = game_info.price_info.country.name;
     const image = game_info.imageUrl;
 
     channel.send(defaultEmbed().setTitle(game_info.title)
-    .setDescription('**R$ '+price+'** in the '+flag+' '+country+' eShop!')
+    .setDescription('**'+price+' '+curr+'** in the '+flag+' '+country+' eShop!')
     .setImage(image));
   });
 
