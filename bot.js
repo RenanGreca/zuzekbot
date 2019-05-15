@@ -558,7 +558,9 @@ function shufflebot(message, channel) {
     return a.join("");
   };
 
-  channel.send(message.shuffle());
+  if (message.length > 0) {
+    channel.send(message.shuffle());
+  }
 }
 
 function generatebot(channel, args) {
@@ -964,7 +966,7 @@ function getPrice(user, channel, args) {
     args = args.slice(1, args.length);
   }
   
-  price.getPrice(encodeURI(args.join("+")), curr, function(game_info) {
+  price.findGame(encodeURI(args.join("+")), curr, function(game_info) {
     if (!game_info) {
       trouxa(user, channel);
       return;
@@ -974,12 +976,25 @@ function getPrice(user, channel, args) {
     const country = game_info.price_info.country.name;
     const image = game_info.imageUrl;
 
-    channel.send(defaultEmbed().setTitle(game_info.title)
-    .setDescription('**'+price+' '+curr+'** in the '+flag+' '+country+' eShop!')
-    .setImage(image));
+    var embed = defaultEmbed()
+                .setTitle(game_info.title)
+                .setImage(image)
+                .setDescription('**'+price+' '+curr+'** in the '+flag+' '+country+' eShop!')
+
+    if (game_info.price_info.hasDiscount) {
+        const percentOff = game_info.price_info.discountPrice.percentOff;
+        const discountEnd = new Date(game_info.price_info.discountPrice.discountEndsAt);
+        const dateString = discountEnd.getDate()  + "/" + (discountEnd.getMonth()+1) + "/" + discountEnd.getFullYear()
+
+        const regularPrice = game_info.price_info.regularPrice.rawRegularPrice.toFixed(2);
+
+        embed
+          .addField('Regular Price', "**"+regularPrice+" BRL**\n"+percentOff+"% off until "+dateString, true)
+    }
+
+    channel.send(embed);
   });
 
-  
 }
 
 function duck(user, channel, args) {
