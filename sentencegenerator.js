@@ -31,7 +31,7 @@ function generateSentenceOfLength(length, start) {
     }
   
     var word = pickRandomProperty(words);
-    if (words[start]) {
+    if (words[start.toLowerCase()]) {
         word = start
     }
     console.log(word)
@@ -42,12 +42,16 @@ function generateSentenceOfLength(length, start) {
     for (var i = 1; i < length; i++) {
       var rng = Math.random();
       
-      if (words[lastword+" "+word] != null && words[lastword+" "+word].length > 0 && rng < 0.7) {
-        nextword = pickRandomObject(words[lastword+" "+word]);
-      } else if (words[word] != null && words[word].length > 0) {
-        nextword = pickRandomObject(words[word]);
+      var index = (lastword+" "+word).toLowerCase();
+      if (words[index] != null && words[index].length > 0 && rng < 0.7) {
+        nextword = pickRandomObject(words[index]);
       } else {
-        break;
+        index = word.toLowerCase();
+        if (words[index] != null && words[index].length > 0) {
+          nextword = pickRandomObject(words[index]);
+        } else {
+          break;
+        }
       }
   
       var sentence = sentence + " " + nextword;
@@ -62,7 +66,7 @@ function generateSentenceOfLength(length, start) {
     return sentence;
   }
 
-console.log(generateSentenceOfLength(4, "O"))
+console.log(generateSentenceOfLength(4, "EMANOS"))
 
 module.exports = {
     generateSentence: function(length, word) {
