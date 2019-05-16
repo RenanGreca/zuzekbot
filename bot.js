@@ -14,6 +14,7 @@ const roles = require("./roles.json");
 const ids = require("./ids.json");
 const feedbacks = require("./feedback.json");
 const price = require("./getprice.js");
+const argparse = require("./argparse.js");
 const prints = require("./prints.json")
 const sentenceGenerator = require("./sentencegenerator.js");
 //const words = require("./words.json");
@@ -960,20 +961,40 @@ function getPrice(user, channel, args) {
     return;
   }
 
+  var parsed = argparse.parse(args);
+
   var curr = 'BRL'
-  if (args[0].toLowerCase().indexOf("curr=") !== -1) {
-    curr = args[0].replace("curr=", "").toUpperCase();
-    args = args.slice(1, args.length);
+  if (parsed.curr) {
+    curr = parsed.curr;
   }
-  
-  price.findGame(encodeURI(args.join("+")), curr, function(game_info) {
+
+  price.findGame(parsed.url, curr, function(game_info) {
     if (!game_info) {
       trouxa(user, channel);
       return;
     }
-    const price = game_info.price_info.rawCurrentPrice.toFixed(2);
-    const flag = ':flag_'+game_info.price_info.country.code.toLowerCase()+':';
-    const country = game_info.price_info.country.name;
+
+    if (parsed.country) {
+        price.getGameDetails(game_info, curr, function(price_details) {
+            // console.log(price_details);
+            price_details.digital.forEach(function(price, index) {
+                if (price.priceInfo.country.code == parsed.country.toUpperCase()) {
+                    sendPriceMessage(channel, game_info, price.priceInfo, curr);
+                    return;
+                }
+            });
+        });
+    } else {
+        sendPriceMessage(channel, game_info, game_info.price_info, curr);
+    }
+  });
+
+}
+
+function sendPriceMessage(channel, game_info, price_info, curr) {
+    const price = price_info.rawCurrentPrice.toFixed(2);
+    const flag = ':flag_'+price_info.country.code.toLowerCase()+':';
+    const country = price_info.country.name;
     const image = game_info.imageUrl;
 
     var embed = defaultEmbed()
@@ -981,20 +1002,18 @@ function getPrice(user, channel, args) {
                 .setImage(image)
                 .setDescription('**'+price+' '+curr+'** in the '+flag+' '+country+' eShop!')
 
-    if (game_info.price_info.hasDiscount) {
-        const percentOff = game_info.price_info.discountPrice.percentOff;
-        const discountEnd = new Date(game_info.price_info.discountPrice.discountEndsAt);
+    if (price_info.hasDiscount) {
+        const percentOff = price_info.discountPrice.percentOff;
+        const discountEnd = new Date(price_info.discountPrice.discountEndsAt);
         const dateString = discountEnd.getDate()  + "/" + (discountEnd.getMonth()+1) + "/" + discountEnd.getFullYear()
 
-        const regularPrice = game_info.price_info.regularPrice.rawRegularPrice.toFixed(2);
+        const regularPrice = price_info.regularPrice.rawRegularPrice.toFixed(2);
 
         embed
-          .addField('Regular Price', "**"+regularPrice+" BRL**\n"+percentOff+"% off until "+dateString, true)
+          .addField('Regular Price', "**"+regularPrice+" "+curr+"**\n"+percentOff+"% off until "+dateString, true)
     }
 
     channel.send(embed);
-  });
-
 }
 
 function duck(user, channel, args) {

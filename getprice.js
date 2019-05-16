@@ -33,7 +33,7 @@ function findGame(query, curr, callback) {
     });
 }
 
-function getGameDetails(game, curr, callback) {
+function getGameDetails(game_info, curr, callback) {
 
   const url = 
     game_info.url + "/prices?" + 
@@ -51,8 +51,8 @@ function getGameDetails(game, curr, callback) {
 
       // Once the response has finished, do something with the result
       res.on("end", () => {
-        const price_list = JSON.parse(data).data[0];
-
+        const price_list = JSON.parse(data);
+        
         callback(price_list);
       });
 
@@ -63,9 +63,12 @@ function getGameDetails(game, curr, callback) {
     });
 }
 
-// var query = 'asdasfasd'.toLowerCase();
-// findGame(query, function(message) {
-//   console.log(message);
+// var query = 'smash bros.'.toLowerCase();
+// findGame(query, 'BRL', function(game_info) {
+//     console.log(game_info);
+//     getGameDetails(game_info, 'BRL', function(details) {
+//         console.log(details);
+//     });
 // });
 
 module.exports = {
@@ -73,11 +76,10 @@ module.exports = {
     return findGame(query.toLowerCase(), curr.toUpperCase(), callback);
   },
 
-  getGameDetails: function(query, curr, country, callback) {
+  getGameDetails: function(game_info, curr, callback) {
     return getGameDetails(
-      game,
+      game_info,
       curr.toUpperCase(),
-      country.toUpperCase(),
       callback
     );
   }
