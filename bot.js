@@ -19,6 +19,7 @@ const prints = require("./prints.json")
 const sentenceGenerator = require("./sentencegenerator.js");
 //const words = require("./words.json");
 const gemeosFrases = require("./gemeos.json");
+const insults = require("./insults.json")
 
 // Global Variables
 const serverID = ids.serverID;
@@ -187,6 +188,10 @@ bot.on("message", message => {
 
       case "slap":
         slap(author, channel, args.join(" "));
+        break;
+
+      case "insult":
+        insultbot(channel, args.join(" "));
         break;
 
       case "addquote":  case "aq":
@@ -713,6 +718,19 @@ function pin(channel) {
     .catch(console.error);
 }
 
+function insultbot(channel, object) {
+
+    const idx = Math.floor(Math.random() * insults.length);
+
+    if (object === "") {
+        channel.send(insults[idx]);
+    } else {
+        channel.send(`***${object}***, ${insults[idx]}`);
+    }
+    
+
+}
+
 function slap(user, channel, object) {
   
   if (object === "") { 
@@ -1226,6 +1244,7 @@ function displayCommands(channel, simplifiedVersion) {
 `!trailer`, \
 `!wiki`, \
 `!slap`, \
+`!insult`, \
 `!pin`, \
 `!savequote`, \
 `!addquote`, \
@@ -1260,6 +1279,7 @@ function displayCommands(channel, simplifiedVersion) {
 !trailer [busca]\n\
 !wiki [busca]\n\
 !slap [usuário]\n\
+!insult [usuário]\n\
 !pin [mensagem]\n\
 !savequote/!addquote [número]\n\
 !quote [usuário/id_citação]\n\
@@ -1316,6 +1336,11 @@ Fixo uma mensagem ao canal."
     case "slap":
       message = "!slap [user] \n\
 Faço o trabalho sujo por você. Espero que goste de trutas."
+      break;
+
+    case "insult":
+      message = "!insult [user] \n\
+Insulto por você"
       break;
 
     case "savequote":
