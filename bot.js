@@ -19,7 +19,8 @@ const prints = require("./prints.json")
 const sentenceGenerator = require("./sentencegenerator.js");
 //const words = require("./words.json");
 const gemeosFrases = require("./gemeos.json");
-const insults = require("./insults.json")
+const insults = require("./insults.json");
+const salmon = require("./salmon.js");
 
 // Global Variables
 const serverID = ids.serverID;
@@ -263,6 +264,10 @@ bot.on("message", message => {
         direct(channel);
         break;
 
+      case "salmon":
+        getSalmon(channel);
+        break;
+
       case "diceroll":
         diceroll(author, channel, args);
         break;
@@ -348,8 +353,8 @@ bot.on("message", message => {
     return;
   }
 */
-  if (content == "o/") {
-    highfive(channel);
+  if (content == "o/" || content == "\o") {
+    highfive(channel, content);
     return;
   }
 
@@ -646,6 +651,14 @@ function printbot(channel) {
     channel.send(attachment);
   }
 
+function getSalmon(channel) {
+    salmon.getSalmon(function(tweets) {
+        const tweetid = tweets.statuses[0].id_str;
+
+        channel.send("https://twitter.com/salmon_en/status/"+tweetid);
+    });
+}
+ 
 function removequote(user, channel, args) {
   if (isNaN(args[0])) {
     trouxa(user, channel);
@@ -994,7 +1007,6 @@ function getPrice(user, channel, args) {
 
     if (parsed.country) {
         price.getGameDetails(game_info, curr, function(price_details) {
-            // console.log(price_details);
             price_details.digital.forEach(function(price, index) {
                 if (price.priceInfo.country.code == parsed.country.toUpperCase()) {
                     sendPriceMessage(channel, game_info, price.priceInfo, curr);
@@ -1003,7 +1015,10 @@ function getPrice(user, channel, args) {
             });
         });
     } else {
-        sendPriceMessage(channel, game_info, game_info.price_info, curr);
+        price.getGameDetails(game_info, curr, function(price_details) {
+            var price_info = price_details.digital[0].priceInfo;
+            sendPriceMessage(channel, game_info, price_info, curr);
+        });
     }
   });
 
@@ -1135,8 +1150,12 @@ function master(channel) {
   channel.send( "<@!189096616043479041> is my master.");
 }
 
-function highfive(channel) {
-  channel.send("\\o");
+function highfive(channel, content) {
+    if (content == "o/") {
+        channel.send("\\o");
+    } else if (content == "\\o") {
+        channel.send("o/");
+    }
 }
 
 function findQuoteIndexWithID(quoteID) {
