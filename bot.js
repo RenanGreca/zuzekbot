@@ -19,7 +19,8 @@ const prints = require("./prints.json")
 const sentenceGenerator = require("./sentencegenerator.js");
 //const words = require("./words.json");
 const gemeosFrases = require("./gemeos.json");
-const insults = require("./insults.json")
+const insults = require("./insults.json");
+const salmon = require("./salmon.js");
 
 // Global Variables
 const serverID = ids.serverID;
@@ -261,6 +262,10 @@ bot.on("message", message => {
 
       case "direct":
         direct(channel);
+        break;
+
+      case "salmon":
+        getSalmon(channel);
         break;
 
       case "diceroll":
@@ -646,6 +651,14 @@ function printbot(channel) {
     channel.send(attachment);
   }
 
+function getSalmon(channel) {
+    salmon.getSalmon(function(tweets) {
+        const tweetid = tweets.statuses[0].id_str;
+
+        channel.send("https://twitter.com/salmon_en/status/"+tweetid);
+    });
+}
+ 
 function removequote(user, channel, args) {
   if (isNaN(args[0])) {
     trouxa(user, channel);
