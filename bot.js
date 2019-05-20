@@ -22,6 +22,7 @@ const gemeosFrases = require("./jsons/gemeos.json");
 const insults = require("./jsons/insults.json");
 const salmon = require("./salmon.js");
 let tryhard = require("./tryhard.json");
+const strings = require("./jsons/strings.json");
 
 // Global Variables
 const serverID = ids.serverID;
@@ -51,6 +52,11 @@ bot.once("ready", () => {
   console.log(bot.user.username + " - (" + bot.user.id + ")");
 
   saveToFile(bot.guilds.first().emojis.array(), "./jsons/emojis.json", function() {})
+
+
+  saveToFile(bot.guilds.first(), "./test/test-data/fusion.json", function() {})
+  saveToFile(bot.guilds.first().roles.array(), "./test/test-data/roles.json", function() {})
+  saveToFile(bot.guilds.first().channels.array(), "./test/test-data/channels.json", function() {})
 });
 
 // Listen to new members
@@ -58,56 +64,14 @@ bot.on("guildMemberAdd", member => {
   const fusion = bot.guilds.first();
   const channel = bot.channels.find(ch => ch.name === "boas-vindas");
 
-    sendEmbed(channel, "Olá " + member +
-"! Bem vindo ao servidor da <:fusion:542754090636279829> Nintendo Fusion <:fusion:542754090636279829>!\n\
-Para acessar os canais do servidor um moderador da <@&410866075333296138> tem que te dar permissão.\n\
-Por favor, introduza-se para sabermos quem é!\n\
-Enquanto isso você pode ler as <#466240830336925696> e adicionar-se às *roles* que te interessam usando o comando `!addroles`.\n\
-Em caso de dúvida consulte `!help addroles`.");
+  sendEmbed(channel, "Olá " + member + strings.welcome);
 
-  // @Refactor: Make this a function. This code is basically copied from listquotes
-  // Also, put roles into an array and loop over them instead of this big if statements
-  let selfAssignableRoles = "";
-  let matchmakingRoles = "";
-  let roles = [];
-  fusion.roles.array().forEach(function (value, i){
-    if ( value.name !== "@everyone" &&
-         value.name !== "fusion" &&
-         value.name !== "membro" &&
-         value.name !== "familiafusion1" &&
-         value.name !== "familiafusion2" &&
-         value.name !== "bot") {
-
-      if (value.name === "singles" ||
-          value.name === "doubles" ||
-         // value.name === "splatoon" ||
-         // value.name === "minecraft" ||
-         // value.name === "mario-kart" ||
-          value.name === "secrethitler" ||
-          value.name === "minecraft" ||
-          value.name === "rivals" ) {
-
-        if (matchmakingRoles == "") {
-          matchmakingRoles = value;
-        } else {
-          matchmakingRoles = matchmakingRoles + ", " + value;
-        }
-
-      } else if (selfAssignableRoles == "") {
-        selfAssignableRoles = value;
-      } else {
-        selfAssignableRoles = selfAssignableRoles + ", " + value;
-      }
-      
-    }
-  });
-  
-  channel.send(defaultEmbed().setTitle('Roles que podem ser auto atribuídas:')
-                             .setDescription("matchmaking: " + matchmakingRoles +
-                                             "\n\noutros: " + selfAssignableRoles));
+  const welcome = require("./modules/welcome.js");
+  const description = welcome.roles(fusion.roles.array);
+  channel.send(defaultEmbed().setTitle(strings.roles)
+                             .setDescription(description));
 
   channel.send("<@&410866075333296138>");
-
 });
 
 // Listen to Messages
@@ -1338,69 +1302,7 @@ function saveToFile(data, filename, callback) {
     const jsonData = JSON.stringify(data);
     const fs = require("fs");
     fs.writeFile(filename, jsonData, callback);
-  }
-
-// function generateSentenceOfLength(length, start) {
-
-//     // Picks a random property of the dictionary to start off
-//     function pickRandomProperty(obj) {
-//       var result;
-//       var count = 0;
-//       for (var prop in obj) if (Math.random() < 1 / ++count) result = prop;
-//       return result;
-//     }
-  
-//     // Picks a random element of an array
-//     function pickRandomObject(arr) {
-//       return arr[Math.floor(Math.random() * arr.length)];
-//     }
-
-//     // Checks if a word is a preposition
-//     function isPreposition(word) {
-//         var prepositions = [
-//             "o", "a", "os", "as", "um", "uns", "uma", "umas",                         // Artigos
-//             "em", "no", "na", "nos", "nas", "num", "nuns", "numa", "numas",           // Em
-//             "de", "do", "da", "dos", "das", "dum", "duma", "duns", "dumas",           // De
-//             "para", "pro", "pros", "pra", "pras", "prum", "pruns", "pruma", "prumas", // Para
-//             "pelo", "pela", "pelos", "pelas",                                         // Pelo
-//             "entre", "ante", "com", "desde", "por", "sob", "sobre",                   // Preposições
-//             "e", "ou", "mas", "que", "porém", "senão", "se", "porque",                // Conectivos
-//             "tão", "bem", "tem", "têm", "são"
-//         ];
-//         return prepositions.indexOf(word) != -1;
-//     }
-  
-//     var word = pickRandomProperty(words);
-//     if (words[start]) {
-//         word = start
-//     }
-//     console.log(word)
-//     var sentence = word;
-//     var lastword = ""
-//     var nextword = ""
-
-//     for (var i = 1; i < length; i++) {
-//       var rng = Math.random();
-      
-//       if (words[lastword+" "+word] != null && words[lastword+" "+word].length > 0 && rng < 0.7) {
-//         nextword = pickRandomObject(words[lastword+" "+word]);
-//       } else if (words[word] != null && words[word].length > 0) {
-//         nextword = pickRandomObject(words[word]);
-//       } else {
-//         break;
-//       }
-  
-//       var sentence = sentence + " " + nextword;
-//       lastword = word;
-//       word = nextword;
-
-//       if (i == length-1 && isPreposition(word)) {
-//           i -= 1;
-//       }
-//     }
-  
-//     return sentence;
-//   }
+}
 
 function displayCommands(channel, simplifiedVersion) {
 
