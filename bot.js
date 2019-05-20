@@ -1255,91 +1255,26 @@ function saveToFile(data, filename, callback) {
 
 function displayCommands(channel, simplifiedVersion) {
 
+    const helpMessages = require("./jsons/help.json");
+
   if (simplifiedVersion) {
-    channel.send("comandos: `!ping`, \
-`!list`, \
-`!wholelist`, \
-`!help`, \
-`!calc`, \
-`!duck`, \
-`!trailer`, \
-`!wiki`, \
-`!slap`, \
-`!avatar`, \
-`!insult`, \
-`!pin`, \
-`!savequote`, \
-`!addquote`, \
-`!quote`, \
-`!removequote`, \
-`!listquotes`, \
-`!generate [palavra] [length=] [!shuffle]`, \
-`!ranking`, \
-`!addroles`, \
-`!removeroles`, \
-`!listroles`, \
-`!direct`, \
-`!stream`, \
-`!updatestream`, \
-`!bracket`, \
-`!updatebracket`, \
-`!camp`, \
-`!updatecamp`, \
-`!vods`, \
-`!diceroll`, \
-`!price`, \
-`!print`, \
-`!salmon`, \
-`!gemeos,`, \
-`!shutup`, \
-`!calaboca`, \
-`!shuffle`, \
-`!comeback`"); 
+    var text = [];
+
+    for (var msg in helpMessages) {
+        text.push ('`!'+msg+'`');
+    }
+
+    channel.send(text.join(', '));
   
   } else {
 
-    channel.send(
-      "\
-    ```\
-!ping\n\
-!list\n\
-!wholelist\n\
-!help [comando]\n\
-!calc [expressão]\n\
-!duck [busca]\n\
-!trailer [busca]\n\
-!wiki [busca]\n\
-!avatar [usuário]\n\
-!slap [usuário]\n\
-!insult [usuário]\n\
-!pin [mensagem]\n\
-!savequote/!addquote [número]\n\
-!quote [usuário/id_citação]\n\
-!removequote [id_citação]\n\
-!listquotes\n\
-!generate [palavra] [length=] [!shuffle]\n\
-!ranking [seed/mensal/points]\n\
-!addroles [role ...]\n\
-!removeroles [role ...]\n\
-!listroles\n\
-!stream\n\
-!updatestream [novo_link]\n\
-!bracket\n\
-!updatebracket [novo_link]\n\
-!camp\n\
-!updatecamp [novo_link]\n\
-!vods\n\
-!direct\n\
-!diceroll [número]\n\
-!price [jogo] [country=] [curr=]\n\
-!print\n\
-!salmon\n\
-!gemeos\n\
-!shutup/!calaboca [minutos]\n\
-!comeback\n\
-!shuffle\n\
-!feedback [bug ou funcionalidade]```"
-    );
+    var text = [];
+
+    for (var msg in helpMessages) {
+        text.push ('`'+helpMessages[msg].title+'`');
+    }
+
+    channel.send(text.join('\n'));
   }
 }
 
@@ -1356,237 +1291,13 @@ function displayHelp(channel, args) {
   
   let message = "";
 
-  switch (cmd) {
-    case "ping":
-      message = '!ping \n\
-Eu respondo "Pong!".'
-      break;
+  const helpMessages = require("./jsons/help.json");
 
-    case "avatar":
-      message = '!avatar [usuário]\n\
-Mando uma versão ampliada do avatar do usuário fornecido.'
-      break;
-
-    case "calc":
-      message =
-        "!calc [expressão] \n\
-Calculo o valor de sua mãe, digo, de uma expressão matemática. \
-Referência: https://mathjs.org/"
-      break;
-
-    case "pin":
-      message = "!pin [message] \n\
-Fixo uma mensagem ao canal."
-      break;
-
-    case "slap":
-      message = "!slap [user] \n\
-Faço o trabalho sujo por você. Espero que goste de trutas."
-      break;
-
-    case "insult":
-      message = "!insult [user] \n\
-Insulto por você"
-      break;
-
-    case "savequote":
-      message = "!savequote [número]\n\
-Salvo uma das mensagens anteriores no meu acervo.\n\
-Se nenhum número é fornecido a mensagem imediatamente anterior é salva.\n\
-O número passado corresponde ao índice das últimas mensagens,\n\
-Idêntico ao !addquote."
-      break;
-
-    case "addquote":
-      message = "!addquote [número]\n\
-Salvo uma das mensagens anteriores no meu acervo.\n\
-Se nenhum número é fornecido a mensagem imediatamente anterior é salva.\n\
-O número passado corresponde ao índice das últimas mensagens,\n\
-Idêntico ao !savequote."
-      break;
-
-    case "quote":
-      message = "!quote [usuário/id_citação] \n\
-Puxo uma mensagem aleatória do meu acervo. Cite um usuário para trazer \
-uma citação dele, ou use um identificador para acessar uma citação específica."
-      break;
-
-    case "listquotes":
-      message = "listquotes \n\
-Posto um link para a lista de citações."
-      break;
-
-    case "removequote":
-      message = "!removequote [id_citação] \n\
-Registro seu voto para a remoção da quote correspondente ao id fornecido. \
-5 votos são necessários para a remoção."
-      break;
-
-    case "generate":
-    case "gen":
-      message = "!generate [palavra] [length=] [!shuffle] \n\
-Gero uma frase aleatória, iniciando com a palavra desejada, se fornecida.\n\
-\n\
-**Parâmetros opcionais:** \n\
-`length`: número de palavras desejado para a frase;\n\
-`!shuffle`: embaralha o resultado."
-      break;
-      
-    case "rank":
-    case "ranking":
-      message = "!ranking [seed/mensal/points]\n\
-Forneço a url do ranking do TryHard - campeonatos de smash de curitiba.\n\
-Você pode pedir pelo ranking mensal ou de pontos. Como padrão forneço o ranking usado para seed."
-      break;
-      
-    case "listroles":
-      message = "!listroles\n\
-Listo todas as roles do servidor"
-      break;
-      
-    case "removeroles":
-      message = "!removeroles\nRemovo as roles fornecidas à você. Funciona igual ao `!addroles`"
-      break;
-      
-    case "addroles":
-      message = "!addroles [role, ...] \n\
-Concedo as *roles* fornecidas à você. \n\
-Múltiplas *roles* podem ser adicionadas de uma vez.\n\
-As *roles* atuais podem ser consultadas com: \n\
-`!listroles`\n\
-Exemplo para ser adicionado em smash e splatoon: \n\
-`!addroles smash splatoon`"
-      break;
-
-    case "feedback":
-      message = "!feedback [mensagem] \n\
-Guardo uma sugestão ao meu mestre."
-      break;
-
-    case "price":
-      message = "!price [jogo] [country=] [curr=]\n\
-Consulto o preço do jogo fornecido na eShop mais barata por meio do SaveCoins.\n\
-\n\
-**Parâmetros opcionais:** \n\
-`country`: país da eShop desejada;\n\
-`curr`: moeda desejada."
-      break;
-
-    case "print":
-      message = "!print\n\
-Respondo com um print aleatório dos salvos no <#563117278892130304>."
-      break;
-
-    case "salmon":
-      message = "!salmon\n\
-      Informo o cronograma do modo Salmon Run de Splatoon 2."
-      break;
-
-    case "gêmeos":
-    case "gemeos":
-      message = "!gemeos\n\
-Cito uma frase dos lendários gêmeos Regis e Rangel; antigos membros desse servidor."
-      break;
-      
-    case "duck":
-      message = "!duck [busca] \n\
-Busco o primeiro resultado encontrado na internet para a sua pergunta."
-      break;
-
-    case "trailer":
-      message = "!trailer [busca] \n\
-Procuro o trailer do que você pedir no YouTube."
-      break;
-
-    case "wiki":
-      message = "!wiki [busca] \n\
-Procuro a página da Wikipédia para sua busca."
-      break;
-
-    case "direct":
-      message = "!direct \n\
-Nintendo Direct!"
-      break;
-
-    case "stream":
-      message = "!stream \n\
-Mando o link da stream do campeonato de smash."
-      break;
-    
-    case "updatestream":
-      message = "!updatestream \n\
-Atualizo o link da stream do campeonato de smash. Só moderadores tem essa permissão."
-      break;
-
-    case "bracket":
-      message = "!bracket \n\
-Mando o link da bracket do campeonato de smash."
-      break;
-    
-    case "updatebracket":
-      message = "!updatebracket \n\
-Atualizo o link da bracket do campeonato de smash. Só moderadores tem essa permissão."
-
-    case "camp":
-      message = "!camp \n\
-Mando o link com informações do campeonato de smash."
-      break;
-    
-    case "updatecamp":
-      message = "!updatecamp\n\
-Atualizo o link do campeonato de smash. Só moderadores tem essa permissão."
-
-    case "vods":
-      message = "!vods\n\
-Mando o link com os vods do campeonato de smash."
-      break;
-    
-    case "diceroll":
-      message = "!diceroll [número] \n\
-Retorno um número aleatório entre 1 e o fornecido."
-      break;
-
-    case "shutup":
-      message = "!shutup [minutos] \n\
-Cala minha boca pelos próximos minutos de acordo com o fornecido."
-      break;
-
-    case "calaboca":
-      message = "!calaboca [minutos] \n\
-Cala minha boca pelos próximos minutos de acordo com o fornecido."
-      break;
-
-    case "comeback":
-      message = "!comeback \n\
-Me tira do castigo."
-      break;
-
-    case "shuffle":
-        message = "!shuffle \n\
-Embaralha a mensagem anterior."
-        break;
-
-    case "list":
-      message = "!list \n\
-Lista todos os meus comandos numa versão simplificada."
-      break;
-    
-    case "wholelist":
-      message = "!wholelist \n\
-Lista todos os meus comandos com modo de uso"
-      break;
-
-    default: case "help":
-      message = "!help [comando] \n\
-Forneço uma breve descrição do comando solicitado.";
-
+  if (cmd in helpMessages) {
+    channel.send(defaultEmbed().setTitle(helpMessages[cmd].title)
+                              .setDescription(helpMessages[cmd].description));
+  } else {
+      displayCommands(channel, true);
   }
 
-  const msg = message.split('\n');
-  const title = message.split('\n')[0];
-  const text = message.split('\n').slice(1,msg.length);
-
-  channel.send(defaultEmbed().setTitle(title)
-                              .setDescription(text));
 }
-

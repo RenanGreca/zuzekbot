@@ -1,0 +1,166 @@
+{
+    "ping": {
+        "title": "!ping",
+        "description": "Eu respondo \"Pong!\"."
+    }, 
+    "avatar": {
+        "title": "!avatar [usuário]",
+        "description": "Mando uma versão ampliada do avatar do usuário fornecido."
+    },
+    "calc": {
+        "title": "!calc [expressão]",
+        "description": "Calculo o valor de sua mãe, digo, de uma expressão matemática.\n**Referência:** https://mathjs.org/"
+    },
+    "pin": {
+        "title": "!pin [message]",
+        "description": "Fixo uma mensagem ao canal."
+    },
+    "slap": {
+        "title": "!slap [user]",
+        "description": "Faço o trabalho sujo por você. Espero que goste de trutas."
+    },
+    "insult": {
+        "title": "!insult [user]",
+        "description": "Insulto alguém por você."
+    },
+    "savequote": {
+        "title": "!savequote [número]",
+        "description": "Salvo uma das mensagens anteriores no meu acervo.\nSe nenhum número é fornecido a mensagem imediatamente anterior é salva.\nO número passado corresponde ao índice das últimas mensagens,\nIdêntico ao !addquote."
+    },
+    "addquote": {
+        "title": "!addquote [número]",
+        "description": "Salvo uma das mensagens anteriores no meu acervo.\nSe nenhum número é fornecido a mensagem imediatamente anterior é salva.\nO número passado corresponde ao índice das últimas mensagens,\nIdêntico ao !savequote."
+    },
+    "quote": {
+        "title": "!quote [usuário/id_citação]",
+        "description": "Puxo uma mensagem aleatória do meu acervo. Cite um usuário para trazer uma citação dele, ou use um identificador para acessar uma citação específica."
+    },
+    "listquotes": {
+        "title": "!listquotes",
+        "description": "Posto um link para a lista de citações."
+    },
+    "removequote": {
+        "title": "!removequote [id_citação]",
+        "description": "Registro seu voto para a remoção da quote correspondente ao id fornecido. 5 votos são necessários para a remoção."
+    },
+    "generate": {
+        "title": "!generate [palavra] [length=] [!shuffle]",
+        "description": "Gero uma frase aleatória, iniciando com a palavra desejada, se fornecida.\n\n**Parâmetros opcionais:** \n`length`: número de palavras desejado para a frase;\n`!shuffle`: embaralha o resultado.\nAtalho: !gen"
+    },
+    "gen": {
+        "title": "!gen [palavra] [length=] [!shuffle]",
+        "description": "Gero uma frase aleatória, iniciando com a palavra desejada, se fornecida.\n\n**Parâmetros opcionais:** \n`length`: número de palavras desejado para a frase;\n`!shuffle`: embaralha o resultado."
+    },
+    "ranking": {
+        "title": "!ranking [seed/mensal/points]",
+        "description": "Forneço a url do ranking do TryHard - campeonatos de smash de curitiba.\nVocê pode pedir pelo ranking mensal ou de pontos. Como padrão forneço o ranking usado para seed."
+    },
+    "addroles": {
+        "title": "!addroles [role, ...]",
+        "description": "Concedo as *roles* fornecidas à você. \nMúltiplas *roles* podem ser adicionadas de uma vez.\nAs *roles* atuais podem ser consultadas com: \n`!listroles`\nExemplo para ser adicionado em smash e splatoon: \n`!addroles smash splatoon`"
+    },
+    "listroles": {
+        "title": "!listroles",
+        "description": "Listo todas as roles do servidor."
+    },
+    "removeroles": {
+        "title": "!removeroles",
+        "description": "Removo as roles fornecidas à você. Funciona igual ao `!addroles`"
+    },
+    "feedback": {
+        "title": "!feedback [mensagem]",
+        "description": "Guardo uma sugestão ao meu mestre."
+    },
+    "price": {
+        "title": "!price [jogo] [country=] [curr=]",
+        "description": "Consulto o preço do jogo fornecido na eShop mais barata por meio do SaveCoins.\n\n**Parâmetros opcionais:** \n`country`: país da eShop desejada;\n`curr`: moeda desejada."
+    },
+    "print": {
+        "title": "!print",
+        "description": "Respondo com um print aleatório dos salvos no <#563117278892130304>."
+    },
+    "salmon": {
+        "title": "!salmon",
+        "description": "Informo o cronograma do modo Salmon Run de Splatoon 2."
+    },
+    "gemeos": {
+        "title": "!gemeos",
+        "description": "Cito uma frase dos lendários gêmeos Regis e Rangel; antigos membros desse servidor."
+    },
+    "duck": {
+        "title": "!duck [busca]",
+        "description": "Busco o primeiro resultado encontrado na internet para a sua pergunta."
+    },
+    "trailer": {
+        "title": "!trailer [busca]",
+        "description": "Procuro o trailer do que você pedir no YouTube."
+    },
+    "wiki": {
+        "title": "!wiki [busca]",
+        "description": "Procuro a página da Wikipédia para sua busca."
+    },
+    "direct": {
+        "title": "!direct",
+        "description": "<:iwata:515439927115251713>"
+    },
+    "stream": {
+        "title": "!stream",
+        "description": "Mando o link da stream do campeonato de smash."
+    },
+    "updatestream": {
+        "title": "!updatestream",
+        "description": "Atualizo o link da stream do campeonato de smash. Só moderadores tem essa permissão."
+    },
+    "bracket": {
+        "title": "!bracket",
+        "description": "Mando o link da bracket do campeonato de smash."
+    },
+    "updatebracket": {
+        "title": "!updatebracket",
+        "description": "Atualizo o link da bracket do campeonato de smash. Só moderadores tem essa permissão."
+    },
+    "camp": {
+        "title": "!camp",
+        "description": "Mando o link com informações do campeonato de smash."
+    },
+    "updatecamp": {
+        "title": "!updatecamp",
+        "description": "Atualizo o link do campeonato de smash. Só moderadores tem essa permissão."
+    },
+    "vods": {
+        "title": "!vods",
+        "description": "Mando o link com os vods do campeonato de smash."
+    },
+    "diceroll": {
+        "title": "!diceroll [número]",
+        "description": "Retorno um número aleatório entre 1 e o fornecido."
+    },
+    "shutup": {
+        "title": "!shutup [minutos]",
+        "description": "Cala minha boca pelos próximos minutos de acordo com o fornecido."
+    },
+    "calaboca": {
+        "title": "!calaboca [minutos]",
+        "description": "Cala minha boca pelos próximos minutos de acordo com o fornecido."
+    },
+    "comeback": {
+        "title": "!comeback",
+        "description": "Me tira do castigo."
+    },
+    "shuffle": {
+        "title": "!shuffle",
+        "description": "Embaralha a mensagem anterior."
+    },
+    "list": {
+        "title": "!list",
+        "description": "Lista todos os meus comandos numa versão simplificada."
+    },
+    "wholelist": {
+        "title": "!wholelist",
+        "description": "Lista todos os meus comandos com modo de uso."
+    },
+    "help": {
+        "title": "!help [comando]",
+        "description": "Forneço uma breve descrição do comando solicitado."
+    }
+}
