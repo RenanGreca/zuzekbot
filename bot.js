@@ -102,17 +102,6 @@ bot.on("message", message => {
     message.react('🏓');
   }
 
-// These users left the server
-/*
-  if (
-    content.toLowerCase().indexOf("indiano") !== -1 &&
-    (authorID == "447525339187380264" || authorID == "484118307046162434")
-  ) {
-    angry(channel);
-    return;
-  }
-*/
-
   // commands start with "!"
   if (content.substring(0, 1) == "!") {
     let args = content.substring(1).split(" ");
@@ -292,7 +281,7 @@ bot.on("message", message => {
         break;
 
       case "help": case "h":
-        displayHelp(author, channel, args);
+        displayHelp(channel, args);
         break;
     }
 
@@ -396,7 +385,7 @@ bot.on("message", message => {
 // @Test: didn't test yet
 function shutup(user, channel, args) {
   if (isNaN(args[0])) {
-    trouxa(user, channel);
+    displayHelp(channel, ["shutup"])
     return;
   }
 
@@ -477,7 +466,7 @@ function showranking(channel, args) {
 function avatar(author, channel, args) {
 
   if (!Array.isArray(args) || args.length == 0) {
-    trouxa(author, channel);
+    displayHelp(channel, ["avatar"]);
     return;
   }
   
@@ -529,47 +518,8 @@ function carabot(message, channel) {
 }
 
 function shufflebot(message, channel) {
-  function isVowel(a) {
-    const vowels = "aáàâãeéêiíoóôõuúüyAÁÀÂÃEÉÊIÍOÓÔÕUÚÜY".split("");
-    return vowels.indexOf(a) != -1;
-  }
-
-  function isPunctuation(a) {
-    const punctuation = " .,!?:;\"'`".split("");
-    return punctuation.indexOf(a) != -1;
-  }
-
-  function isConsonant(a) {
-    const consonants = "bcdfghjklmnpqrstvwxzçBCDFGHJKLMNPQRSTVWXZÇ".split("");
-    return consonants.indexOf(a) != -1;
-  }
-
-  String.prototype.shuffle = function() {
-    const a = this.split(""),
-      n = a.length;
-
-    for (let i = n - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-
-      // Don't swap punctuation
-      if (isPunctuation(a[i]) || isPunctuation(a[j])) {
-        continue;
-      }
-
-      if (
-        (isVowel(a[i]) && isVowel(a[j])) ||
-        (isConsonant(a[i]) && isConsonant(a[j]))
-      ) {
-        const tmp = a[i];
-        a[i] = a[j];
-        a[j] = tmp;
-      }
-    }
-    return a.join("");
-  };
-
   if (message.length > 0) {
-    channel.send(message.shuffle());
+    channel.send(sentenceGenerator.shuffle(message));
   }
 }
 
@@ -1392,7 +1342,7 @@ function displayCommands(channel, simplifiedVersion) {
   }
 }
 
-function displayHelp(user, channel, args) {
+function displayHelp(channel, args) {
 
   if (!Array.isArray(args) || args.length == 0) {
     args = [""];
@@ -1412,7 +1362,7 @@ Eu respondo "Pong!".'
       break;
 
     case "avatar":
-      message = '!avatar\n\
+      message = '!avatar [usuário]\n\
 Mando uma versão ampliada do avatar do usuário fornecido.'
       break;
 

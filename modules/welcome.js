@@ -1,5 +1,3 @@
-var exports = module.exports = {};
-
 exports.roles = function roles(roles) {
   const specialRoleNames = ["@everyone", "fusion", "membro", "familiafusion1", "familiafusion2", "bot"];
   const matchmakingRoleNames = ["singles", "doubles", "secrethitler", "minecraft", "rivals"];
