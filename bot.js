@@ -21,6 +21,7 @@ const sentenceGenerator = require("./sentencegenerator.js");
 const gemeosFrases = require("./gemeos.json");
 const insults = require("./insults.json");
 const salmon = require("./salmon.js");
+let tryhard = require("./tryhard.json");
 
 // Global Variables
 const serverID = ids.serverID;
@@ -114,6 +115,7 @@ bot.on("message", message => {
 
   const channel = message.channel;
   const author = message.author;
+  const member = message.member;
   const authorID = message.author.id;
   const content = message.content;
   const authorName = message.author.username;
@@ -157,6 +159,39 @@ bot.on("message", message => {
 
       case "ping":
         ping(message);
+        break;
+
+      case "stream":
+        stream(channel);
+        break;
+
+      case "updatestream":
+        updatestream(message, member, channel, args);
+        break;
+
+      case "bracket":
+        bracket(channel);
+        break;
+
+      case "updatebracket":
+        updatebracket(message, member, channel, args);
+        break;
+
+      case "vods":
+        vods(channel);
+        break;
+
+      // We won't youtube channel with vods any time soon
+      //case "updatevods":
+        //updatevods(message, member, channel, args);
+        //break;
+
+      case "camp":
+        camp(channel);
+        break;
+
+      case "updatecamp":
+        updatecamp(message, member, channel, args);
         break;
 
       case "avatar":
@@ -923,6 +958,7 @@ function addroles(user, channel, args, member, message) {
 
   if (args.length == 0) {
     trouxa(user, channel);
+    message.react("❎"); 
     return;
   }
   
@@ -944,6 +980,7 @@ function removeroles(user, channel, args, member, message) {
 
   if (args.length == 0) {
     trouxa(user, channel);
+    message.react("❎"); 
     return;
   }
   
@@ -1089,6 +1126,126 @@ function wiki(user, channel, args) {
 function ping(message) {
   message.react('🏓');
   message.channel.send("Pong!");
+}
+
+function stream(channel) {
+  channel.send(tryhard.stream);
+}
+
+function bracket(channel) {
+  channel.send(tryhard.bracket);
+}
+
+function vods(channel) {
+  channel.send(tryhard.vods);
+}
+
+function camp(channel) {
+  channel.send(tryhard.camp);
+}
+
+// @Refactor: maybe all other authors should be members instead?
+// it seems to make more sense considering the API
+// @Refactor: Simply copy pasted because it was simpler. We could do better.
+// Although it's probably not worth changing before having a more robust way to do "command line" options
+function updatestream(message, member, channel, args) {
+  if (member.roles.find( role => role.id === roles.fusion) == null) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  } 
+
+  if (!Array.isArray(args) || args.length == 0) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  }
+
+  const newstreamlink = args[0]
+  tryhard.stream = newstreamlink;
+  saveToFile(tryhard, "tryhard.json", function(err) {
+    if (err) {
+      console.log(err);
+      message.react("❎"); 
+    } else {
+      message.react("✅"); 
+    }
+  });
+}
+
+function updatebracket(message, member, channel, args) {
+  if (member.roles.find( role => role.id === roles.fusion) == null) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  } 
+
+  if (!Array.isArray(args) || args.length == 0) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  }
+
+  const newbracket= args[0]
+  tryhard.bracket = newbracket;
+  saveToFile(tryhard, "tryhard.json", function(err) {
+    if (err) {
+      console.log(err);
+      message.react("❎"); 
+    } else {
+      message.react("✅"); 
+    }
+  });
+}
+
+function updatevods(message, member, channel, args) {
+  if (member.roles.find( role => role.id === roles.fusion) == null) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  } 
+
+  if (!Array.isArray(args) || args.length == 0) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  }
+
+  const newvods = args[0]
+  tryhard.vods = newvods;
+  saveToFile(tryhard, "tryhard.json", function(err) {
+    if (err) {
+      console.log(err);
+      message.react("❎"); 
+    } else {
+      message.react("✅"); 
+    }
+  });
+}
+
+function updatecamp(message, member, channel, args) {
+  if (member.roles.find( role => role.id === roles.fusion) == null) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  } 
+
+  if (!Array.isArray(args) || args.length == 0) {
+    trouxa(member,channel);
+    message.react("❎"); 
+    return;
+  }
+
+  const newcamp = args[0]
+  tryhard.camp = newcamp;
+  saveToFile(tryhard, "tryhard.json", function(err) {
+    if (err) {
+      console.log(err);
+      message.react("❎"); 
+    } else {
+      message.react("✅"); 
+    }
+  });
 }
 
 function listquotes(channel, author, args) {
@@ -1270,6 +1427,8 @@ function displayCommands(channel, simplifiedVersion) {
 `!removeroles`, \
 `!listroles`, \
 `!direct`, \
+`!stream`, \
+`!updatestream`, \
 `!diceroll`, \
 `!price`, \
 `!print`, \
@@ -1303,6 +1462,8 @@ function displayCommands(channel, simplifiedVersion) {
 !addroles [role ...]\n\
 !removeroles [role ...]\n\
 !listroles\n\
+!stream\n\
+!updatestream [novo_link]\n\
 !direct\n\
 !diceroll [número]\n\
 !price [jogo]\n\
@@ -1460,6 +1621,16 @@ Procuro a página da Wikipédia para sua busca."
     case "direct":
       message = "!direct \n\
 Nintendo Direct!"
+      break;
+
+    case "stream":
+      message = "!stream \n\
+Mando o link da stream do campeonato de smash."
+      break;
+    
+    case "updatestream":
+      message = "update!stream \n\
+Atualizo o link da stream do campeonato de smash. Só moderadores tem essa permissão."
       break;
 
     case "diceroll":
