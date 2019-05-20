@@ -1,7 +1,7 @@
 //
 // Format quotes in a readable way and save them to quotes.txt
 //
-const quotes = require("./quotes.json")
+const quotes = require("./jsons/quotes.json")
 
 str = ""
 
@@ -18,7 +18,7 @@ quotes.forEach( function(value, idx) {
 //
 // Upload quotes.txt to pastebin and saves the url on pastebin.json
 //
-const auth = require("./auth.json");
+const auth = require("./jsons/auth.json");
 
 const PastebinAPI = require('pastebin-js'),
     pastebin = new PastebinAPI({
@@ -33,7 +33,7 @@ pastebin
         // we have succesfully pasted it. Data contains the id
         console.log(data);
         const fs = require("fs");
-        fs.writeFile("pastebin.json", JSON.stringify( {"link": data}), (err) => {
+        fs.writeFile("./jsons/pastebin.json", JSON.stringify( {"link": data}), (err) => {
             if (err) {
                 return console.log(err);
             }

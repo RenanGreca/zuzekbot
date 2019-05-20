@@ -6,20 +6,20 @@ const timer = require("timers");
 //import {findGame} from 'getprice';
 
 // Internal dependencies
-const auth = require("./auth.json");
-const channels = require("./channels.json");
-const quotes = require("./quotes.json");
+const auth = require("./jsons/auth.json");
+const channels = require("./jsons/channels.json");
+const quotes = require("./jsons/quotes.json");
 //const reactions = require("./reactions.json");
-const roles = require("./roles.json");
-const ids = require("./ids.json");
-const feedbacks = require("./feedback.json");
+const roles = require("./jsons/roles.json");
+const ids = require("./jsons/ids.json");
+const feedbacks = require("./jsons/feedback.json");
 const price = require("./getprice.js");
 const argparse = require("./argparse.js");
-const prints = require("./prints.json")
+const prints = require("./jsons/prints.json")
 const sentenceGenerator = require("./sentencegenerator.js");
-//const words = require("./words.json");
-const gemeosFrases = require("./gemeos.json");
-const insults = require("./insults.json");
+//const words = require("./jsons/words.json");
+const gemeosFrases = require("./jsons/gemeos.json");
+const insults = require("./jsons/insults.json");
 const salmon = require("./salmon.js");
 let tryhard = require("./tryhard.json");
 
@@ -50,7 +50,7 @@ bot.once("ready", () => {
   console.log("Logged in as: ");
   console.log(bot.user.username + " - (" + bot.user.id + ")");
 
-  saveToFile(bot.guilds.first().emojis.array(), "emojis.json", function() {})
+  saveToFile(bot.guilds.first().emojis.array(), "./jsons/emojis.json", function() {})
 });
 
 // Listen to new members
@@ -1250,7 +1250,7 @@ function updatecamp(message, member, channel, args) {
 
 function listquotes(channel, author, args) {
 
-  const pastebin = require("./pastebin.json");
+  const pastebin = require("./jsons/pastebin.json");
 
   if (args.length == 1) {
     if (args[0] === "dm") {
@@ -1327,11 +1327,11 @@ function findQuoteIndexWithID(quoteID) {
 }
 
 function saveQuotesToFile(callback) {
-    saveToFile(quotes, "quotes.json", callback);
+    saveToFile(quotes, "./jsons/quotes.json", callback);
 }
 
 function saveFeedbacksToFile(callback) {
-    saveToFile(feedbacks, "feedback.json", callback);
+    saveToFile(feedbacks, "./jsons/feedback.json", callback);
 }
 
 function saveToFile(data, filename, callback) {
@@ -1438,6 +1438,7 @@ function displayCommands(channel, simplifiedVersion) {
 `!diceroll`, \
 `!price`, \
 `!print`, \
+`!salmon`, \
 `!gemeos,`, \
 `!shutup`, \
 `!calaboca`, \
@@ -1480,6 +1481,7 @@ function displayCommands(channel, simplifiedVersion) {
 !diceroll [número]\n\
 !price [jogo]\n\
 !print\n\
+!salmon\n\
 !gemeos\n\
 !shutup/!calaboca [minutos]\n\
 !comeback\n\
@@ -1568,6 +1570,7 @@ Registro seu voto para a remoção da quote correspondente ao id fornecido. \
       break;
 
     case "generate":
+    case "gen":
       message = "!generate [tamanho] [palavra] \n\
 Gero uma frase aleatória com o número de palavras solicitado.\n\
 Se fornecida, a frase começará com a palavra recebida."
@@ -1612,6 +1615,11 @@ Consulto o preço do jogo fornecido na eShop mais barata por meio do https://esh
     case "print":
       message = "!print\n\
 Respondo com um print aleatório dos salvos no <#563117278892130304>."
+      break;
+
+    case "salmon":
+      message = "!salmon\n\
+      Informo o cronograma do modo Salmon Run de Splatoon 2."
       break;
 
     case "gêmeos":

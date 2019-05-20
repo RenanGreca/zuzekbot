@@ -1,5 +1,5 @@
 const https = require("https");
-const auth = require("./auth.json");
+const auth = require("./jsons/auth.json");
 
 function getSalmon(callback) {
   const url =

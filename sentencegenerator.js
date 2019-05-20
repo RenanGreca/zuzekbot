@@ -1,4 +1,4 @@
-var words = require("./words.json");
+var words = require("./jsons/words.json");
 
 function generateSentenceOfLength(length, start) {
 

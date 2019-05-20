@@ -10,7 +10,7 @@ if [ "x$1" != "x" ] && [ $1 = "test" ]; then
     echo "Running on Test Server"
 fi
 
-if [ "x`grep tokenTest auth.json`" = "x" ]; then
+if [ "x`grep tokenTest ./jsons/auth.json`" = "x" ]; then
     was_running_on_test_server="true"
 else
     was_running_on_test_server="false"
