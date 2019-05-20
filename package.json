@@ -8,6 +8,7 @@
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.4.2",
     "mathjs": "^5.0.4",
-    "pastebin-js": "^1.0.2"
+    "pastebin-js": "^1.0.2",
+    "qunit": "^2.9.2"
   }
 }
