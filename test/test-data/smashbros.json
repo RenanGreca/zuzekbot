@@ -1,0 +1,72 @@
+{
+    "platform": "nintendo",
+    "slug": "super-smash-bros-ultimate",
+    "url": "https://api-savecoins.nznweb.com.br/v1/games/super-smash-bros-ultimate",
+    "title": "Super Smash Bros. Ultimate",
+    "imageUrl": "https://cdn01.nintendo-europe.com/media/images/11_square_images/games_18/nintendo_switch_5/SQ_NSwitch_SuperSmashBrosUltimate_02_image500w.jpg",
+    "releaseDateDisplay": "2018-12-07",
+    "releaseDateOrder": "2018-12-07",
+    "price_info": {
+        "best_price": true,
+        "url_eshop": null,
+        "currentPrice": "BRL 320.66",
+        "rawCurrentPrice": 320.66,
+        "hasDiscount": false,
+        "status": "Available",
+        "goldPoints": 0,
+        "digital_release": true,
+        "physical_release": false,
+        "country": {
+            "code": "AR",
+            "name": "Argentina"
+        },
+        "regularPrice": {
+            "rawOriginalRegularPrice": 3190,
+            "originalRegularPrice": "ARS 3,190.00",
+            "rawRegularPrice": 320.66,
+            "regularPrice": "BRL 320.66"
+        }
+    },
+    "price_digital": {
+        "best_price": true,
+        "url_eshop": null,
+        "currentPrice": "BRL 320.66",
+        "rawCurrentPrice": 320.66,
+        "hasDiscount": false,
+        "status": "Available",
+        "goldPoints": 0,
+        "digital_release": true,
+        "physical_release": false,
+        "country": {
+            "code": "AR",
+            "name": "Argentina"
+        },
+        "regularPrice": {
+            "rawOriginalRegularPrice": 3190,
+            "originalRegularPrice": "ARS 3,190.00",
+            "rawRegularPrice": 320.66,
+            "regularPrice": "BRL 320.66"
+        }
+    },
+    "price_physical": {
+        "best_price": false,
+        "url_eshop": "https://www.zoom.com.br/lead?oid=119463846&sortorder=-1&index=&searchterm=&pagesize=&channel=12&og=19271&utm_source=tecmundo_voxel&utm_medium=parceiros&utm_term=Jogos+Nintendo+Switch&utm_campaign=Amazon&utm_content=Super+Smash+Bros.+Ultimate+-+Switch",
+        "currentPrice": "BRL 300.02",
+        "rawCurrentPrice": 300.02,
+        "hasDiscount": false,
+        "status": "Available",
+        "goldPoints": 0,
+        "digital_release": false,
+        "physical_release": true,
+        "country": {
+            "code": "BR",
+            "name": "Brazil"
+        },
+        "regularPrice": {
+            "rawOriginalRegularPrice": 299.99,
+            "originalRegularPrice": "BRL 299.99",
+            "rawRegularPrice": 300.02,
+            "regularPrice": "BRL 300.02"
+        }
+    }
+}
