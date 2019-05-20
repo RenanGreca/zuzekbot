@@ -1414,6 +1414,7 @@ function displayCommands(channel, simplifiedVersion) {
 `!trailer`, \
 `!wiki`, \
 `!slap`, \
+`!avatar`, \
 `!insult`, \
 `!pin`, \
 `!savequote`, \
@@ -1429,6 +1430,11 @@ function displayCommands(channel, simplifiedVersion) {
 `!direct`, \
 `!stream`, \
 `!updatestream`, \
+`!bracket`, \
+`!updatebracket`, \
+`!camp`, \
+`!updatecamp`, \
+`!vods`, \
 `!diceroll`, \
 `!price`, \
 `!print`, \
@@ -1450,6 +1456,7 @@ function displayCommands(channel, simplifiedVersion) {
 !duck [busca]\n\
 !trailer [busca]\n\
 !wiki [busca]\n\
+!avatar [usuário]\n\
 !slap [usuário]\n\
 !insult [usuário]\n\
 !pin [mensagem]\n\
@@ -1464,6 +1471,11 @@ function displayCommands(channel, simplifiedVersion) {
 !listroles\n\
 !stream\n\
 !updatestream [novo_link]\n\
+!bracket\n\
+!updatebracket [novo_link]\n\
+!camp\n\
+!updatecamp [novo_link]\n\
+!vods\n\
 !direct\n\
 !diceroll [número]\n\
 !price [jogo]\n\
@@ -1493,6 +1505,11 @@ function displayHelp(user, channel, args) {
     case "ping":
       message = '!ping \n\
 Eu respondo "Pong!".'
+      break;
+
+    case "avatar":
+      message = '!avatar\n\
+Mando uma versão ampliada do avatar do usuário fornecido.'
       break;
 
     case "calc":
@@ -1629,10 +1646,33 @@ Mando o link da stream do campeonato de smash."
       break;
     
     case "updatestream":
-      message = "update!stream \n\
+      message = "!updatestream \n\
 Atualizo o link da stream do campeonato de smash. Só moderadores tem essa permissão."
       break;
 
+    case "bracket":
+      message = "!bracket \n\
+Mando o link da bracket do campeonato de smash."
+      break;
+    
+    case "updatebracket":
+      message = "!updatebracket \n\
+Atualizo o link da bracket do campeonato de smash. Só moderadores tem essa permissão."
+
+    case "camp":
+      message = "!camp \n\
+Mando o link com informações do campeonato de smash."
+      break;
+    
+    case "updatecamp":
+      message = "!updatecamp\n\
+Atualizo o link do campeonato de smash. Só moderadores tem essa permissão."
+
+    case "vods":
+      message = "!vods\n\
+Mando o link com os vods do campeonato de smash."
+      break;
+    
     case "diceroll":
       message = "!diceroll [número] \n\
 Retorno um número aleatório entre 1 e o fornecido."
