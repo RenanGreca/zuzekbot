@@ -484,7 +484,7 @@ function avatar(author, channel, args) {
     }
   });
   if (!member) {
-    trouxa(author, channel);
+    channel.send(defaultEmbed().setDescription("Usuário não encontrado."));
     return;
   }
 
@@ -609,7 +609,7 @@ function getSalmon(channel) {
  
 function removequote(user, channel, args) {
   if (isNaN(args[0])) {
-    trouxa(user, channel);
+    displayHelp(channel, ["removequote"]);
     return;
   }
 
@@ -617,7 +617,7 @@ function removequote(user, channel, args) {
   const quoteIndex = findQuoteIndexWithID(quoteID);
 
   if (quoteIndex == -1) {
-    trouxa(user, channel);
+    channel.send(defaultEmbed().setDescription("Quote não encontrada."));
     return;
   }
 
@@ -785,7 +785,7 @@ function quote(user, channel, args) {
       });
 
       if (userQuotes.length == 0) {
-        trouxa(user, channel);
+          channel.send(defaultEmbed().setDescription("Nenhuma quote encontrada."));
       } else {
         const quote = userQuotes[Math.floor(Math.random() * userQuotes.length)];
         channel.send(quote.message + " (#" + quote.id + ")");
@@ -804,7 +804,7 @@ function quote(user, channel, args) {
       let quoteIndex = findQuoteIndexWithID(quoteID);
 
       if (quoteIndex == -1) {
-        trouxa(user, channel);
+        channel.send(defaultEmbed().setDescription("Quote não encontrada."));
         return;
       }
 
@@ -813,7 +813,7 @@ function quote(user, channel, args) {
       channel.send(quote.message + " (#" + quote.id + ")");
     }
   } else {
-    trouxa(user, channel);
+    displayHelp(channel, ["quote"]);
   }
 }
 
@@ -870,7 +870,7 @@ function listroles(channel) {
 function addroles(user, channel, args, member, message) {
 
   if (args.length == 0) {
-    trouxa(user, channel);
+    displayHelp(channel, ["addroles"]);
     message.react("❎"); 
     return;
   }
@@ -892,7 +892,7 @@ function addroles(user, channel, args, member, message) {
 function removeroles(user, channel, args, member, message) {
 
   if (args.length == 0) {
-    trouxa(user, channel);
+    displayHelp(channel, ["removeroles"]);
     message.react("❎"); 
     return;
   }
@@ -915,7 +915,7 @@ function removeroles(user, channel, args, member, message) {
 function feedback(user, username, channel, args) {
 
   if (args.length == 0) {
-    trouxa(user, channel);
+      displayHelp(channel, ["feedback"]);
     return;
   }
 
@@ -938,7 +938,6 @@ function feedback(user, username, channel, args) {
 function getPrice(user, channel, args) {
 
   if (!Array.isArray(args) || args.length == 0) {
-    // trouxa(user, channel);
     displayHelp(channel, ["price"]);
     return;
   }
@@ -952,7 +951,7 @@ function getPrice(user, channel, args) {
 
   price.findGame(parsed.url, curr, function(game_info) {
     if (!game_info) {
-      trouxa(user, channel);
+      channel.send(defaultEmbed().setDescription("Jogo não encontrado."));
       return;
     }
 
@@ -1005,7 +1004,7 @@ function duck(user, channel, args) {
   // There might be something more fun to do when user provides an empty query
   // maybe random 
   if (!Array.isArray(args) || args.length == 0) {
-    trouxa(user, channel);
+    displayHelp(channel, ["duck"]);
     return;
   }
 
@@ -1017,7 +1016,7 @@ function duck(user, channel, args) {
 function trailer(user, channel, args) {
   
   if (!Array.isArray(args) || args.length == 0) {
-    trouxa(user, channel);
+      displayHelp(channel, ["trailer"]);
     return;
   }
   
@@ -1029,7 +1028,7 @@ function trailer(user, channel, args) {
 function wiki(user, channel, args) {
   
   if (!Array.isArray(args) || args.length == 0) {
-    trouxa(user, channel);
+    displayHelp(channel, ["wiki"]);
     return;
   }
 
@@ -1182,7 +1181,7 @@ function direct(channel) {
 function calc(channel, args, user) {
 
   if (!args) {
-    trouxa(user, channel);
+    displayHelp(channel, ["calc"]);
     return;
   }
 
