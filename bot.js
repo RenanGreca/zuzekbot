@@ -525,23 +525,22 @@ function shufflebot(message, channel) {
 
 function generatebot(channel, args) {
 
-  // choose sentence length and starting word
-  let length = Math.ceil(Math.random() * 15);
-  let start = "";
-  if (args && args.length > 0 && !isNaN(args[0]) && args[0] > 0) {
-    length = args[0];
+  var parsed = argparse.parse(args);
+
+  var length = Math.ceil(Math.random() * 15);
+  if (parsed.length) {
+    length = parsed.length;
   }
 
-  if (args && args.length > 0 && isNaN(args[0])) {
-    start = args[0];
-  } else if (args && args.length > 1) {
-    start = args[1];
+  var start = "";
+  if (parsed.string) {
+      start = parsed.string.split(" ")[0];
   }
-  console.log("generating with length: " + length);
+
   const sentence = sentenceGenerator.generateSentence(length, start);
 
   if (args && args.indexOf("!shuffle") != -1) {
-      shufflebot(sentence, channel)
+    shufflebot(sentence, channel)
   } else {
     channel.send(sentence);
   }
@@ -939,7 +938,8 @@ function feedback(user, username, channel, args) {
 function getPrice(user, channel, args) {
 
   if (!Array.isArray(args) || args.length == 0) {
-    trouxa(user, channel);
+    // trouxa(user, channel);
+    displayHelp(channel, ["price"]);
     return;
   }
 
@@ -1274,7 +1274,7 @@ function displayCommands(channel, simplifiedVersion) {
 `!quote`, \
 `!removequote`, \
 `!listquotes`, \
-`!generate`, \
+`!generate [palavra] [length=] [!shuffle]`, \
 `!ranking`, \
 `!addroles`, \
 `!removeroles`, \
@@ -1294,6 +1294,7 @@ function displayCommands(channel, simplifiedVersion) {
 `!gemeos,`, \
 `!shutup`, \
 `!calaboca`, \
+`!shuffle`, \
 `!comeback`"); 
   
   } else {
@@ -1317,7 +1318,7 @@ function displayCommands(channel, simplifiedVersion) {
 !quote [usuário/id_citação]\n\
 !removequote [id_citação]\n\
 !listquotes\n\
-!generate [tamanho]\n\
+!generate [palavra] [length=] [!shuffle]\n\
 !ranking [seed/mensal/points]\n\
 !addroles [role ...]\n\
 !removeroles [role ...]\n\
@@ -1331,12 +1332,13 @@ function displayCommands(channel, simplifiedVersion) {
 !vods\n\
 !direct\n\
 !diceroll [número]\n\
-!price [jogo]\n\
+!price [jogo] [country=] [curr=]\n\
 !print\n\
 !salmon\n\
 !gemeos\n\
 !shutup/!calaboca [minutos]\n\
 !comeback\n\
+!shuffle\n\
 !feedback [bug ou funcionalidade]```"
     );
   }
@@ -1423,9 +1425,12 @@ Registro seu voto para a remoção da quote correspondente ao id fornecido. \
 
     case "generate":
     case "gen":
-      message = "!generate [tamanho] [palavra] \n\
-Gero uma frase aleatória com o número de palavras solicitado.\n\
-Se fornecida, a frase começará com a palavra recebida."
+      message = "!generate [palavra] [length=] [!shuffle] \n\
+Gero uma frase aleatória, iniciando com a palavra desejada, se fornecida.\n\
+\n\
+**Parâmetros opcionais:** \n\
+`length`: número de palavras desejado para a frase;\n\
+`!shuffle`: embaralha o resultado."
       break;
       
     case "rank":
@@ -1460,8 +1465,12 @@ Guardo uma sugestão ao meu mestre."
       break;
 
     case "price":
-      message = "!price [jogo] \n\
-Consulto o preço do jogo fornecido na eShop mais barata por meio do https://eshop-prices.com/."
+      message = "!price [jogo] [country=] [curr=]\n\
+Consulto o preço do jogo fornecido na eShop mais barata por meio do SaveCoins.\n\
+\n\
+**Parâmetros opcionais:** \n\
+`country`: país da eShop desejada;\n\
+`curr`: moeda desejada."
       break;
 
     case "print":
@@ -1552,6 +1561,11 @@ Cala minha boca pelos próximos minutos de acordo com o fornecido."
       message = "!comeback \n\
 Me tira do castigo."
       break;
+
+    case "shuffle":
+        message = "!shuffle \n\
+Embaralha a mensagem anterior."
+        break;
 
     case "list":
       message = "!list \n\
