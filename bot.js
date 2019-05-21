@@ -341,7 +341,7 @@ bot.on("message", message => {
     return;
   }
 */
-  if (content == "o/" || content == "\o") {
+  if (content == "o/" || content == "\\o") {
     highfive(channel, content);
     return;
   }
@@ -1240,22 +1240,22 @@ function findQuoteIndexWithID(quoteID) {
 }
 
 function saveQuotesToFile(callback) {
-    saveToFile(quotes, "./jsons/quotes.json", callback);
+  saveToFile(quotes, "./jsons/quotes.json", callback);
 }
 
 function saveFeedbacksToFile(callback) {
-    saveToFile(feedbacks, "./jsons/feedback.json", callback);
+  saveToFile(feedbacks, "./jsons/feedback.json", callback);
 }
 
 function saveToFile(data, filename, callback) {
-    const jsonData = JSON.stringify(data);
-    const fs = require("fs");
-    fs.writeFile(filename, jsonData, callback);
+  const jsonData = JSON.stringify(data);
+  const fs = require("fs");
+  fs.writeFile(filename, jsonData, callback);
 }
 
 function displayCommands(channel, simplifiedVersion) {
 
-    const helpMessages = require("./jsons/help.json");
+  const helpMessages = require("./jsons/help.json");
 
   if (simplifiedVersion) {
     var text = [];
@@ -1295,7 +1295,7 @@ function displayHelp(channel, args) {
 
   if (cmd in helpMessages) {
     channel.send(defaultEmbed().setTitle(helpMessages[cmd].title)
-                              .setDescription(helpMessages[cmd].description));
+                               .setDescription(helpMessages[cmd].description));
   } else {
       displayCommands(channel, true);
   }
