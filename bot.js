@@ -963,6 +963,8 @@ function getPrice(user, channel, args) {
                     return;
                 }
             });
+            channel.send(defaultEmbed().setDescription("Jogo não encontrado na eShop solicitada."));
+            return;
         });
     } else {
         price.getGameDetails(game_info, curr, function(price_details) {
