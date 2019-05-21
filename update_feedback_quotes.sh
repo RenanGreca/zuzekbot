@@ -1,8 +1,8 @@
 #!/bin/bash
 
-node create_pastebin.js
+node quotes_pastebin.js
 
-# remove byproducts of create_pastebin.js
+# remove byproducts of quotes_pastebin.js
 rm quotes.txt 
 
 git add feedback.json quotes.json pastebin.json
