@@ -67,7 +67,7 @@ bot.on("guildMemberAdd", member => {
   sendEmbed(channel, "Olá " + member + strings.welcome);
 
   const welcome = require("./modules/welcome.js");
-  const description = welcome.roles(fusion.roles.array);
+  const description = welcome.roles(fusion.roles.array());
   channel.send(defaultEmbed().setTitle(strings.roles)
                              .setDescription(description));
 
