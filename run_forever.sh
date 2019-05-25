@@ -18,13 +18,13 @@ fi
 
 # if it wasn't running on test server and we now want that then we need to update the token on auth.json
 if [ $was_running_on_test_server = "false" ] && [ $running_on_test_server = "true" ]; then
-    sed -e 's/\"token\"/\"tokenFusion\"/' -e 's/\"tokenTest\"/\"token\"/' -i auth.json
+    sed -e 's/\"token\"/\"tokenFusion\"/' -e 's/\"tokenTest\"/\"token\"/' -i jsons/auth.json
 fi	
 
 
 # if it wasn't running on fusion server and we now want that then we need to update the token on auth.json
 if [ $was_running_on_test_server = "true" ] && [ $running_on_test_server = "false" ]; then
-    sed -e 's/\"token\"/\"tokenTest\"/' -e 's/\"tokenFusion\"/\"token\"/' -i auth.json
+    sed -e 's/\"token\"/\"tokenTest\"/' -e 's/\"tokenFusion\"/\"token\"/' -i jsons/auth.json
 fi	
 
 while true

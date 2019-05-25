@@ -114,6 +114,10 @@ bot.on("message", message => {
         ping(message);
         break;
 
+      case "seed":
+        seed(channel);
+        break;
+
       case "stream":
         stream(channel);
         break;
@@ -1050,6 +1054,13 @@ function ping(message) {
 
 function stream(channel) {
   channel.send(tryhard.stream);
+}
+
+function seed(channel, author, args) {
+
+  const pastebin = require("./jsons/seed.json");
+
+  channel.send(pastebin.link);
 }
 
 function bracket(channel) {
