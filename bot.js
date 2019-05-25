@@ -2,26 +2,24 @@
 const Discord = require("discord.js");
 const math = require("./node_modules/mathjs");
 const timer = require("timers");
-//const logger = require('./node_modules/winston');
-//import {findGame} from 'getprice';
 
 // Internal dependencies
+const price = require("./modules/getprice.js");
+const argparse = require("./modules/argparse.js");
+const sentenceGenerator = require("./modules/sentencegenerator.js");
+const salmon = require("./modules/salmon.js");
+
+// Data dependencies
 const auth = require("./jsons/auth.json");
 const channels = require("./jsons/channels.json");
 const quotes = require("./jsons/quotes.json");
-//const reactions = require("./reactions.json");
 const roles = require("./jsons/roles.json");
 const ids = require("./jsons/ids.json");
 const feedbacks = require("./jsons/feedback.json");
-const price = require("./getprice.js");
-const argparse = require("./argparse.js");
 const prints = require("./jsons/prints.json")
-const sentenceGenerator = require("./sentencegenerator.js");
-//const words = require("./jsons/words.json");
 const gemeosFrases = require("./jsons/gemeos.json");
 const insults = require("./jsons/insults.json");
-const salmon = require("./salmon.js");
-let tryhard = require("./tryhard.json");
+let tryhard = require("./jsons/tryhard.json");
 const strings = require("./jsons/strings.json");
 
 // Global Variables
@@ -54,9 +52,9 @@ bot.once("ready", () => {
   saveToFile(bot.guilds.first().emojis.array(), "./jsons/emojis.json", function() {})
 
 
-  saveToFile(bot.guilds.first(), "./test/test-data/fusion.json", function() {})
-  saveToFile(bot.guilds.first().roles.array(), "./test/test-data/roles.json", function() {})
-  saveToFile(bot.guilds.first().channels.array(), "./test/test-data/channels.json", function() {})
+//   saveToFile(bot.guilds.first(), "./test/test-data/fusion.json", function() {})
+//   saveToFile(bot.guilds.first().roles.array(), "./test/test-data/roles.json", function() {})
+//   saveToFile(bot.guilds.first().channels.array(), "./test/test-data/channels.json", function() {})
 });
 
 // Listen to new members
@@ -1094,7 +1092,7 @@ function updatestream(message, member, channel, args) {
 
   const newstreamlink = args[0]
   tryhard.stream = newstreamlink;
-  saveToFile(tryhard, "tryhard.json", function(err) {
+  saveToFile(tryhard, "./jsons/tryhard.json", function(err) {
     if (err) {
       console.log(err);
       message.react("❎"); 
@@ -1119,7 +1117,7 @@ function updatebracket(message, member, channel, args) {
 
   const newbracket= args[0]
   tryhard.bracket = newbracket;
-  saveToFile(tryhard, "tryhard.json", function(err) {
+  saveToFile(tryhard, "./jsons/tryhard.json", function(err) {
     if (err) {
       console.log(err);
       message.react("❎"); 
@@ -1144,7 +1142,7 @@ function updatevods(message, member, channel, args) {
 
   const newvods = args[0]
   tryhard.vods = newvods;
-  saveToFile(tryhard, "tryhard.json", function(err) {
+  saveToFile(tryhard, "./jsons/tryhard.json", function(err) {
     if (err) {
       console.log(err);
       message.react("❎"); 
@@ -1169,7 +1167,7 @@ function updatecamp(message, member, channel, args) {
 
   const newcamp = args[0]
   tryhard.camp = newcamp;
-  saveToFile(tryhard, "tryhard.json", function(err) {
+  saveToFile(tryhard, "./jsons/tryhard.json", function(err) {
     if (err) {
       console.log(err);
       message.react("❎"); 
