@@ -982,21 +982,26 @@ function sendPriceMessage(channel, game_info, price_info, curr) {
     const country = price_info.country.name;
     const image = game_info.imageUrl;
 
-    var embed = defaultEmbed()
-                .setTitle(game_info.title)
-                .setImage(image)
-                .setDescription('**'+price+' '+curr+'** in the '+flag+' '+country+' eShop!')
+    var description = '**'+price+' '+curr+'** in the '+flag+' '+country+' eShop!';
 
     if (price_info.hasDiscount) {
         const percentOff = price_info.discountPrice.percentOff;
         const discountEnd = new Date(price_info.discountPrice.discountEndsAt);
-        const dateString = discountEnd.getDate()  + "/" + (discountEnd.getMonth()+1) + "/" + discountEnd.getFullYear()
+        const dateString = discountEnd.getDate()  + "/" + (discountEnd.getMonth()+1) + "/" + discountEnd.getFullYear();
 
         const regularPrice = price_info.regularPrice.rawRegularPrice.toFixed(2);
 
-        embed
-          .addField('Regular Price', "**"+regularPrice+" "+curr+"**\n"+percentOff+"% off until "+dateString, true)
+
+        description = "~~"+regularPrice+"~~ **"+price+" "+curr+"** in the "+flag+" "+country+" eShop!"+
+                      "\n"+percentOff+"% off until "+dateString+".";
+        // embed
+        //   .addField('Regular Price', "**"+regularPrice+" "+curr+"**\n"+percentOff+"% off until "+dateString, true);
     }
+
+    var embed = defaultEmbed()
+                .setTitle(game_info.title)
+                .setImage(image)
+                .setDescription(description)
 
     channel.send(embed);
 }
