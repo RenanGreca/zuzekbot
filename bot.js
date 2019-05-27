@@ -472,7 +472,7 @@ function avatar(author, channel, args) {
     return;
   }
   
-  const user = args[0]
+  const user = argparse.parse(args).string;
   const users = bot.guilds.first().members;
 
   let member = null;
