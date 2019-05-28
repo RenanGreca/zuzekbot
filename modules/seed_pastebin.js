@@ -1,7 +1,8 @@
+// IMPORTANT NOTE
+// This file uses explicit file paths. It only works if called from the repository's root directory
+// It breaks otherwise. (too lazy to deal with this in a robust way...)
 
-//
 // Upload seed.txt to pastebin and saves the url on pastebin.json
-//
 const auth = require("../jsons/auth.json");
 
 const PastebinAPI = require('pastebin-js'),
@@ -17,7 +18,7 @@ pastebin
         // we have succesfully pasted it. Data contains the id
         console.log(data);
         const fs = require("fs");
-        fs.writeFile("../jsons/seed.json", JSON.stringify( {"link": data}), (err) => {
+        fs.writeFile("jsons/seed.json", JSON.stringify( {"link": data}), (err) => {
             if (err) {
                 return console.log(err);
             }

@@ -3,6 +3,7 @@
 // Implementations: [1](http://danieljlewis.org/files/2010/06/Jenks.pdf) (python),
 // [2](https://github.com/vvoovv/djeo-jenks/blob/master/main.js) (buggy),
 // [3](https://github.com/simogeo/geostats/blob/master/lib/geostats.js#L407) (works)
+
 function jenks(data, n_classes) {
 
     // Compute the matrices required for Jenks breaks. These matrices
