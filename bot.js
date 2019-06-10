@@ -293,7 +293,7 @@ bot.on("message", message => {
   if (authorID == zuzekbotID) {
     return;
   }
-
+/*
   if (channel.id == channels.artChannel) {
     // Lucasmaster or Heartwell
     if ((authorID == 115885540494147589 
@@ -305,7 +305,7 @@ bot.on("message", message => {
       message.react('513779475096403979');
     }
   }
-
+*/
   if (channel.id != channels.geral 
      && channel.id != channels.memechannel 
      && channel.id != channels.testGeneral) {
