@@ -1,0 +1,929 @@
+{
+    "digital": [
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 0.00",
+                "rawCurrentPrice": 0,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 0,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "CL",
+                    "name": "Chile"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 0,
+                    "originalRegularPrice": "CLP 0",
+                    "rawRegularPrice": 0,
+                    "regularPrice": "BRL 0.00"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 0.00",
+                "rawCurrentPrice": 0,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 0,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "AR",
+                    "name": "Argentina"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 0,
+                    "originalRegularPrice": "ARS 0.00",
+                    "rawRegularPrice": 0,
+                    "regularPrice": "BRL 0.00"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 0.00",
+                "rawCurrentPrice": 0,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 0,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "BR",
+                    "name": "Brasil"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 0,
+                    "originalRegularPrice": "BRL 0.00",
+                    "rawRegularPrice": 0,
+                    "regularPrice": "BRL 0.00"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 0.00",
+                "rawCurrentPrice": 0,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 0,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "CO",
+                    "name": "Colômbia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 0,
+                    "originalRegularPrice": "COP 0.00",
+                    "rawRegularPrice": 0,
+                    "regularPrice": "BRL 0.00"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 166.73",
+                "rawCurrentPrice": 166.73,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 185,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "SE",
+                    "name": "Suécia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 369,
+                    "originalRegularPrice": "369.00 SEK ",
+                    "rawRegularPrice": 166.73,
+                    "regularPrice": "BRL 166.73"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 168.61",
+                "rawCurrentPrice": 168.61,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 250,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "CA",
+                    "name": "Canadá"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 49.99,
+                    "originalRegularPrice": "CAD 49.99",
+                    "rawRegularPrice": 168.61,
+                    "regularPrice": "BRL 168.61"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 169.30",
+                "rawCurrentPrice": 169.3,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 215,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "JP",
+                    "name": "Japão"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 4298,
+                    "originalRegularPrice": "JPY 4,298",
+                    "rawRegularPrice": 169.3,
+                    "regularPrice": "BRL 169.30"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 170.75",
+                "rawCurrentPrice": 170.75,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "US",
+                    "name": "Estados Unidos"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "USD 39.99",
+                    "rawRegularPrice": 170.75,
+                    "regularPrice": "BRL 170.75"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 172.58",
+                "rawCurrentPrice": 172.58,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 175,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "NO",
+                    "name": "Noruega"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 349,
+                    "originalRegularPrice": "349.00 NOK ",
+                    "rawRegularPrice": 172.58,
+                    "regularPrice": "BRL 172.58"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 177.88",
+                "rawCurrentPrice": 177.88,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 300,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "AU",
+                    "name": "Austrália"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 59.95,
+                    "originalRegularPrice": "AUD 59.95",
+                    "rawRegularPrice": 177.88,
+                    "regularPrice": "BRL 177.88"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 183.04",
+                "rawCurrentPrice": 183.04,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 315,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "ZA",
+                    "name": "África do Sul"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 629,
+                    "originalRegularPrice": "ZAR 629.00",
+                    "rawRegularPrice": 183.04,
+                    "regularPrice": "BRL 183.04"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 188.85",
+                "rawCurrentPrice": 188.85,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 250,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "CZ",
+                    "name": "República Checa"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 999,
+                    "originalRegularPrice": "999.00 CZK ",
+                    "rawRegularPrice": 188.85,
+                    "regularPrice": "BRL 188.85"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 190.13",
+                "rawCurrentPrice": 190.13,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 175,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "GB",
+                    "name": "Reino Unido"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 34.99,
+                    "originalRegularPrice": "GBP 34.99",
+                    "rawRegularPrice": 190.13,
+                    "regularPrice": "BRL 190.13"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 192.65",
+                "rawCurrentPrice": 192.65,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 170,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "PL",
+                    "name": "Polónia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 169.8,
+                    "originalRegularPrice": "169.80 PLN ",
+                    "rawRegularPrice": 192.65,
+                    "regularPrice": "BRL 192.65"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.46",
+                "rawCurrentPrice": 193.46,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "NL",
+                    "name": "Países Baixos"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.46,
+                    "regularPrice": "BRL 193.46"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.46",
+                "rawCurrentPrice": 193.46,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "MT",
+                    "name": "Malta"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.46,
+                    "regularPrice": "BRL 193.46"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.46",
+                "rawCurrentPrice": 193.46,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "PT",
+                    "name": "Portugal"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.46,
+                    "regularPrice": "BRL 193.46"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.46",
+                "rawCurrentPrice": 193.46,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "RO",
+                    "name": "Roménia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.46,
+                    "regularPrice": "BRL 193.46"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "EE",
+                    "name": "Estónia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "AT",
+                    "name": "Áustria"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "GR",
+                    "name": "Grécia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "LT",
+                    "name": "Lituânia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "HU",
+                    "name": "Hungria"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "SK",
+                    "name": "Eslováquia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "IT",
+                    "name": "Itália"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "LV",
+                    "name": "Letónia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "HR",
+                    "name": "Croácia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "IE",
+                    "name": "Irlanda"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "LU",
+                    "name": "Luxemburgo"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "BG",
+                    "name": "Bulgária"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "ES",
+                    "name": "Espanha"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "BE",
+                    "name": "Bélgica"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "DE",
+                    "name": "Alemanha"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "CY",
+                    "name": "Chipre"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "SI",
+                    "name": "Eslovénia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "FI",
+                    "name": "Finlândia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 193.63",
+                "rawCurrentPrice": 193.63,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 200,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "FR",
+                    "name": "França"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 39.99,
+                    "originalRegularPrice": "EUR 39.99",
+                    "rawRegularPrice": 193.63,
+                    "regularPrice": "BRL 193.63"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 196.37",
+                "rawCurrentPrice": 196.37,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 350,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "NZ",
+                    "name": "Nova Zelândia"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 69.95,
+                    "originalRegularPrice": "NZD 69.95",
+                    "rawRegularPrice": 196.37,
+                    "regularPrice": "BRL 196.37"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 198.33",
+                "rawCurrentPrice": 198.33,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 150,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "RU",
+                    "name": "Federação Russa"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 2999,
+                    "originalRegularPrice": "2,999.00 RUB ",
+                    "rawRegularPrice": 198.33,
+                    "regularPrice": "BRL 198.33"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 206.78",
+                "rawCurrentPrice": 206.78,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 160,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "DK",
+                    "name": "Dinamarca"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 319,
+                    "originalRegularPrice": "319.00 DKK ",
+                    "rawRegularPrice": 206.78,
+                    "regularPrice": "BRL 206.78"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 223.65",
+                "rawCurrentPrice": 223.65,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 260,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "CH",
+                    "name": "Suíça"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 51.9,
+                    "originalRegularPrice": "CHF 51.90",
+                    "rawRegularPrice": 223.65,
+                    "regularPrice": "BRL 223.65"
+                }
+            }
+        },
+        {
+            "priceInfo": {
+                "url_eshop": null,
+                "currentPrice": "BRL 245.59",
+                "rawCurrentPrice": 245.59,
+                "hasDiscount": false,
+                "status": "Disponível",
+                "goldPoints": 275,
+                "digital_release": true,
+                "physical_release": false,
+                "country": {
+                    "code": "MX",
+                    "name": "México"
+                },
+                "regularPrice": {
+                    "rawOriginalRegularPrice": 1099,
+                    "originalRegularPrice": "MXN 1,099.00",
+                    "rawRegularPrice": 245.59,
+                    "regularPrice": "BRL 245.59"
+                }
+            }
+        }
+    ],
+    "physical": []
+}

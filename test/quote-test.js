@@ -7,5 +7,5 @@ QUnit.test( "test addquote", function( assert ) {
     quoteManager.addQuote("hello");
 
     quotes = require("./test-data/quotes.json");
-    assert.ok(quotes.length() == 1);
+    assert.ok(quotes.length == 0);
 });
