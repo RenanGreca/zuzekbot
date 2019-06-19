@@ -63,6 +63,30 @@ function getGameDetails(game_info, curr, callback) {
     });
 }
 
+function findCheapestCountry(price_details) {
+    const blacklist = ["AR", "BR", "CO", "CL"];
+
+    for(var i=0; i< price_details.length; i++) {
+
+        console.log(price_details[i].priceInfo.country.code);
+        
+        if (blacklist.indexOf(price_details[i].priceInfo.country.code) == -1) {
+            console.log("priceInfo");
+            return price_details[i].priceInfo;
+        }
+
+    }
+}
+
+function findSpecificCountry(price_details, country) {
+
+    for(var i=0; i<price_details.length; i++) {
+        if (price_details[i].priceInfo.country.code == country.toUpperCase()) {
+            return price_details[i].priceInfo;
+        }
+    }
+}
+
 // var query = 'smash bros.'.toLowerCase();
 // findGame(query, 'BRL', function(game_info) {
 //     console.log(game_info);
@@ -82,5 +106,13 @@ module.exports = {
       curr.toUpperCase(),
       callback
     );
+  },
+
+  findCheapestCountry: function(price_details) {
+    return findCheapestCountry(price_details);
+  },
+
+  findSpecificCountry: function(price_details, country) {
+    return findSpecificCountry(price_details, country);
   }
 };

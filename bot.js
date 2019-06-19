@@ -964,19 +964,26 @@ function getPrice(user, channel, args) {
 
     if (parsed.country) {
         price.getGameDetails(game_info, curr, function(price_details) {
-            price_details.digital.forEach(function(price, index) {
-                if (price.priceInfo.country.code == parsed.country.toUpperCase()) {
-                    sendPriceMessage(channel, game_info, price.priceInfo, curr);
-                    return;
-                }
-            });
-            channel.send(defaultEmbed().setDescription("Jogo não encontrado na eShop solicitada."));
-            return;
+            var priceInfo = price.findSpecificCountry(price_details.digital, parsed.country);
+            if (priceInfo) {
+                sendPriceMessage(channel, game_info, priceInfo, curr);
+            } else {
+                channel.send(defaultEmbed().setDescription("Jogo não encontrado na eShop solicitada."));
+            }
         });
     } else {
         price.getGameDetails(game_info, curr, function(price_details) {
-            var price_info = price_details.digital[0].priceInfo;
-            sendPriceMessage(channel, game_info, price_info, curr);
+            if (price_details.digital) {
+                var priceInfo = price.findCheapestCountry(price_details.digital);
+                sendPriceMessage(channel, game_info, priceInfo, curr);
+            } else {
+                var embed = defaultEmbed()
+                    .setTitle(game_info.title)
+                    .setImage(game_info.imageUrl)
+                    .setDescription("No price information available")
+                
+                channel.send(embed);
+            }
         });
     }
   });
