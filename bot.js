@@ -1,26 +1,27 @@
 // External dependecies
 const Discord = require("discord.js");
-const math = require("./node_modules/mathjs");
-const timer = require("timers");
+const math    = require("./node_modules/mathjs");
+const timer   = require("timers");
 
 // Internal dependencies
-const price = require("./modules/getprice.js");
-const argparse = require("./modules/argparse.js");
+const price             = require("./modules/getprice.js");
+const argparse          = require("./modules/argparse.js");
 const sentenceGenerator = require("./modules/sentencegenerator.js");
-const salmon = require("./modules/salmon.js");
+const salmon            = require("./modules/salmon.js");
 
 // Data dependencies
-const auth = require("./jsons/auth.json");
-const channels = require("./jsons/channels.json");
-const quotes = require("./jsons/quotes.json");
-const roles = require("./jsons/roles.json");
-const ids = require("./jsons/ids.json");
-const feedbacks = require("./jsons/feedback.json");
-const prints = require("./jsons/prints.json")
+const auth         = require("./jsons/auth.json");
+const channels     = require("./jsons/channels.json");
+const quotes       = require("./jsons/quotes.json");
+const roles        = require("./jsons/roles.json");
+const ids          = require("./jsons/ids.json");
+const feedbacks    = require("./jsons/feedback.json");
+const prints       = require("./jsons/prints.json")
 const gemeosFrases = require("./jsons/gemeos.json");
-const insults = require("./jsons/insults.json");
-let tryhard = require("./jsons/tryhard.json");
-const strings = require("./jsons/strings.json");
+const insults      = require("./jsons/insults.json");
+let   tryhard      = require("./jsons/tryhard.json");
+const strings      = require("./jsons/strings.json");
+const emojis       = require("./jsons/extended_emojis.json");
 
 // Global Variables
 const serverID = ids.serverID;
@@ -64,7 +65,7 @@ bot.on("guildMemberAdd", member => {
 
   sendEmbed(channel, "Olá " + member + strings.welcome);
 
-  const welcome = require("./modules/welcome.js");
+  const welcome         = require("./modules/welcome.js");
   const description = welcome.roles(fusion.roles.array());
   channel.send(defaultEmbed().setTitle(strings.roles)
                              .setDescription(description));
@@ -136,7 +137,7 @@ bot.on("message", message => {
         vods(channel);
         break;
 
-      // We won't youtube channel with vods any time soon
+      // We won't change youtube channel with vods any time soon
       //case "updatevods":
         //updatevods(message, member, channel, args);
         //break;
@@ -256,6 +257,10 @@ bot.on("message", message => {
 
       case "salmon":
         getSalmon(channel);
+        break;
+
+      case "emoji": case "e":
+        sendEmoji(channel, args.join(" "));
         break;
 
       case "diceroll":
@@ -1072,7 +1077,7 @@ function stream(channel) {
 
 function seed(channel, author, args) {
 
-  const pastebin = require("./jsons/seed.json");
+  const pastebin        = require("./jsons/seed.json");
 
   channel.send(pastebin.link);
 }
@@ -1195,7 +1200,7 @@ function updatecamp(message, member, channel, args) {
 
 function listquotes(channel, author, args) {
 
-  const pastebin = require("./jsons/pastebin.json");
+  const pastebin        = require("./jsons/pastebin.json");
 
   if (args.length == 1) {
     if (args[0] === "dm") {
@@ -1232,6 +1237,18 @@ function calc(channel, args, user) {
   } catch (err) {
     sendEmbed(channel, err.message);
   }
+}
+
+function sendEmoji(channel, args) {
+  const emoji = emojis.find(emoji => emoji.name === args);  
+  console.log(emoji);
+  if (typeof emoji === 'undefined') {
+    sendEmbed(channel, "Esse emoji não foi encontrado.");
+    return;
+  }
+  
+  const attachment = new Discord.Attachment(emoji.path);
+  channel.send(attachment);
 }
 
 function diceroll(user, channel, args) {
@@ -1281,13 +1298,13 @@ function saveFeedbacksToFile(callback) {
 
 function saveToFile(data, filename, callback) {
   const jsonData = JSON.stringify(data);
-  const fs = require("fs");
+  const fs              = require("fs");
   fs.writeFile(filename, jsonData, callback);
 }
 
 function displayCommands(channel, simplifiedVersion) {
 
-  const helpMessages = require("./jsons/help.json");
+  const helpMessages    = require("./jsons/help.json");
 
   if (simplifiedVersion) {
     var text = [];
@@ -1323,7 +1340,7 @@ function displayHelp(channel, args) {
   
   let message = "";
 
-  const helpMessages = require("./jsons/help.json");
+  const helpMessages    = require("./jsons/help.json");
 
   if (cmd in helpMessages) {
     channel.send(defaultEmbed().setTitle(helpMessages[cmd].title)
