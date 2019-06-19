@@ -970,7 +970,16 @@ function getPrice(user, channel, args) {
         price.getGameDetails(game_info, curr, function(price_details) {
             if (price_details.digital) {
                 var priceInfo = price.findCheapestCountry(price_details.digital);
-                sendPriceMessage(channel, game_info, priceInfo, curr);
+                if (priceInfo) {
+                    sendPriceMessage(channel, game_info, priceInfo, curr);
+                } else {
+                    var embed = defaultEmbed()
+                    .setTitle(game_info.title)
+                    .setImage(game_info.imageUrl)
+                    .setDescription("No price information available")
+                
+                    channel.send(embed);
+                }
             } else {
                 var embed = defaultEmbed()
                     .setTitle(game_info.title)
