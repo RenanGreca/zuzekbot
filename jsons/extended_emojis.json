@@ -1,6 +1,6 @@
 [
   { "name": "blessrng",     "path": "./emojis/blessrng.png"       },
-  { "name": "bolsosleeper", "path": "./emojis/bolsosleeper.png"   },
+  { "name": "bolsono",      "path": "./emojis/bolsono.png"        },
   { "name": "bomberman",    "path": "./emojis/bomberman.png"      },
   { "name": "bomber",       "path": "./emojis/bomberunamused.png" },
   { "name": "dededed",      "path": "./emojis/dededed.png"        },
@@ -16,5 +16,6 @@
   { "name": "mariodown",    "path": "./emojis/mariodown.png"      },
   { "name": "monkas",       "path": "./emojis/monkas.png"         },
   { "name": "pog",          "path": "./emojis/pog.png"            },
-  { "name": "yoshi",        "path": "./emojis/yoshidisgust.png"   }
+  { "name": "yoshi",        "path": "./emojis/yoshidisgust.png"   },
+  { "name": "wiithink",     "path": "./emojis/wiithink.png"       }
 ]

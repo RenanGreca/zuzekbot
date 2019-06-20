@@ -260,7 +260,7 @@ bot.on("message", message => {
         break;
 
       case "emoji": case "e":
-        sendEmoji(channel, args.join(" "));
+        sendEmoji(message, channel, args.join(" "));
         break;
 
       case "diceroll":
@@ -1230,14 +1230,15 @@ function calc(channel, args, user) {
   }
 }
 
-function sendEmoji(channel, args) {
+function sendEmoji(message, channel, args) {
   const emoji = emojis.find(emoji => emoji.name === args);  
   console.log(emoji);
   if (typeof emoji === 'undefined') {
     sendEmbed(channel, "Esse emoji não foi encontrado.");
     return;
   }
-  
+
+  message.delete();
   const attachment = new Discord.Attachment(emoji.path);
   channel.send(attachment);
 }

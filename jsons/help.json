@@ -135,6 +135,14 @@
         "title": "!diceroll [número]",
         "description": "Retorno um número aleatório entre 1 e o fornecido."
     },
+    "emoji": {
+        "title": "!emoji [nome_do_emoji]",
+        "description": "Mando uma imagem com o emoji requisitado.\nAtalho: !e"
+    },
+    "e": {
+        "title": "!emoji [nome_do_emoji]",
+        "description": "Mando uma imagem com o emoji requisitado.\nAtalho: !e"
+    },
     "shutup": {
         "title": "!shutup [minutos]",
         "description": "Cala minha boca pelos próximos minutos de acordo com o fornecido."
