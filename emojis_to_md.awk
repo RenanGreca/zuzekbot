@@ -5,12 +5,13 @@ BEGIN {
     printf("# zuzekbot\n## Emojis");
     printf("\n%-11s | Emoji\n", "Nome");
     printf("------------|------\n");
+    FS="\"";
 }
 
 # Skip '[' and ']' brackets and output the rest in md format
 /[^\[\]]/ {
-    gsub("\"", "");
-    gsub(",", "", $3);
-    sub(".","",$5);  
-    printf("%-11s | ![%s](%s)\n", $3, $3, $5);
+    sub(".", "", $5);  
+    printf("%-11s | ![%s](%s)\n", $4, $4, $8);
 }
+
+

@@ -1231,7 +1231,7 @@ function calc(channel, args, user) {
 }
 
 function sendEmoji(message, channel, args) {
-  const emoji = emojis.find(emoji => emoji.name === args);  
+  const emoji = emojis.find(emoji => emoji.name === args.toLowerCase());  
   console.log(emoji);
   if (typeof emoji === 'undefined') {
     sendEmbed(channel, "Esse emoji não foi encontrado.");

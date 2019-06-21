@@ -1,6 +1,7 @@
 [
   { "name": "pog",          "path": "./emojis/pog.png"            },
   { "name": "lul",          "path": "./emojis/lul.png"            },
+  { "name": "omegalul",     "path": "./emojis/omegalul.png"       },
   { "name": "blessrng",     "path": "./emojis/blessrng.png"       },
   { "name": "jebaited",     "path": "./emojis/jebaited.png"       },
   { "name": "monkas",       "path": "./emojis/monkas.png"         },
@@ -12,7 +13,7 @@
   { "name": "bomber",       "path": "./emojis/bomberunamused.png" },
   { "name": "dededed",      "path": "./emojis/dededed.png"        },
   { "name": "dededelaugh",  "path": "./emojis/dededelaugh.png"    },
-  { "name": "wiithink",     "path": "./emojis/wiithink.png"       }
+  { "name": "wiithink",     "path": "./emojis/wiithink.png"       },
   { "name": "faslizard",    "path": "./emojis/faslizard.png"      },
   { "name": "libhmm",       "path": "./emojis/libhmm.png"         },
   { "name": "fassnake",     "path": "./emojis/fassnake.png"       },
