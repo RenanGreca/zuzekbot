@@ -33,7 +33,7 @@ pastebin
         // we have succesfully pasted it. Data contains the id
         console.log(data);
         const fs = require("fs");
-        fs.writeFile("../jsons/pastebin.json", JSON.stringify( {"link": data}), (err) => {
+        fs.writeFile("./jsons/pastebin.json", JSON.stringify( {"link": data}), (err) => {
             if (err) {
                 return console.log(err);
             }

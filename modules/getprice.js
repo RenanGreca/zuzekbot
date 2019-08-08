@@ -64,7 +64,7 @@ function getGameDetails(game_info, curr, callback) {
 }
 
 function findCheapestCountry(price_details) {
-    const blacklist = ["AR", "BR", "CO", "CL"];
+    const blacklist = ["AR", "CO", "CL"];
 
     for(var i=0; i< price_details.length; i++) {
 
@@ -85,6 +85,8 @@ function findSpecificCountry(price_details, country) {
             return price_details[i].priceInfo;
         }
     }
+
+    return 0;
 }
 
 // var query = 'smash bros.'.toLowerCase();
