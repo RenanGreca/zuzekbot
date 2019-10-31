@@ -113,6 +113,10 @@ bot.on("message", message => {
         ping(message);
         break;
 
+      case "rps": case "jokenpo":
+	    jokenpo(channel, args);
+        break;
+
       case "seed":
         seed(channel);
         break;
@@ -456,17 +460,17 @@ function showranking(channel, args) {
   if (args.length >= 1) {
     if (args[0] === "mensal") {
       channel.send(defaultEmbed().setTitle("Ranking Mensal")
-                                 .setDescription("https://braacket.com/league/tryhardcwb/ranking/4AC75652-488A-49E5-9594-A2834B6CA1E1?rows=200&cols=&page=1&page_cols=1&game_character=&country=&search=&embed=1"));
+                                 .setDescription("https://braacket.com/league/tryhardcwb/ranking/4AC75652-488A-49E5-9594-A2834B6CA1E1?rows=200"));
       return;
     }
-    if (args[0] === "points") {
-      channel.send(defaultEmbed().setTitle("Ranking por Pontos")
-                                 .setDescription("https://braacket.com/league/tryhardcwb/ranking/0F6FE4B8-7F44-4CC6-A4B6-6AC8FE87A681?rows=200&cols=&page=1&page_cols=1&game_character=&country=&search=&embed=1"));
+    if (args[0] === "alltime") {
+      channel.send(defaultEmbed().setTitle("All-time Ranking")
+                                 .setDescription("https://braacket.com/league/tryhardcwb/ranking/2D975CD1-73B1-474D-8A8D-93E92EE0DB1E?rows=200"));
       return;
     }
   }
-  channel.send(defaultEmbed().setTitle("Ranking de Seed")
-                             .setDescription("https://braacket.com/league/tryhardcwb/ranking/2D975CD1-73B1-474D-8A8D-93E92EE0DB1E?rows=200&cols=&page=1&page_cols=1&game_character=&country=&search=&embed=1"));
+  channel.send(defaultEmbed().setTitle("Ranking da Temporada")
+                             .setDescription("https://braacket.com/league/tryhardcwb/ranking/FA332F7B-1A95-4E24-99C2-363446FB7F2A?rows=200"));
 
 }
 
@@ -1069,6 +1073,51 @@ function wiki(user, channel, args) {
 function ping(message) {
   message.react('🏓');
   message.channel.send("Pong!");
+}
+
+function jokenpo(channel, args) {
+  
+  if (!Array.isArray(args) || args.length == 0) {
+    sendEmbed(channel, "espero uma jogada junto do comando"); 
+    return;
+  }
+
+  const valid_inputs = [{ "value": "rock",    "index": 0 },
+	     		{ "value": "pedra",   "index": 0 },
+	     		{ "value": "✊",      "index": 0 },
+	     		{ "value": "paper",   "index": 1 },
+	     		{ "value": "papel",   "index": 1 },
+	     		{ "value": "🖐",      "index": 1 },
+	     		{ "value": "🤚",      "index": 1 },
+	     		{ "value": "✋",      "index": 1 },
+	     		{ "value": "scissor", "index": 2 },
+	     		{ "value": "tesoura", "index": 2 },
+	     		{ "value": "✌",       "index": 2 },
+	     		{ "value": "✂",       "index": 2 }];
+  
+  const user_input = valid_inputs.find( input => args[0] === input.value );
+
+  if (!user_input) {
+  	sendEmbed(channel, `${args[0]} não é uma entrada válida`);
+	return;
+  }
+     
+  const hands = [{"wins": 2, "emoji": "✊"}, // rock
+	         {"wins": 0, "emoji": "🖐"},  // paper
+	         {"wins": 1, "emoji": "✌"}]; // scissor
+
+  let user_hand = hands[user_input.index];
+  let bot_hand = hands[Math.floor(Math.random() * hands.length)];
+  channel.send(bot_hand.emoji);
+
+  if (hands[bot_hand.wins] === user_hand) {
+    channel.send("<:Zuzek:476498123154522112>");
+  }
+  else if (user_hand === bot_hand) {
+  	channel.send("🤔");
+  } else {
+    channel.send("<:yoshi:511691954027757588>");
+  }
 }
 
 function stream(channel) {
