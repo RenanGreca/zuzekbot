@@ -35,8 +35,10 @@ function findGame(query, curr, callback) {
 
 function getGameDetails(game_info, curr, callback) {
 
+  var savecoinsurl = game_info.url.replace("http://", "https://");
+
   const url = 
-    game_info.url + "/prices?" + 
+    savecoinsurl + "/prices?" + 
     "currency=" + curr + "&" +
     "locale=en";
 
