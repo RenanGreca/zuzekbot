@@ -5,6 +5,7 @@ const timer   = require("timers");
 
 // Internal dependencies
 const price             = require("./modules/getprice.js");
+const pokedex           = require("./modules/pokedex.js");
 const argparse          = require("./modules/argparse.js");
 const sentenceGenerator = require("./modules/sentencegenerator.js");
 const salmon            = require("./modules/salmon.js");
@@ -30,12 +31,12 @@ let isShuttingUp = false;
 
 // Utility Functions
 function defaultEmbed() {
-  return new Discord.RichEmbed()
+  return new Discord.MessageEmbed()
                     .setColor(0xFE494D);
 }
 
 function sendEmbed(channel, message) {
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
                            .setColor(0xFE494D)
                            .setDescription(message);
   channel.send(embed);
@@ -49,8 +50,9 @@ bot.once("ready", () => {
   console.log("Connected");
   console.log("Logged in as: ");
   console.log(bot.user.username + " - (" + bot.user.id + ")");
+  // console.log(bot);
 
-  saveToFile(bot.guilds.first().emojis.array(), "./jsons/emojis.json", function() {})
+  // saveToFile(bot.guilds.first().emojis.array(), "./jsons/emojis.json", function() {})
 
 
 //   saveToFile(bot.guilds.first(), "./test/test-data/fusion.json", function() {})
@@ -237,6 +239,10 @@ bot.on("message", message => {
 
       case "feedback":
         feedback(author, authorName, channel, args);
+        break;
+
+      case "pokedex":
+        findPokemon(channel, args);
         break;
 
       case "price":
@@ -944,6 +950,42 @@ function feedback(user, username, channel, args) {
   });
 
   channel.send(user + ", thank you for your feedback.");
+}
+
+function findPokemon(channel, args) {
+  if (!Array.isArray(args) || args.length == 0) {
+    displayHelp(channel, ["price"]);
+    return;
+  }
+
+  var parsed = argparse.parse(args);
+  var pokemon = parsed.url;
+
+  pokedex.findPokemon(pokemon, function(pokemon_info) {
+    if (!pokemon_info) {
+      channel.send(defaultEmbed().setDescription("Pokémon não encontrado."));
+      return;
+    }
+
+    var type1 = pokedex.capitalize(pokemon_info.types[0].type.name);
+    var types = type1;
+    var color = pokedex.type_colors[type1];
+    if (pokemon_info.types[1]) {
+      type2 = pokedex.capitalize(pokemon_info.types[1].type.name);
+      types = type2+"/"+type1;
+      color = pokedex.type_colors[type2];
+    }
+
+    var embed = new Discord.MessageEmbed()
+      .setColor(color)
+      .setTitle("#"+pokemon_info.id+": "+pokedex.capitalize(pokemon_info.name))
+      .setImage(pokemon_info.sprites.front_default)
+      .addFields(
+        {name: "Types", value: types}
+      );
+  
+      channel.send(embed);
+  });
 }
 
 function getPrice(user, channel, args) {
