@@ -71,6 +71,10 @@
         "title": "!feedback [mensagem]",
         "description": "Guardo uma sugestão ao meu mestre."
     },
+    "pokedex": {
+        "title": "!pokedex [pokemon name/number]",
+        "description": "Busca informações sobre um Pokémon."
+    },
     "price": {
         "title": "!price [jogo] [country=] [curr=]",
         "description": "Consulto o preço do jogo fornecido na eShop mais barata por meio do SaveCoins.\n\n**Parâmetros opcionais:** \n`country`: país da eShop desejada;\n`curr`: moeda desejada."

@@ -17,8 +17,8 @@ function parse(args) {
     return parsed;
 }
 
-const a = parse(["curr=BRL", "country=BR", "ABC", "def"]);
-console.log(a);
+// const a = parse(["curr=BRL", "country=BR", "ABC", "def"]);
+// console.log(a);
 
 module.exports = {
     parse: function(args) {
