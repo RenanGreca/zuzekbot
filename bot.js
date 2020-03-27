@@ -52,17 +52,17 @@ bot.once("ready", () => {
   console.log(bot.user.username + " - (" + bot.user.id + ")");
   // console.log(bot);
 
-  // saveToFile(bot.guilds.first().emojis.array(), "./jsons/emojis.json", function() {})
+  // saveToFile(bot.guilds.cache.first().emojis.array(), "./jsons/emojis.json", function() {})
 
 
-//   saveToFile(bot.guilds.first(), "./test/test-data/fusion.json", function() {})
-//   saveToFile(bot.guilds.first().roles.array(), "./test/test-data/roles.json", function() {})
-//   saveToFile(bot.guilds.first().channels.array(), "./test/test-data/channels.json", function() {})
+//   saveToFile(bot.guilds.cache.first(), "./test/test-data/fusion.json", function() {})
+//   saveToFile(bot.guilds.cache.first().roles.array(), "./test/test-data/roles.json", function() {})
+//   saveToFile(bot.guilds.cache.first().channels.array(), "./test/test-data/channels.json", function() {})
 });
 
 // Listen to new members
 bot.on("guildMemberAdd", member => {
-  const fusion = bot.guilds.first();
+  const fusion = bot.guilds.cache.first();
   const channel = bot.channels.find(ch => ch.name === "boas-vindas");
 
   sendEmbed(channel, "Olá " + member + strings.welcome);
@@ -488,12 +488,12 @@ function avatar(author, channel, args) {
   }
   
   const user = argparse.parse(args).string;
-  const users = bot.guilds.first().members;
+  const users = bot.guilds.cache.first().members;
 
   let member = null;
 
   const userName = user;
-  member = users.find(member => {
+  member = users.cache.find(member => {
     if (member.nickname) {
       return member.nickname.toLowerCase() === userName.toLowerCase();
     } else {
@@ -507,7 +507,7 @@ function avatar(author, channel, args) {
 
   
   channel.send(defaultEmbed().setDescription("Avatar: **" + member.user.username + "**")
-                             .setImage(member.user.avatarURL));
+                             .setImage(member.user.avatarURL({ dynamic: true, format: 'png', size: 1024 })));
   
 }
 
@@ -564,7 +564,7 @@ function generatebot(channel, args) {
 }
 
 function shuffler(channel) {
-    channel.fetchMessages({ limit: 2 })
+    channel.messages.fetch({ limit: 2 })
       .then( messageArray => {
         console.log("Shuffling message");
     
@@ -612,7 +612,7 @@ function quotebot(channel, typing) {
 
 function printbot(channel) {
     const print = prints[Math.floor(Math.random() * prints.length)];
-    const attachment = new Discord.Attachment(print);
+    const attachment = new Discord.MessageAttachment(print);
     channel.send(attachment);
   }
 
@@ -688,7 +688,7 @@ function badbot(channel) {
 }
 
 function pin(channel) {
-  channel.fetchMessages({ limit: 2 })
+  channel.messages.fetch({ limit: 2 })
     .then(messageArray => {
       console.log("Pinning message: " + messageArray.last().content);
       messageArray.last().pin();
@@ -741,7 +741,7 @@ function savequote(channel, args) {
     }
   }
   console.log("index: " + index);
-  channel.fetchMessages({ limit: index })
+  channel.messages.fetch({ limit: index })
          .then( messageCollection => {
 
       console.log("Saving message");
@@ -835,7 +835,7 @@ function quote(user, channel, args) {
 }
 
 function listroles(channel) {
-  fusion = bot.guilds.first();
+  fusion = bot.guilds.cache.first();
   
   let selfAssignableRoles = ""
   let otherRoles = ""

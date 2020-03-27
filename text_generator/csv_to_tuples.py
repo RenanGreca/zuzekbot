@@ -31,10 +31,10 @@ for e in emojisdict:
 
 ## Load messages from CSV
 with open('Nintendo Fusion - geral [466183286683729931].csv', 'r', encoding='utf-8') as csvfile, open('tuples.txt', 'w', newline='', encoding='utf-8') as tuplefile:
-    rows = csv.reader(csvfile, delimiter=';')
+    rows = csv.reader(csvfile, delimiter=',')
     # rows.next()
     for row in rows:
-        s = row[2]
+        s = row[3]
         # table = string.maketrans({key: None for key in string.punctuation})
         s = check_for_emojis(s, emojis)
         split = s.split(' ')

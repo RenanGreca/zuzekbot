@@ -49,7 +49,7 @@ var type_colors = {
   "Fighting": 0xC4282A,
   "Water": 0x5D92EB,
   "Flying": 0xA591EB,
-  "Grass": 0xA591EB,
+  "Grass": 0x78C85D,
   "Poison": 0xA13E9C,
   "Electric": 0xFCCF4A,
   "Ground": 0xE3BF71,
