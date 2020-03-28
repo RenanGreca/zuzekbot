@@ -56,6 +56,21 @@ QUnit.test("test show the board", function(assert) {
     assert.ok(true);
 });
 
+QUnit.test("test chancellor nomination", function(assert) {
+
+    hitler.newGame();
+    hitler.addPlayer("Naner");
+    hitler.addPlayer("Guigas");
+    hitler.addPlayer("mZuzek");
+    hitler.addPlayer("Yawryck");
+    hitler.addPlayer("Geova");
+    hitler.startGame();
+
+    console.log(hitler.sendChancellorCandidates());
+    
+    assert.ok(true);
+});
+
 QUnit.test("test president policies", function(assert) {
 
     hitler.newGame();
@@ -66,7 +81,7 @@ QUnit.test("test president policies", function(assert) {
     hitler.addPlayer("Geova");
     hitler.startGame();
 
-    hitler.presidentPolicies();
-    
+    hitler.sendPresidentPolicies();
+
     assert.ok(true);
 });

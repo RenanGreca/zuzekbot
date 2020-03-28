@@ -9,6 +9,8 @@ const CHANCELLOR_NOMINATION = 2;
 const PRESIDENT_POLICIES = 3;
 const CHANCELLOR_POLICIES = 4;
 const ENACT_POLICY = 5;
+const LIBS_WIN = 6;
+const FASC_WIN = 7;
 
 
 exports.gamedata = {
@@ -129,6 +131,27 @@ exports.showBoard = function showBoard() {
     return lib+"\n"+fas+"\n"+gov;
 }
 
+exports.sendChancellorCandidates = function sendChancellorCandidates() {
+    exports.gamedata.state = CHANCELLOR_NOMINATION;
+
+    var list = ""
+    var players = this.gamedata.players;
+    var president = this.gamedata.president;
+    
+    for (var i = 0; i<players.length; i++) {
+        if (players[i].user != president) {
+            list += (i+1)+". "+players[i].user.username+"\n";
+        }
+    }
+
+    return list;
+}
+
+exports.receiveChancellorCandidates = function receiveChancellorCandidates() {
+
+    // this.sendPresidentPolicies();
+}
+
 exports.sendPresidentPolicies = function sendPresidentPolicies() {
     exports.gamedata.state = PRESIDENT_POLICIES;
 
@@ -142,6 +165,22 @@ exports.sendPresidentPolicies = function sendPresidentPolicies() {
 
 exports.receivePresidentPolicies = function receivePresidentPolicies() {
 
+    // this.sendChancellorPolicies();
+}
+
+exports.sendChancellorPolicies = function sendChancellorPolicies() {
+    exports.gamedata.state = CHANCELLOR_POLICIES;
+}
+
+exports.receiveChancellorPolicies = function receiveChancellorPolicies() {
+    
+    // this.enactPolicy();
+}
+
+exports.enactPolicy = function enactPolicy() {
+    exports.gamedata.state = ENACT_POLICY;
+
+    // this.sendChancellorCandidates();
 }
 
 exports.listPlayers = function listPlayers() {
@@ -185,9 +224,16 @@ exports.processCommand = function processCommand(author, channel, args) {
                 });
                 channel.send(this.showBoard());
                 
-                this.sendPresidentPolicies();
+                this.sendChancellorCandidates();
             }
             break;
+        default:
+            if (this.gamedata.state == PRESIDENT_POLICIES) {
+                this.receivePresidentPolicies();
+            }
+            if (this.gamedata.state == CHANCELLOR_POLICIES) {
+                this.receiveChancellorPolicies();
+            }
     }
 }
 
