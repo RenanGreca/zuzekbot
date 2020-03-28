@@ -9,6 +9,7 @@ const pokedex           = require("./modules/pokedex.js");
 const argparse          = require("./modules/argparse.js");
 const sentenceGenerator = require("./modules/sentencegenerator.js");
 const salmon            = require("./modules/salmon.js");
+const hitler            = require("./modules/hitler.js");
 
 // Data dependencies
 const auth         = require("./jsons/auth.json");
@@ -299,6 +300,14 @@ bot.on("message", message => {
 
       case "help": case "h":
         displayHelp(channel, args);
+        break;
+
+      case "senddm": case "dm":
+        author.send("Hello there!")
+        break;
+
+      case "hitler":
+        hitler.processCommand(author, channel, args);
         break;
     }
 
@@ -949,7 +958,7 @@ function feedback(user, username, channel, args) {
     }
   });
 
-  channel.send(user + ", thank you for your feedback.");
+  channel.send(`${user}` + ", thank you for your feedback.");
 }
 
 function findPokemon(channel, args) {

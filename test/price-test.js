@@ -30,7 +30,7 @@ QUnit.test("test find cheapest country", function(assert) {
 
     priceInfo = getprice.findCheapestCountry(price_details.digital);
 
-    assert.ok(priceInfo.country.code == "SE");
+    assert.ok(priceInfo.country.code == "BR");
 
 });
 

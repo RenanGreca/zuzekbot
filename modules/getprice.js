@@ -69,11 +69,8 @@ function findCheapestCountry(price_details) {
   const blacklist = ["AR", "CO", "CL"];
   
   for(var i=0; i< price_details.length; i++) {
-    
-    console.log(price_details[i].priceInfo.country.code);
-    
+        
     if (blacklist.indexOf(price_details[i].priceInfo.country.code) == -1) {
-      console.log("priceInfo");
       return price_details[i].priceInfo;
     }
     
