@@ -3,63 +3,52 @@ var exports = module.exports = {};
 // var hitlerdata = require("../jsons/hitlerdata.json");
 
 // Game states
-const PREPARING = 0;
-const STARTING = 1;
-const CHANCELLOR_NOMINATION = 2;
-const PRESIDENT_POLICIES = 3;
-const CHANCELLOR_POLICIES = 4;
-const ENACT_POLICY = 5;
-const LIBS_WIN = 6;
-const FASC_WIN = 7;
+const State = {
+    PREPARING: 0,
+    STARTING: 1,
+    CHANCELLOR_NOMINATION: 2,
+    ELECTION: 3,
+    PRESIDENT_POLICIES: 4,
+    CHANCELLOR_POLICIES: 5,
+    ENACT_POLICY: 6,
+    LIBS_WIN: 7,
+    FASC_WIN: 8
+}
 
+var players = [];
+var deck =  [
+                    "🔵","🔵","🔵","🔵","🔵","🔵",
+                    "🔴","🔴","🔴","🔴","🔴","🔴",
+                    "🔴","🔴","🔴","🔴","🔴"
+                ];
+var discard = [];
+var sentPolicies = [];
+var president = 0;
+var chancellor = 0;
+var libPoints = 0;
+var fasPoints = 0;
+var status = State.PREPARING;
 
-exports.gamedata = {
-    "players": 
-    [
-        
-    ],
-    "policies": [
-        "🔵","🔵","🔵","🔵","🔵","🔵",
-        "🔴","🔴","🔴","🔴","🔴","🔴",
-        "🔴","🔴","🔴","🔴","🔴"
-    ],
-    "discard": [
-        ""
-    ],
-    "president": "",
-    "chancellor": "",
-    "libPoints": 0,
-    "fasPoints": 0,
-    "state": PREPARING
-};
+function newGame() {
+    players = [];
+    deck =  [
+                        "🔵","🔵","🔵","🔵","🔵","🔵",
+                        "🔴","🔴","🔴","🔴","🔴","🔴",
+                        "🔴","🔴","🔴","🔴","🔴"
+                    ];
+    discard = [];
+    sentPolicies = [];
+    president = 0;
+    chancellor = 0;
+    libPoints = 0;
+    fasPoints = 0;
+    status = State.PREPARING;
 
-exports.newGame = function newGame() {
-    var hitlerdata = {
-        "players": 
-        [
-            
-        ],
-        "policies": [
-            "🔵","🔵","🔵","🔵","🔵","🔵",
-            "🔴","🔴","🔴","🔴","🔴","🔴",
-            "🔴","🔴","🔴","🔴","🔴"
-        ],
-        "discard": [
-            ""
-        ],
-        "president": "",
-        "chancellor": "",
-        "libPoints": 0,
-        "fasPoints": 0,
-        "state": PREPARING
-    };
-
-    exports.gamedata = hitlerdata;
     // saveToFile();
 }
 
-exports.addPlayer = function addPlayer(user) {
-    if (exports.gamedata.players.length >= 10) {
+function addPlayer(user) {
+    if (players.length >= 10) {
         console.log("Too many players.");
         return;
     }
@@ -70,13 +59,11 @@ exports.addPlayer = function addPlayer(user) {
         "hitler": false
     };
     
-    exports.gamedata.players.push(player);
+    players.push(player);
     // saveToFile();
 }
 
-exports.startGame = function startGame() {
-    var players = exports.gamedata.players;
-
+function startGame() {
     if (players.length < 1) {
         console.log("Not enough players.");
         return;
@@ -102,19 +89,15 @@ exports.startGame = function startGame() {
     }
 
     shuffle(players);
-    shuffle(exports.gamedata.policies);
+    shuffle(deck);
 
-    exports.gamedata.players = players;
-    exports.gamedata.president = players[0].user;
-    exports.gamedata.state = STARTING;
+    players = players;
+    president = 0;
+    state = State.STARTING;
     // saveToFile();
 }
 
-exports.showBoard = function showBoard() {
-
-    var libPoints = exports.gamedata.libPoints;
-    var fasPoints = exports.gamedata.fasPoints;
-
+function showBoard() {
     var lib = ""
     lib += "🔵 ".repeat(libPoints)
     lib += "⬜️ ".repeat(4-libPoints)
@@ -126,20 +109,18 @@ exports.showBoard = function showBoard() {
     fas += "💀 "
 
     var gov = ""
-    gov += "President: "+exports.gamedata.president.username;
+    gov += "President: "+ players[president].user.username;
 
     return lib+"\n"+fas+"\n"+gov;
 }
 
-exports.sendChancellorCandidates = function sendChancellorCandidates() {
-    exports.gamedata.state = CHANCELLOR_NOMINATION;
+function sendChancellorCandidates() {
+    state = State.CHANCELLOR_NOMINATION;
 
     var list = ""
-    var players = this.gamedata.players;
-    var president = this.gamedata.president;
     
     for (var i = 0; i<players.length; i++) {
-        if (players[i].user != president) {
+        if (i != president) {
             list += (i+1)+". "+players[i].user.username+"\n";
         }
     }
@@ -147,46 +128,102 @@ exports.sendChancellorCandidates = function sendChancellorCandidates() {
     return list;
 }
 
-exports.receiveChancellorCandidates = function receiveChancellorCandidates() {
+function receiveChancellorCandidates(candidate) {
 
-    // this.sendPresidentPolicies();
+    // sendPresidentPolicies();
 }
 
-exports.sendPresidentPolicies = function sendPresidentPolicies() {
-    exports.gamedata.state = PRESIDENT_POLICIES;
+function callForVotes() {
 
-    var deck = exports.gamedata.policies;
-
-    var policies = [deck.pop(), deck.pop(), deck.pop()];
-    console.log(policies);
-
-    exports.gamedata.president.send("President, these are your policies: "+policies.join());
 }
 
-exports.receivePresidentPolicies = function receivePresidentPolicies() {
+function receiveVote() {
 
-    // this.sendChancellorPolicies();
 }
 
-exports.sendChancellorPolicies = function sendChancellorPolicies() {
-    exports.gamedata.state = CHANCELLOR_POLICIES;
+function sendPresidentPolicies() {
+    state = State.PRESIDENT_POLICIES;
+
+    // TODO: if there are fewer than three items in the deck, reshuffle the discard pile
+
+    sentPolicies = {
+        arr: [],
+        numLib: 0,
+        numFas: 0
+    }
+
+    for (var i=0; i<3; i++) {
+        var policy = deck.pop();
+        sentPolicies.arr.push(policy)
+        if (policy == "🔵") {
+            sentPolicies.numLib += 1;
+        } else if (policy == "🔴") {
+            sentPolicies.numFas += 1;
+        }
+    }
+
+    sentPolicies.arr.sort();
+
+    // players[president].send("President, these are your policies: "+policies.join());
+
+    return sentPolicies.arr.join(" ");
 }
 
-exports.receiveChancellorPolicies = function receiveChancellorPolicies() {
+function receivePresidentPolicies(policies) {
+
+    var receivedPolicies = {
+        arr: policies.split(" ").sort(),
+        numLib: 0,
+        numFas: 0
+    }
+
+    for (var i=0; i<receivedPolicies.arr.length; i++) {
+        var policy = receivedPolicies.arr[i];
+        if (policy == "🔵") {
+            receivedPolicies.numLib += 1;
+        } else if (policy == "🔴") {
+            receivedPolicies.numFas += 1;
+        }
+    }
+
+    if (receivedPolicies.numLib > sentPolicies.numLib ||
+        receivedPolicies.numFas > sentPolicies.numFas) {
+            return "Invalid policies";
+    }
+
+    if (sentPolicies.numLib - receivedPolicies.numLib == 1) {
+        discard.push("🔵");
+        sentPolicies.numLib -= 1;
+    } else if (sentPolicies.numFas - receivedPolicies.numFas == 1) {
+        discard.push("🔴");
+        sentPolicies.numLib -= 1;
+    }
+
+    return receivedPolicies.arr.join(" ");
+
+    // sendChancellorPolicies();
+}
+
+function sendChancellorPolicies(policies) {
+    state = State.CHANCELLOR_POLICIES;
+}
+
+function receiveChancellorPolicies(policies) {
     
-    // this.enactPolicy();
+    return receivePresidentPolicies(policies);
+    // enactPolicy();
 }
 
-exports.enactPolicy = function enactPolicy() {
-    exports.gamedata.state = ENACT_POLICY;
+function enactPolicy() {
+    state = State.ENACT_POLICY;
 
-    // this.sendChancellorCandidates();
+    // sendChancellorCandidates();
 }
 
-exports.listPlayers = function listPlayers() {
+function listPlayers() {
     var list = ""
     
-    this.gamedata.players.forEach(function (player) {
+    players.forEach(function (player) {
         list += player.user.username + ": " + (player.hitler ? "Hitler" : player.party) + "\n";
     });
 
@@ -202,18 +239,18 @@ exports.processCommand = function processCommand(author, channel, args) {
     
     switch (cmd) {
         case "add":
-            this.addPlayer(author);
-            channel.send("Player "+`${author}`+" added; "+this.gamedata.players.length+ " player(s) in the game.");
+            addPlayer(author);
+            channel.send("Player "+`${author}`+" added; "+players.length+ " player(s) in the game.");
             break;
         case "new":
-            this.newGame();
+            newGame();
             channel.send("Game reset");
             break;
         case "start":
-            this.startGame();
-            if (this.gamedata.state == STARTING) {
-                var listOfPlayers = this.listPlayers();
-                this.gamedata.players.forEach(function (player) {
+            startGame();
+            if (state == STARTING) {
+                var listOfPlayers = listPlayers();
+                players.forEach(function (player) {
                     player.user.send("Your party affiliation is "+player.party+".");
                     if (player.hitler) {
                         player.user.send("You are Hitler.");
@@ -222,17 +259,17 @@ exports.processCommand = function processCommand(author, channel, args) {
                         player.user.send(listOfPlayers);
                     }
                 });
-                channel.send(this.showBoard());
+                channel.send(showBoard());
                 
-                this.sendChancellorCandidates();
+                players[president].send(sendChancellorCandidates());
             }
             break;
         default:
-            if (this.gamedata.state == PRESIDENT_POLICIES) {
-                this.receivePresidentPolicies();
+            if (state == PRESIDENT_POLICIES) {
+                receivePresidentPolicies();
             }
-            if (this.gamedata.state == CHANCELLOR_POLICIES) {
-                this.receiveChancellorPolicies();
+            if (state == CHANCELLOR_POLICIES) {
+                receiveChancellorPolicies();
             }
     }
 }
@@ -262,7 +299,131 @@ function shuffle(a) {
     return a;
 }
 
-// exports.newGame();
-// exports.addPlayer("<@189096616043479041>");
-// exports.startGame();
-// console.log(exports.showBoard());
+// ----- TESTS -----
+
+function test(name, steps, assertion) {
+    console.log(name);
+
+    steps();
+    
+    if (assertion()) {
+        console.log("OK");
+    } else {
+        console.log("FAILED");
+    }
+}
+
+function newGameWithFivePlayers() {
+    newGame();
+    addPlayer({ 'username': 'Naner' });
+    addPlayer({ 'username': 'Guigas' });
+    addPlayer({ 'username': 'mZuzek' });
+    addPlayer({ 'username': 'Yawryck' });
+    addPlayer({ 'username': 'Geova' });
+}
+
+test("test reset the game", function() {
+
+    newGame();
+    addPlayer("<@189096616043479041>");
+    newGame();
+
+}, function() {
+    return (players.length == 0);
+});
+
+test("test add a player", function() {
+
+    newGame();
+    addPlayer({ 'username': 'Naner' });
+    
+}, function() {
+    return (players.length == 1);
+});
+
+test("test start a match", function() {
+    newGameWithFivePlayers();
+    startGame();
+}, function() {
+    return (players.length == 5);
+});
+
+test("test show the board", function() {
+    newGameWithFivePlayers();
+
+    libPoints = 2;
+    fasPoints = 3;
+
+}, function() {
+    var board = showBoard();
+    var expected = "🔵 🔵 ⬜️ ⬜️ 🕊 \n🔴 🔴 🔴 ⬜️ ⬜️ 💀 \nPresident: Naner";
+    return (board == expected);
+});
+
+test("test chancellor nomination", function () {
+    newGameWithFivePlayers();
+}, function() {
+    var list = sendChancellorCandidates();
+    var expected = "2. Guigas\n3. mZuzek\n4. Yawryck\n5. Geova\n";
+    return (list == expected);
+})
+
+test("test send president policies", function () {
+    newGameWithFivePlayers();
+}, function() {
+    var policies = sendPresidentPolicies();
+    var expected = "🔴🔴🔴";
+    return (policies == expected);
+})
+
+test("test receive valid president policies", function () {
+    newGameWithFivePlayers();
+}, function() {
+    sentPolicies = {
+        arr: ['🔴','🔵','🔵'],
+        numLib: 2,
+        numFas: 1
+    }
+    var result = receivePresidentPolicies("🔵 🔴");
+    var expected = "🔴 🔵";
+    return (result == expected && discard[0] == "🔵");
+})
+
+test("test receive invalid president policies", function () {
+    newGameWithFivePlayers();
+}, function() {
+    sentPolicies = {
+        arr: ['🔴','🔵','🔵'],
+        numLib: 2,
+        numFas: 1
+    }
+    var result = receivePresidentPolicies("🔴 🔴");
+    var expected = "Invalid policies";
+    return (result == expected);
+})
+
+test("test receive valid chancellor policies", function () {
+    newGameWithFivePlayers();
+}, function() {
+    sentPolicies = {
+        arr: ['🔴','🔵'],
+        numLib: 1,
+        numFas: 1
+    }
+    var result = receiveChancellorPolicies("🔵");
+    var expected = "🔵";
+    return (result == expected && discard[0] == "🔴");
+})
+
+test("test receive invalid chancellor policies", function () {
+    newGameWithFivePlayers();
+}, function() {
+    sentPolicies = {
+        arr: ['🔵','🔵'],
+        numLib: 2,
+        numFas: 0
+    }
+    var result = receiveChancellorPolicies("🔴");
+    var expected = "Invalid policies";
+    return (result == expected);
+})
