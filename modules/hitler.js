@@ -6,13 +6,15 @@ var exports = module.exports = {};
 const State = {
     PREPARING: 0,
     STARTING: 1,
-    CHANCELLOR_NOMINATION: 2,
-    ELECTION: 3,
-    PRESIDENT_POLICIES: 4,
-    CHANCELLOR_POLICIES: 5,
-    ENACT_POLICY: 6,
-    LIBS_WIN: 7,
-    FASC_WIN: 8
+    PRESIDENT_NOMINATION: 2,
+    CHANCELLOR_NOMINATION: 3,
+    ELECTION: 4,
+    PRESIDENT_POLICIES: 5,
+    CHANCELLOR_POLICIES: 6,
+    ENACT_POLICY: 7,
+    LIBS_WIN: 8,
+    FASC_WIN: 9,
+    HEIL_HITLER: 10
 }
 
 var players = [];
@@ -49,14 +51,17 @@ function newGame() {
 
 function addPlayer(user) {
     if (players.length >= 10) {
+        // TODO: Handle error
         console.log("Too many players.");
         return;
     }
 
     var player = {
-        "user": user,
-        "party": "Liberal",
-        "hitler": false
+        user: user,
+        party: "Liberal",
+        hitler: false,
+        dead: false,
+        cnh: false
     };
     
     players.push(player);
@@ -64,11 +69,23 @@ function addPlayer(user) {
 }
 
 function startGame() {
-    if (players.length < 1) {
+    if (players.length < 5) {
+        // TODO: Handle error
         console.log("Not enough players.");
         return;
     }
 
+    assignRoles();
+    shuffle(players);
+    shuffle(deck);
+
+    players = players;
+    president = 0;
+    state = State.STARTING;
+    // saveToFile();
+}
+
+function assignRoles() {
     shuffle(players);
 
     var numFascists = 1;
@@ -87,14 +104,6 @@ function startGame() {
     for (i; i<players.length; i++) {
         players[i].party = "Liberal";
     }
-
-    shuffle(players);
-    shuffle(deck);
-
-    players = players;
-    president = 0;
-    state = State.STARTING;
-    // saveToFile();
 }
 
 function showBoard() {
@@ -115,10 +124,13 @@ function showBoard() {
 }
 
 function sendChancellorCandidates() {
+
     state = State.CHANCELLOR_NOMINATION;
 
     var list = ""
-    
+
+    // TODO: skip previous president/chancellor
+    // TODO: show CNH
     for (var i = 0; i<players.length; i++) {
         if (i != president) {
             list += (i+1)+". "+players[i].user.username+"\n";
@@ -130,14 +142,35 @@ function sendChancellorCandidates() {
 
 function receiveChancellorCandidates(candidate) {
 
-    // sendPresidentPolicies();
+    var number = parseInt(candidate);
+    if (isNaN(number)) {
+        // received name of candidate
+        // TODO: parse name and find the number
+        // TODO until then: parse error
+
+    } else {
+        // received number of candidate
+
+        if (number == president) {
+            // TODO: parse error
+            return "Chancellor cannot be the president";
+        }
+        if (number >= players.length) {
+            // TODO: parse error
+            return "Invalid candidate number";
+        }
+
+        chancellor = number;
+    }
+
+    sendPresidentPolicies();
 }
 
 function callForVotes() {
 
 }
 
-function receiveVote() {
+function receiveVote(vote) {
 
 }
 
@@ -188,6 +221,7 @@ function receivePresidentPolicies(policies) {
 
     if (receivedPolicies.numLib > sentPolicies.numLib ||
         receivedPolicies.numFas > sentPolicies.numFas) {
+            // TODO: Handle error
             return "Invalid policies";
     }
 
@@ -255,7 +289,7 @@ exports.processCommand = function processCommand(author, channel, args) {
                     if (player.hitler) {
                         player.user.send("You are Hitler.");
                     }
-                    if (player.party == "Fascist") {
+                    if (player.party == "Fascist" && !player.hitler) {
                         player.user.send(listOfPlayers);
                     }
                 });
