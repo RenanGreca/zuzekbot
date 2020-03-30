@@ -909,7 +909,8 @@ function addroles(user, channel, args, member, message) {
       addedRoles.push(roleName);
     }
   });
-  member.addRoles(rolesToAdd)
+
+  member.roles.add(rolesToAdd)
     .then( () => { 
       // channel.send(user+ " added to roles: " + addedRoles.join(", ") + ".");
       message.react("✅") } )
@@ -931,7 +932,7 @@ function removeroles(user, channel, args, member, message) {
       removedRoles.push(roleName);
     }
   });
-  member.removeRoles(rolesToRemove)
+  member.roles.remove(rolesToRemove)
     .then( () => { 
       // channel.send(user+ " added to roles: " + removedRoles.join(", ") + ".");
       message.react("✅") } )
