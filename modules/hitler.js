@@ -25,6 +25,7 @@ var deck =  [
                 ];
 var discard = [];
 var sentPolicies = [];
+var votes = {};
 var president = 0;
 var chancellor = 0;
 var prevPresident = -1;
@@ -176,14 +177,26 @@ function callForVotes() {
 
 }
 
-function receiveVote(vote) {
+function receiveVote(userid, vote) {
     if (vote.toLowerCase() == "ja") {
-
+        votes[userid] = true;
     } else if (vote.toLowerCase() == "nein") {
-        
+        votes[userid] = false;
     } else {
         return "Invalid vote";
     }
+
+    // TODO check if enough votes were received
+}
+
+function listVotes() {
+    var list = "";
+
+    Object.keys(votes).forEach(function(userid) {
+        list += userid+": "+(votes[userid] ? "Ja": "Nein")+"\n";
+    });
+
+    return list;
 }
 
 function sendPresidentPolicies() {
@@ -313,7 +326,7 @@ exports.processCommand = function processCommand(author, channel, args) {
         case "vote":
             if (state == State.ELECTION) {
                 var vote = args[1];
-                receiveVote(vote);
+                receiveVote(`${author}`, vote);
             }
             break;
         case "debug":
@@ -408,6 +421,14 @@ test("test add a player", function() {
     
 }, function() {
     return (players.length == 1);
+});
+
+test("test list players", function() {
+    newGameWithFivePlayers();
+}, function() {
+    var list = listPlayers();
+    var expected = "Naner: Liberal\nGuigas: Liberal\nmZuzek: Liberal\nYawryck: Liberal\nGeova: Liberal\n";
+    return (list == expected);
 });
 
 test("test start a match", function() {
@@ -523,3 +544,21 @@ test("test enact fascist policy", function () {
     var expected = "🔴";
     return (result == expected && fasPoints == 3);
 })
+
+test("test receive vote", function () {
+    newGameWithFivePlayers();
+}, function() {
+    receiveVote("Naner", "Ja");
+    return (Object.keys(votes).length);
+});
+
+test("test list votes", function () {
+    newGameWithFivePlayers();
+
+}, function() {
+    receiveVote("Naner", "Ja");
+    receiveVote("Guigas", "Nein");
+    var list = listVotes();
+    var expected = "Naner: Ja\nGuigas: Nein\n";
+    return (list == expected);
+});
