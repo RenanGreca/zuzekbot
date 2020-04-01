@@ -43,7 +43,7 @@ These variables are accessible by all the functions and maintain the state of th
 * `listPlayers`: lists each player's party and role
 * `processCommand`: receives commands from Discord and sends messages; this should be the only function with access to the Discord API
 
-## Game flow
+## Game states
 
 0. `PREPARING`: players can be added
 1. `STARTING`: roles are being assigned and cards are being shuffled
@@ -56,3 +56,23 @@ These variables are accessible by all the functions and maintain the state of th
 8. `LIBS_WIN`: if `libPoints` = 5, liberals win
 9. `FASC_WIN`: if `fasPoints` = 6, fascists win
 10. `HEIL_HITLER`: if the chancellor is hitler, fascists win
+
+## In-chat commands
+
+Commands for the game are given either in a group chat or in a private message to the bot, according to the privacy of the content. These are the commands available in each case:
+
+### Group chat
+* `add`: Add player to game.
+* `new`: Reset game.
+* `start`: Start game once all players are added.
+* `view`: Show game board and current government.
+
+### Private message
+* `vote`: Sends a Ja or Nein vote.
+* `discard`: Chooses a policy to discard. For president and chancellor only.
+
+### Special rules (TODO)
+* `kill`
+* `investigate`
+* `check`
+* `choosepresident`
