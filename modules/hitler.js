@@ -280,6 +280,64 @@ function receiveChancellorPolicies(policy) {
     // enactPolicy();
 }
 
+// TODO(Refactor): This code is almost the same from sendPresidentPolicies
+function peekPolicy() {
+
+    sentPolicies = {
+        arr: [],
+        numLib: 0,
+        numFas: 0
+    }
+
+    if (deck.length < 3) {
+        deck = deck.concat(discard);
+        shuffle(deck);
+    }
+
+    for(int i=0; i<3; ++i) {
+        const policy deck[deck.length-i-1];
+        sentPolicies.arr.push(policy);
+        if (policy == "🔵") {
+            sentPolicies.numLib += 1;
+        } else if (policy == "🔴") {
+            sentPolicies.numFas += 1;
+        }
+    }
+
+    var message = "President, there are the next 3 policies in order.";
+    message += sentPolicies.arr.join(" ")+"\n";
+    players[president].user.send("> "+message);
+}
+
+function investigate() {
+
+    var list = "";
+    players.filter(index => index != president);
+    players.forEach(function (player) {
+       list += player.user.username+"\n";
+    });
+
+    var message = "President, please choose a player to investigate."
+    message += list;
+    
+    players[president].user.send("> "+message);
+
+    
+}
+
+function checkFascistPowers() {
+
+    if (players.length < 7 && (fasPoints == 3) {
+    }
+    
+    if (players.length < 9) {
+        if (fasPoints == 2) investigate();
+        if (fasPoints == 3) chooseNextPresident();
+    }
+
+    if (fasPoints == 4 || fasPoints == 5) kill();
+}
+
 function enactPolicy(enacted) {
     state = State.ENACT_POLICY;
 
@@ -463,6 +521,8 @@ exports.processCommand = function processCommand(author, channel, args) {
                             break;
                         }
                         gameChannel.send("> "+showBoard());
+
+                        checkFascistPowers();
                     }
 
                     selectNextPresident();
@@ -538,7 +598,10 @@ exports.processCommand = function processCommand(author, channel, args) {
                 break;
             }
             break;
-        
+        case "investigate":
+            
+            break;
+            
         case "debug":
             debug();
             break;
