@@ -294,8 +294,8 @@ function peekPolicy() {
         shuffle(deck);
     }
 
-    for(int i=0; i<3; ++i) {
-        const policy deck[deck.length-i-1];
+    for(var i=0; i<3; ++i) {
+        const policy = deck[deck.length-i-1];
         sentPolicies.arr.push(policy);
         if (policy == "🔵") {
             sentPolicies.numLib += 1;
@@ -327,7 +327,7 @@ function investigate() {
 
 function checkFascistPowers() {
 
-    if (players.length < 7 && (fasPoints == 3) {
+    if (players.length < 7 && fasPoints == 3) {
     }
     
     if (players.length < 9) {
