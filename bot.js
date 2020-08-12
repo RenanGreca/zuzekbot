@@ -2,6 +2,7 @@
 const Discord = require("discord.js");
 const math    = require("./node_modules/mathjs");
 const timer   = require("timers");
+const readline = require('readline');
 
 // Internal dependencies
 const price             = require("./modules/getprice.js");
@@ -30,6 +31,11 @@ const serverID = ids.serverID;
 const zuzekbotID = ids.zuzekbotID;
 let isShuttingUp = false;
 
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
 // Utility Functions
 function defaultEmbed() {
   return new Discord.MessageEmbed()
@@ -51,6 +57,7 @@ bot.once("ready", () => {
   console.log("Connected");
   console.log("Logged in as: ");
   console.log(bot.user.username + " - (" + bot.user.id + ")");
+
   // console.log(bot);
 
   // saveToFile(bot.guilds.cache.first().emojis.array(), "./jsons/emojis.json", function() {})
@@ -64,16 +71,23 @@ bot.once("ready", () => {
 // Listen to new members
 bot.on("guildMemberAdd", member => {
   const fusion = bot.guilds.cache.first();
-  const channel = bot.channels.find(ch => ch.name === "boas-vindas");
+  const channel = bot.channels.cache.find(ch => ch.name === "boas-vindas");
 
   sendEmbed(channel, "Olá " + member + strings.welcome);
 
   const welcome         = require("./modules/welcome.js");
-  const description = welcome.roles(fusion.roles.array());
+  const description = welcome.roles(fusion.roles.cache.array());
   channel.send(defaultEmbed().setTitle(strings.roles)
                              .setDescription(description));
 
   channel.send("<@&410866075333296138>");
+});
+
+// Send messages from the command line
+rl.on('line', (input) => {
+  const channel = bot.channels.cache.find(ch => ch.name === "geral");
+
+  channel.send(input);
 });
 
 // Listen to Messages
@@ -389,7 +403,7 @@ bot.on("message", message => {
     } else if (whichMessageChance < 0.31) {
       spoilerbot(channel);
     } else if (whichMessageChance < 0.47) {
-      generatebot(channel);
+      generatebot(channel, []);
     } else if (whichMessageChance < 0.55) {
       shufflebot(content, channel);
     } else if (whichMessageChance < 0.63) {
@@ -850,7 +864,7 @@ function listroles(channel) {
   let otherRoles = ""
   let matchmakingRoles = ""
   let roles = [];
-  fusion.roles.array().forEach(function (value, i){
+  fusion.roles.cache.array().forEach(function (value, i){
     if ( value.name !== "@everyone" &&
          value.name !== "fusion" &&
          value.name !== "membro" &&
@@ -894,6 +908,7 @@ function listroles(channel) {
 }
 
 function addroles(user, channel, args, member, message) {
+  fusion = bot.guilds.cache.first();
 
   if (args.length == 0) {
     displayHelp(channel, ["addroles"]);
@@ -903,11 +918,13 @@ function addroles(user, channel, args, member, message) {
   
   let addedRoles = [];
   let rolesToAdd = [];
-  args.forEach(function(roleName, index) {
-    if (roles.hasOwnProperty(roleName)) {
-      rolesToAdd.push(roles[roleName]);
-      addedRoles.push(roleName);
-    }
+  fusion.roles.cache.array().forEach(function (value, i){
+    args.forEach(function(roleName, index) {
+      if (value.name === roleName) {
+        rolesToAdd.push(value);
+        addedRoles.push(roleName);  
+      }
+    });
   });
 
   member.roles.add(rolesToAdd)
@@ -917,6 +934,7 @@ function addroles(user, channel, args, member, message) {
     .catch(console.error);
 }
 function removeroles(user, channel, args, member, message) {
+  fusion = bot.guilds.cache.first();
 
   if (args.length == 0) {
     displayHelp(channel, ["removeroles"]);
@@ -926,11 +944,13 @@ function removeroles(user, channel, args, member, message) {
   
   let removedRoles= [];
   let rolesToRemove = [];
-  args.forEach(function(roleName, index) {
-    if (roles.hasOwnProperty(roleName)) {
-      rolesToRemove.push(roles[roleName]);
-      removedRoles.push(roleName);
-    }
+  fusion.roles.cache.array().forEach(function (value, i){
+    args.forEach(function(roleName, index) {
+      if (value.name === roleName) {
+        rolesToRemove.push(value);
+        removedRoles.push(roleName);
+      }
+    });
   });
   member.roles.remove(rolesToRemove)
     .then( () => { 
